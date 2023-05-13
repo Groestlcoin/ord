@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn run() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   let port = TcpListener::bind("127.0.0.1:0")
     .unwrap()
@@ -37,7 +37,7 @@ fn run() {
 
 #[test]
 fn inscription_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe {
@@ -58,7 +58,7 @@ fn inscription_page() {
   <dt>id</dt>
   <dd class=monospace>{inscription}</dd>
   <dt>address</dt>
-  <dd class=monospace>bc1.*</dd>
+  <dd class=monospace>grs1.*</dd>
   <dt>output value</dt>
   <dd>10000</dd>
   <dt>preview</dt>
@@ -90,7 +90,7 @@ fn inscription_page() {
 
 #[test]
 fn inscription_appears_on_reveal_transaction_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe { reveal, .. } = inscribe(&rpc_server);
@@ -105,7 +105,7 @@ fn inscription_appears_on_reveal_transaction_page() {
 
 #[test]
 fn inscription_appears_on_output_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe {
@@ -124,7 +124,7 @@ fn inscription_appears_on_output_page() {
 
 #[test]
 fn inscription_page_after_send() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe {
@@ -144,7 +144,7 @@ fn inscription_page_after_send() {
   );
 
   let txid = CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 bc1qcqgs2pps4u4yedfyl5pysdjjncs8et5utseepv {inscription}"
+    "wallet send --fee-rate 1 grs1qcqgs2pps4u4yedfyl5pysdjjncs8et5ukp9ccd {inscription}"
   ))
   .rpc_server(&rpc_server)
   .stdout_regex(".*")
@@ -158,14 +158,14 @@ fn inscription_page_after_send() {
   ord_server.assert_response_regex(
     format!("/inscription/{inscription}"),
     format!(
-      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd class=monospace>bc1qcqgs2pps4u4yedfyl5pysdjjncs8et5utseepv</dd>.*<dt>location</dt>\s*<dd class=monospace>{send}:0:0</dd>.*",
+      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd class=monospace>grs1qcqgs2pps4u4yedfyl5pysdjjncs8et5ukp9ccd</dd>.*<dt>location</dt>\s*<dd class=monospace>{send}:0:0</dd>.*",
     ),
   )
 }
 
 #[test]
 fn inscription_content() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(1);
@@ -191,7 +191,7 @@ fn inscription_content() {
 
 #[test]
 fn home_page_includes_latest_inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe { inscription, .. } = inscribe(&rpc_server);
@@ -209,7 +209,7 @@ fn home_page_includes_latest_inscriptions() {
 
 #[test]
 fn home_page_inscriptions_are_sorted() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let mut inscriptions = String::new();
@@ -234,7 +234,7 @@ fn home_page_inscriptions_are_sorted() {
 
 #[test]
 fn inscriptions_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe { inscription, .. } = inscribe(&rpc_server);
@@ -253,7 +253,7 @@ fn inscriptions_page() {
 
 #[test]
 fn inscriptions_page_is_sorted() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let mut inscriptions = String::new();
@@ -269,7 +269,7 @@ fn inscriptions_page_is_sorted() {
 
 #[test]
 fn inscriptions_page_has_next_and_previous() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe { inscription: a, .. } = inscribe(&rpc_server);
@@ -291,7 +291,7 @@ fn inscriptions_page_has_next_and_previous() {
 
 #[test]
 fn expected_sat_time_is_rounded() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   TestServer::spawn_with_args(&rpc_server, &[]).assert_response_regex(
     "/sat/2099999997689999",

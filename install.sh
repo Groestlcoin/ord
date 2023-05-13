@@ -24,9 +24,9 @@ OPTIONS:
 EOF
 }
 
-git=casey/ord
+git=Groestlcoin/ord-groestlcoin
 crate=ord
-url=https://github.com/casey/ord
+url=https://github.com/Groestlcoin/ord-groestlcoin
 releases=$url/releases
 
 say() {
@@ -98,7 +98,7 @@ if [ -z ${dest-} ]; then
 fi
 
 if [ -z ${tag-} ]; then
-  tag=$(curl --proto =https --tlsv1.2 -sSf https://api.github.com/repos/casey/ord/releases/latest |
+  tag=$(curl --proto =https --tlsv1.2 -sSf https://api.github.com/repos/Groestlcoin/ord-groestlcoin/releases/latest |
     grep tag_name |
     cut -d'"' -f4
   )
@@ -113,7 +113,7 @@ if [ -z ${target-} ]; then
     x86_64-Linux) target=x86_64-unknown-linux-gnu;;
     *)
       err 'Could not determine target from output of `uname -m`-`uname -s`, please use `--target`:' $uname_target
-      err 'Please try building from source: https://github.com/casey/ord#building'
+      err 'Please try building from source: https://github.com/Groestlcoin/ord-groestlcoin#building'
     ;;
   esac
 fi

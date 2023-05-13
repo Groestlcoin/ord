@@ -57,7 +57,7 @@ where
     if let Some(domain) = &self.page_config.domain {
       format!("https://{domain}/static/favicon.png")
     } else {
-      "https://ordinals.com/static/favicon.png".into()
+      "https://ordinals.groestlcoin.org/static/favicon.png".into()
     }
   }
 
@@ -109,7 +109,7 @@ mod tests {
       Foo.page(
         Arc::new(PageConfig {
           chain: Chain::Mainnet,
-          domain: Some("signet.ordinals.com".into())
+          domain: Some("ordinals-signet.groestlcoin.org".into())
         }),
         true
       ),
@@ -120,7 +120,7 @@ mod tests {
     <meta name=format-detection content='telephone=no'>
     <meta name=viewport content='width=device-width,initial-scale=1.0'>
     <meta property=og:title content='Foo'>
-    <meta property=og:image content='https://signet.ordinals.com/static/favicon.png'>
+    <meta property=og:image content='https://ordinals-signet.groestlcoin.org/static/favicon.png'>
     <meta property=twitter:card content=summary>
     <title>Foo</title>
     <link rel=alternate href=/feed.xml type=application/rss\+xml title='Inscription RSS Feed'>

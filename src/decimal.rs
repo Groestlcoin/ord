@@ -44,8 +44,8 @@ mod tests {
     assert_eq!(
       Sat(2099999997689999).decimal(),
       Decimal {
-        height: Height(6929999),
-        offset: 0
+        height: Height(419999),
+        offset: 4997689999
       }
     );
   }

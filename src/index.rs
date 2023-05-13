@@ -8,9 +8,9 @@ use {
   },
   super::*,
   crate::wallet::Wallet,
-  bitcoin::BlockHeader,
-  bitcoincore_rpc::{json::GetBlockHeaderResult, Auth, Client},
   chrono::SubsecRound,
+  groestlcoin::BlockHeader,
+  groestlcoincore_rpc::{json::GetBlockHeaderResult, Auth, Client},
   indicatif::{ProgressBar, ProgressStyle},
   log::log_enabled,
   redb::{Database, ReadableTable, Table, TableDefinition, WriteStrategy, WriteTransaction},
@@ -112,20 +112,20 @@ trait BitcoinCoreRpcResultExt<T> {
   fn into_option(self) -> Result<Option<T>>;
 }
 
-impl<T> BitcoinCoreRpcResultExt<T> for Result<T, bitcoincore_rpc::Error> {
+impl<T> BitcoinCoreRpcResultExt<T> for Result<T, groestlcoincore_rpc::Error> {
   fn into_option(self) -> Result<Option<T>> {
     match self {
       Ok(ok) => Ok(Some(ok)),
-      Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::error::Error::Rpc(
-        bitcoincore_rpc::jsonrpc::error::RpcError { code: -8, .. },
-      ))) => Ok(None),
-      Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::error::Error::Rpc(
-        bitcoincore_rpc::jsonrpc::error::RpcError { message, .. },
-      )))
-        if message.ends_with("not found") =>
-      {
-        Ok(None)
-      }
+      Err(groestlcoincore_rpc::Error::JsonRpc(
+        groestlcoincore_rpc::jsonrpc::error::Error::Rpc(
+          groestlcoincore_rpc::jsonrpc::error::RpcError { code: -8, .. },
+        ),
+      )) => Ok(None),
+      Err(groestlcoincore_rpc::Error::JsonRpc(
+        groestlcoincore_rpc::jsonrpc::error::Error::Rpc(
+          groestlcoincore_rpc::jsonrpc::error::RpcError { message, .. },
+        ),
+      )) if message.ends_with("not found") => Ok(None),
       Err(err) => Err(err.into()),
     }
   }
@@ -137,7 +137,7 @@ impl Index {
     let cookie_file = options.cookie_file()?;
 
     log::info!(
-      "Connecting to Bitcoin Core RPC server at {rpc_url} using credentials from `{}`",
+      "Connecting to Groestlcoin Core RPC server at {rpc_url} using credentials from `{}`",
       cookie_file.display()
     );
 
@@ -261,7 +261,7 @@ impl Index {
 
     #[derive(Deserialize)]
     pub(crate) struct JsonOutPoint {
-      txid: bitcoin::Txid,
+      txid: groestlcoin::Txid,
       vout: u32,
     }
 
@@ -279,7 +279,7 @@ impl Index {
     for outpoint in utxos.keys() {
       if outpoint_to_value.get(&outpoint.store())?.is_none() {
         return Err(anyhow!(
-          "output in Bitcoin Core wallet but not in ord index: {outpoint}"
+          "output in Groestlcoin Core wallet but not in ord index: {outpoint}"
         ));
       }
     }
@@ -689,7 +689,7 @@ impl Index {
           .unwrap_or(0);
 
         let expected_blocks = height.checked_sub(current).with_context(|| {
-          format!("current {current} height is greater than sat height {height}")
+          format!("current {current} height is greater than gro height {height}")
         })?;
 
         Ok(Blocktime::Expected(
@@ -905,7 +905,7 @@ impl Index {
 mod tests {
   use {
     super::*,
-    bitcoin::secp256k1::rand::{self, RngCore},
+    groestlcoin::secp256k1::rand::{self, RngCore},
   };
 
   struct ContextBuilder {
@@ -919,7 +919,7 @@ mod tests {
     }
 
     fn try_build(self) -> Result<Context> {
-      let rpc_server = test_bitcoincore_rpc::builder()
+      let rpc_server = test_groestlcoincore_rpc::builder()
         .network(Network::Regtest)
         .build();
 
@@ -968,7 +968,7 @@ mod tests {
 
   struct Context {
     options: Options,
-    rpc_server: test_bitcoincore_rpc::Handle,
+    rpc_server: test_groestlcoincore_rpc::Handle,
     #[allow(unused)]
     tempdir: TempDir,
     index: Index,
@@ -1085,7 +1085,7 @@ mod tests {
       context
         .index
         .list(
-          "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0"
+          "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0"
             .parse()
             .unwrap()
         )
@@ -1308,7 +1308,7 @@ mod tests {
     assert_eq!(
       context.index.find(0).unwrap().unwrap(),
       SatPoint {
-        outpoint: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0"
+        outpoint: "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0"
           .parse()
           .unwrap(),
         offset: 0,
@@ -1322,7 +1322,7 @@ mod tests {
     assert_eq!(
       context.index.find(1).unwrap().unwrap(),
       SatPoint {
-        outpoint: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0"
+        outpoint: "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0"
           .parse()
           .unwrap(),
         offset: 1,
@@ -1337,7 +1337,7 @@ mod tests {
     assert_eq!(
       context.index.find(50 * COIN_VALUE).unwrap().unwrap(),
       SatPoint {
-        outpoint: "30f2f037629c6a21c1f40ed39b9bd6278df39762d68d07f49582b23bcb23386a:0"
+        outpoint: "4f953cb003c4b1ce20e797ddf18f347096b8922466dc3b44bf7d6a059b83815d:0"
           .parse()
           .unwrap(),
         offset: 0,
@@ -1671,7 +1671,7 @@ mod tests {
         inscription_id,
         SatPoint {
           outpoint: OutPoint::null(),
-          offset: 0,
+          offset: 5000000000,
         },
         50 * COIN_VALUE,
       );
@@ -1708,7 +1708,7 @@ mod tests {
         first_inscription_id,
         SatPoint {
           outpoint: OutPoint::null(),
-          offset: 0,
+          offset: 5000000000,
         },
         50 * COIN_VALUE,
       );
@@ -1828,7 +1828,7 @@ mod tests {
         inscription_id,
         SatPoint {
           outpoint: OutPoint::null(),
-          offset: 75 * COIN_VALUE,
+          offset: 125 * COIN_VALUE,
         },
         100 * COIN_VALUE,
       );
@@ -1879,7 +1879,7 @@ mod tests {
         inscription_id,
         SatPoint {
           outpoint: OutPoint::null(),
-          offset: 0,
+          offset: 5000000000,
         },
         50 * COIN_VALUE,
       );
@@ -1900,7 +1900,7 @@ mod tests {
         .unwrap(),
       SatPoint {
         outpoint: OutPoint::null(),
-        offset: 0,
+        offset: 5000000000,
       },
     );
 
@@ -1912,7 +1912,7 @@ mod tests {
         .unwrap(),
       SatPoint {
         outpoint: OutPoint::null(),
-        offset: 50 * COIN_VALUE,
+        offset: 100 * COIN_VALUE,
       },
     );
   }
@@ -2185,7 +2185,7 @@ mod tests {
           .get_unspent_outputs(Wallet::load(&context.options).unwrap())
           .unwrap_err()
           .to_string(),
-        r"output in Bitcoin Core wallet but not in ord index: [[:xdigit:]]{64}:\d+"
+        r"output in Groestlcoin Core wallet but not in ord index: [[:xdigit:]]{64}:\d+"
       );
     }
   }

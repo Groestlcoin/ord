@@ -1,29 +1,29 @@
 Ordinal Inscription Guide
 =========================
 
-Individual sats can be inscribed with arbitrary content, creating
-Bitcoin-native digital artifacts that can be held in a Bitcoin wallet and
-transferred using Bitcoin transactions. Inscriptions are as durable, immutable,
-secure, and decentralized as Bitcoin itself.
+Individual gros can be inscribed with arbitrary content, creating
+Groestlcoin-native digital artifacts that can be held in a Groestlcoin wallet and
+transferred using Groestlcoin transactions. Inscriptions are as durable, immutable,
+secure, and decentralized as Groestlcoin itself.
 
-Working with inscriptions requires a Bitcoin full node, to give you a view of
-the current state of the Bitcoin blockchain, and a wallet that can create
-inscriptions and perform sat control when constructing transactions to send
+Working with inscriptions requires a Groestlcoin full node, to give you a view of
+the current state of the Groestlcoin blockchain, and a wallet that can create
+inscriptions and perform gro control when constructing transactions to send
 inscriptions to another wallet.
 
-Bitcoin Core provides both a Bitcoin full node and wallet. However, the Bitcoin
-Core wallet cannot create inscriptions and does not perform sat control.
+Groestlcoin Core provides both a Groestlcoin full node and wallet. However, the Groestlcoin
+Core wallet cannot create inscriptions and does not perform gro control.
 
-This requires [`ord`](https://github.com/casey/ord), the ordinal utility. `ord`
+This requires [`ord`](https://github.com/Groestlcoin/ord-groestlcoin), the ordinal utility. `ord`
 doesn't implement its own wallet, so `ord wallet` subcommands interact with
-Bitcoin Core wallets.
+Groestlcoin Core wallets.
 
 This guide covers:
 
-1. Installing Bitcoin Core
-2. Syncing the Bitcoin blockchain
-3. Creating a Bitcoin Core wallet
-4. Using `ord wallet receive` to receive sats
+1. Installing Groestlcoin Core
+2. Syncing the Groestlcoin blockchain
+3. Creating a Groestlcoin Core wallet
+4. Using `ord wallet receive` to receive gros
 5. Creating inscriptions with `ord wallet inscribe`
 6. Sending inscriptions with `ord wallet send`
 7. Receiving inscriptions with `ord wallet receive`
@@ -31,71 +31,69 @@ This guide covers:
 Getting Help
 ------------
 
-If you get stuck, try asking for help on the [Ordinals Discord
-Server](https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant
-[issues](https://github.com/casey/ord/issues) and
-[discussions](https://github.com/casey/ord/discussions).
+If you get stuck, try asking for help on the [Groestlcoin Discord
+Server](https://discord.gg/vCKxQBz), or checking GitHub for relevant
+[issues](https://github.com/Groestlcoin/ord-groestlcoin/issues).
 
-Installing Bitcoin Core
+Installing Groestlcoin Core
 -----------------------
 
-Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) on
-the [download page](https://bitcoincore.org/en/download/).
+Groestlcoin Core is available from [groestlcoin.org](https://www.groestlcoin.org/groestlcoin-core-wallet/).
 
-Making inscriptions requires Bitcoin Core 24 or newer.
+Making inscriptions requires Groestlcoin Core 24 or newer.
 
-This guide does not cover installing Bitcoin Core in detail. Once Bitcoin Core
-is installed, you should be able to run `bitcoind -version` successfully from
+This guide does not cover installing Groestlcoin Core in detail. Once Groestlcoin Core
+is installed, you should be able to run `groestlcoind -version` successfully from
 the command line.
 
-Configuring Bitcoin Core
+Configuring Groestlcoin Core
 ------------------------
 
-`ord` requires Bitcoin Core's transaction index.
+`ord` requires Groestlcoin Core's transaction index.
 
-To configure your Bitcoin Core node to maintain a transaction
-index, add the following to your `bitcoin.conf`:
+To configure your Groestlcoin Core node to maintain a transaction
+index, add the following to your `groestlcoin.conf`:
 
 ```
 txindex=1
 ```
 
-Or, run `bitcoind` with `-txindex`:
+Or, run `groestlcoind` with `-txindex`:
 
 ```
-bitcoind -txindex
+groestlcoind -txindex
 ```
 
-Syncing the Bitcoin Blockchain
+Syncing the Groestlcoin Blockchain
 ------------------------------
 
 To sync the chain, run:
 
 ```
-bitcoind -txindex
+groestlcoind -txindex
 ```
 
 …and leave it running until `getblockcount`:
 
 ```
-bitcoin-cli getblockcount
+groestlcoin-cli getblockcount
 ```
 
 agrees with the block count on a block explorer like [the mempool.space block
-explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so you
-should leave `bitcoind` running in the background when you're using `ord`.
+explorer](https://mempool.space/). `ord` interacts with `groestlcoind`, so you
+should leave `groestlcoind` running in the background when you're using `ord`.
 
 Installing `ord`
 ----------------
 
 The `ord` utility is written in Rust and can be built from
-[source](https://github.com/casey/ord). Pre-built binaries are available on the
-[releases page](https://github.com/casey/ord/releases).
+[source](https://github.com/Groestlcoin/ord-groestlcoin). Pre-built binaries are available on the
+[releases page](https://github.com/Groestlcoin/ord-groestlcoin/releases).
 
 You can install the latest pre-built binary from the command line with:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/Groestlcoin/ord-groestlcoin/master/install.sh | bash -s
 ```
 
 Once `ord` is installed, you should be able to run:
@@ -106,23 +104,23 @@ ord --version
 
 Which prints out `ord`'s version number.
 
-Creating a Bitcoin Core Wallet
+Creating a Groestlcoin Core Wallet
 ------------------------------
 
-`ord` uses Bitcoin Core to manage private keys, sign transactions, and
-broadcast transactions to the Bitcoin network.
+`ord` uses Groestlcoin Core to manage private keys, sign transactions, and
+broadcast transactions to the Groestlcoin network.
 
-To create a Bitcoin Core wallet named `ord` for use with `ord`, run:
+To create a Groestlcoin Core wallet named `ord` for use with `ord`, run:
 
 ```
 ord wallet create
 ```
 
-Receiving Sats
+Receiving Gros
 --------------
 
-Inscriptions are made on individual sats, using normal Bitcoin transactions
-that pay fees in sats, so your wallet will need some sats.
+Inscriptions are made on individual gros, using normal Groestlcoin transactions
+that pay fees in gros, so your wallet will need some gros.
 
 Get a new address from your `ord` wallet by running:
 
@@ -144,7 +142,7 @@ outputs with `ord wallet outputs`.
 Creating Inscription Content
 ----------------------------
 
-Sats can be inscribed with any kind of content, but the `ord` wallet only
+Gros can be inscribed with any kind of content, but the `ord` wallet only
 supports content types that can be displayed by the `ord` block explorer.
 
 Additionally, inscriptions are included in transactions, so the larger the
@@ -155,7 +153,7 @@ witness discount. To calculate the approximate fee that an inscribe transaction
 will pay, divide the content size by four and muliply by the fee rate.
 
 Inscription transactions must be less than 400,000 weight units, or they will
-not be relayed by Bitcoin Core. One byte of inscription content costs one
+not be relayed by Groestlcoin Core. One byte of inscription content costs one
 weight unit. Since an inscription transaction includes not just the inscription
 content, limit inscription content to less than 400,000 weight units. 390,000
 weight units should be safe.
@@ -176,12 +174,12 @@ and `N` is the index of the inscription in the reveal transaction.
 
 The commit transaction commits to a tapscript containing the contents of the
 inscription, and the reveal transaction spends from that tapscript, revealing
-the contents on chain and inscribing them on the first sat of the first output
+the contents on chain and inscribing them on the first gro of the first output
 of the reveal transaction.
 
 Wait for the reveal transaction to be mined. You can check the status of the
-commit and reveal transactions using  [the mempool.space block
-explorer](https://mempool.space/).
+commit and reveal transactions using  [the esplora block
+explorer](https://esplora.groestlcoin.org/).
 
 Once the reveal transaction has been mined, the inscription ID should be
 printed when you run:
@@ -190,8 +188,8 @@ printed when you run:
 ord wallet inscriptions
 ```
 
-And when you visit [the ordinals explorer](https://ordinals.com/) at
-`ordinals.com/inscription/INSCRIPTION_ID`.
+And when you visit [the ordinals explorer](https://ordinals.groestlcoin.org/) at
+`ordinals.groestlcoin.org/inscription/INSCRIPTION_ID`.
 
 Sending Inscriptions
 --------------------

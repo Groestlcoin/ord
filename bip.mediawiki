@@ -4,7 +4,6 @@
   Title: Ordinal Numbers
   Author: Casey Rodarmor <casey@rodarmor.com>
   Comments-Summary: No comments yet.
-  Comments-URI: https://github.com/casey/ord/discussions/126
   Status: Draft
   Type: Informational
   Created: 2022-02-02
@@ -15,7 +14,7 @@
 
 === Abstract ===
 
-This document defines a scheme for assigning serial numbers to sats.
+This document defines a scheme for assigning serial numbers to gros.
 
 === Copyright ===
 
@@ -23,31 +22,31 @@ This work is placed in the public domain.
 
 === Motivation ===
 
-Bitcoin has no notion of stable, public accounts or identities. Addresses are
+Groestlcoin has no notion of stable, public accounts or identities. Addresses are
 single-use, and wallet accounts are private. Additionally, the use of addresses
 or public keys as stable identifiers precludes transfer of ownership or key
 rotation.
 
 This proposal is motivated by the desire to provide stable identifiers that may
-be used by Bitcoin applications.
+be used by Groestlcoin applications.
 
 == Description ==
 
 === Design ===
 
-Every sat is serially numbered, starting at 0, in the order in which it is
+Every gro is serially numbered, starting at 0, in the order in which it is
 mined. These numbers are termed "ordinal numbers", or "ordinals", as they are
-ordinal numbers in the mathematical sense, giving the order of each sat in the
+ordinal numbers in the mathematical sense, giving the order of each gro in the
 totally supply. The word "ordinal" is nicely unambiguous, as it is not used
-elsewhere in the Bitcoin protocol.
+elsewhere in the Groestlcoin protocol.
 
-The ordinal numbers of sats in transaction inputs are transferred to output
-sats in first-in-first-out order, according to the size and order of the
+The ordinal numbers of gros in transaction inputs are transferred to output
+gros in first-in-first-out order, according to the size and order of the
 transactions inputs and outputs.
 
 If a transaction is mined with the same transaction ID as outputs currently in
-the UTXO set, following the behavior of Bitcoin Core, the new transaction
-outputs displace the older UTXO set entries, destroying the sats contained in
+the UTXO set, following the behavior of Groestlcoin Core, the new transaction
+outputs displace the older UTXO set entries, destroying the gros contained in
 any unspent outputs of the first transaction. This rule is required to handle
 the two pairs of mainnet transactions with duplicate transaction IDs, namely
 the coinbase transactions of blocks 91812/91842, and 91722/91880, mined before
@@ -58,16 +57,16 @@ For the purposes of the assignment algorithm, the coinbase transaction is
 considered to have an implicit input equal in size to the subsidy, followed by
 an input for every fee-paying transaction in the block, in the order that those
 transactions appear in the block. The implicit subsidy input carries the
-block's newly created sats. The implicit fee inputs carry the sats that were
+block's newly created gros. The implicit fee inputs carry the gros that were
 paid as fees in the block's transactions.
 
-Underpaying the subsidy does not change the ordinal numbers of sats mined
-in subsequent blocks. Ordinals depend only on how many sats could have been
+Underpaying the subsidy does not change the ordinal numbers of gros mined
+in subsequent blocks. Ordinals depend only on how many gros could have been
 mined, not how many actually were.
 
 === Specification ===
 
-Sats are numbered and transferred with the following algorithm:
+Gros are numbered and transferred with the following algorithm:
 
 <pre>
 # subsidy of block at given height
@@ -105,11 +104,11 @@ def assign_ordinals(block):
 
 === Terminology and Notation ===
 
-A satpoint may be used to indicate the location of a sat within an output. A
-satpoint consists of an outpoint, i.e., a transaction ID and output index, with
+A gropoint may be used to indicate the location of a gro within an output. A
+gropoint consists of an outpoint, i.e., a transaction ID and output index, with
 the addition of the offset of the ordinal within that output. For example, if
-the sat in question is at offset 6 in the first output of a transaction, its
-satpoint is:
+the gro in question is at offset 6 in the first output of a transaction, its
+gropoint is:
 
 `680df1e4d43016571e504b0b142ee43c5c0b83398a97bdcfd94ea6f287322d22:0:6`
 
@@ -117,20 +116,20 @@ satpoint is:
 
 === Rationale ===
 
-Ordinal numbers are designed to be orthogonal to other aspects of the Bitcoin
+Ordinal numbers are designed to be orthogonal to other aspects of the Groestlcoin
 protocol, and can thus be used in conjunction with other layer one and layer
 applications, even ones that were not designed with ordinal numbers in mind.
 
-Ordinal sats can be secured using current and future script types. They can be
+Ordinal gros can be secured using current and future script types. They can be
 held by single-signature wallets, multi-signature wallets, time-locked, and
 height-locked in all the usual ways.
 
-By assigning ordinal numbers to all sats without the need for an explicit
+By assigning ordinal numbers to all gros without the need for an explicit
 creation step, the anonymity set of ordinal number users is maximized.
 
-Since a sat has an output that contains it, and an output has a public key that
-controls it, the owner of a sat can respond to challenges by signing messages
-using the address associated with the controlling UTXO. Additionally, a sat can
+Since a gro has an output that contains it, and an output has a public key that
+controls it, the owner of a gro can respond to challenges by signing messages
+using the address associated with the controlling UTXO. Additionally, a gro can
 change hands, or its private key can be rotated without a change of ownership,
 by transferring it to a new output.
 
@@ -146,20 +145,20 @@ The ordinal number scheme is extremely simple. The specification above is 15
 lines of code.
 
 Ordinals are fairly assigned. They are not premined, and are assigned
-proportionally to existing bitcoin holders.
+proportionally to existing groestlcoin holders.
 
-Ordinals are as granular as possible, as bitcoin is not capable of tracking
-ownership of sub-sat values.
+Ordinals are as granular as possible, as groestlcoin is not capable of tracking
+ownership of sub-gro values.
 
 === Transfer and the Dust Limit ===
 
-Any single-sat transfer can be accomplished in a single transaction, but the
+Any single-gro transfer can be accomplished in a single transaction, but the
 resulting transaction may contain outputs below the dust limit, and thus be
 non-standard and difficult to get included in a block. Consider a scenario
-where Alice owns an output containing the range of sats [0,10], the current
-dust limit is 5 sats, and Alice wishes to send send sat 4 and 6 to Bob, but
+where Alice owns an output containing the range of gros [0,10], the current
+dust limit is 5 gros, and Alice wishes to send send gro 4 and 6 to Bob, but
 retain ordinal 5. Alice could construct a transaction with three outputs of
-size 5, 1, and 5, containing sats [0,4], 5, and [6,10], respectively. The
+size 5, 1, and 5, containing gros [0,4], 5, and [6,10], respectively. The
 second output is under the dust limit, and so such a transaction would be
 non-standard.
 
@@ -168,12 +167,12 @@ transfer into multiple transactions, with each transaction performing one or
 more splits and merging in padding outputs as needed.
 
 To wit, Alice could perform the desired transfer in two transactions. The first
-transaction would send sats [0,4] to Bob, and return as change sat [5,10] to
+transaction would send gros [0,4] to Bob, and return as change gro [5,10] to
 Alice. The second transaction would take as inputs an output of at least 4
-sats, the change input, and an additional input of at least one sat; and create
+gros, the change input, and an additional input of at least one gro; and create
 an output of size 5 to Bob's address, and the remainder as a change output.
 Both transactions avoid creating any non-standard outputs, but still accomplish
-the same desired transfer of sats.
+the same desired transfer of gros.
 
 === Objections ===
 
@@ -182,17 +181,17 @@ the same desired transfer of sats.
 The applications using ordinal numbers required them to be public, and reduce
 the privacy of only those users that decide to use them.
 
-''Fungibility: Ordinal numbers reduce the fungibility of Bitcoin, as ordinals
+''Fungibility: Ordinal numbers reduce the fungibility of Groestlcoin, as ordinals
 received in a transaction may carry with them some public history.''
 
-As anyone can send anyone else any sats, any reasonable person will assume that
-a new owner of a particular sat cannot be understood to be the old owner, or
+As anyone can send anyone else any gros, any reasonable person will assume that
+a new owner of a particular gro cannot be understood to be the old owner, or
 have any particular relationship with the old owner.
 
 ''Congestion: Adoption of ordinal numbers will increase the demand for
 transactions, and drive up fees.''
 
-Since Bitcoin requires the development of a robust fee market, this is a strong
+Since Groestlcoin requires the development of a robust fee market, this is a strong
 positive of the proposal.
 
 ''UTXO set bloat: Adoption of ordinal numbers will increase the demand for
@@ -201,17 +200,17 @@ full nodes are required to track.''
 
 The dust limit, which makes outputs with small values difficult to create,
 should encourage users to create non-dust outputs, and to clean them up once
-they no longer have use for the sats that they contain.
+they no longer have use for the gros that they contain.
 
 === Security ===
 
-The public key associated with a sat may change. This requires actively
+The public key associated with a gro may change. This requires actively
 following the blockchain to keep up with key changes, and requires care
 compared to a system where public keys are static. However, a system with
 static public keys suffers from an inability for keys to be rotated or accounts
 to change hands.
 
-Ordinal-aware software must avoid losing valuable sats by unintentionally
+Ordinal-aware software must avoid losing valuable gros by unintentionally
 relinquishing them in a transaction, either to a non-controlled output or by
 using them as fees.
 
@@ -223,21 +222,21 @@ Ordinals are themselves public, however, this is required by the fact that many
 of the applications that they are intended to enable require public
 identifiers.
 
-Ordinal aware software should never mix sats which might have some publicly
-visible data associated with their ordinals with sats intended for use in
+Ordinal aware software should never mix gros which might have some publicly
+visible data associated with their ordinals with gros intended for use in
 payments or savings, since this would associate that publicly visible data with
 the users otherwise pseudonymous wallet outputs.
 
 === Fungibility considerations ===
 
-Since any sat can be sent to any address at any time, sats that are transferred,
+Since any gro can be sent to any address at any time, gros that are transferred,
 even those with some public history, should be considered to be fungible with
-other sats with no such history.
+other gros with no such history.
 
 === Backward compatibility ===
 
 Ordinal numbers are fully backwards compatible and require no changes to the
-bitcoin network.
+groestlcoin network.
 
 === Drawbacks ===
 
@@ -256,33 +255,22 @@ practical.
 
 ==== Large Location Proofs ====
 
-A proof can be constructed that demonstrates that a particular sat is contained
+A proof can be constructed that demonstrates that a particular gro is contained
 in a particular output, however the proofs are large. Such a proof consists of:
 
 - Block headers
-- A Merkle path to the coinbase transaction that created the sat
-- The coinbase transaction that created the sat
-- And for every spend of that sat:
+- A Merkle path to the coinbase transaction that created the gro
+- The coinbase transaction that created the gro
+- And for every spend of that gro:
   - The spend transaction
   - The transactions that created the inputs before the input that was spent,
     to determine the values of the preceding inputs, to determine the position
-    of the sat
-  - And, if the sat was used as fees, all prior transaction in the block in
+    of the gro
+  - And, if the gro was used as fees, all prior transaction in the block in
     which it was spent, and the coinbase transaction, to determine the location
-    of the sat in the outputs.
+    of the gro in the outputs.
 
 == Reference implementation ==
 
 This document and an implementation of an index that tracks the position of
-sats in the main chain are maintained [https://github.com/casey/ord here].
-
-== References ==
-
-A variation of this scheme was independently invented a decade ago by jl2012
-[https://bitcointalk.org/index.php?topic=117224.0 on the Bitcoin Forum].
-
-For other colored coin proposals see [https://en.bitcoin.it/wiki/Colored_Coins the
-Bitcoin Wiki entry].
-
-For aliases, an implementation of short on-chain identifiers, see
-[https://github.com/bitcoin/bips/blob/master/bip-0015.mediawiki BIP 15].
+gros in the main chain are maintained [https://github.com/Groestlcoin/ord-groestlcoin here].

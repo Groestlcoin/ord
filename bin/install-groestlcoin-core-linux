@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+version=24.0.1
+
+wget \
+  -O groestlcoin.tar.gz \
+  https://github.com/Groestlcoin/groestlcoin/releases/download/v$version/groestlcoin-$version-x86_64-linux-gnu.tar.gz
+
+tar \
+  -xzvf groestlcoin.tar.gz \
+  -C /usr/local/bin \
+  --strip-components 2 \
+  groestlcoin-$version/bin/{groestlcoin-cli,groestlcoind}

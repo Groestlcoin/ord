@@ -58,7 +58,7 @@ mod tests {
           <dt>id</dt>
           <dd class=monospace>1{64}i1</dd>
           <dt>address</dt>
-          <dd class=monospace>bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4</dd>
+          <dd class=monospace>grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5</dd>
           <dt>output value</dt>
           <dd>1</dd>
           <dt>preview</dt>
@@ -111,7 +111,7 @@ mod tests {
         .*
         <dl>
           .*
-          <dt>sat</dt>
+          <dt>gro</dt>
           <dd><a href=/sat/1>1</a></dd>
           <dt>preview</dt>
           .*

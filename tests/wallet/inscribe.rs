@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn inscribe_creates_inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
@@ -26,7 +26,7 @@ fn inscribe_creates_inscriptions() {
 
 #[test]
 fn inscribe_works_with_huge_expensive_inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   let txid = rpc_server.mine_blocks(1)[0].txdata[0].txid();
 
@@ -40,19 +40,21 @@ fn inscribe_works_with_huge_expensive_inscriptions() {
 
 #[test]
 fn inscribe_fails_if_bitcoin_core_is_too_old() {
-  let rpc_server = test_bitcoincore_rpc::builder().version(230000).build();
+  let rpc_server = test_groestlcoincore_rpc::builder().version(230000).build();
 
   CommandBuilder::new("wallet inscribe hello.txt --fee-rate 1")
     .write("hello.txt", "HELLOWORLD")
     .expected_exit_code(1)
-    .expected_stderr("error: Bitcoin Core 24.0.0 or newer required, current version is 23.0.0\n")
+    .expected_stderr(
+      "error: Groestlcoin Core 24.0.0 or newer required, current version is 23.0.0\n",
+    )
     .rpc_server(&rpc_server)
     .run();
 }
 
 #[test]
 fn inscribe_no_backup() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
@@ -68,7 +70,7 @@ fn inscribe_no_backup() {
 
 #[test]
 fn inscribe_unknown_file_extension() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -82,7 +84,7 @@ fn inscribe_unknown_file_extension() {
 
 #[test]
 fn inscribe_exceeds_chain_limit() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Signet)
     .build();
   create_wallet(&rpc_server);
@@ -100,7 +102,7 @@ fn inscribe_exceeds_chain_limit() {
 
 #[test]
 fn regtest_has_no_content_size_limit() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
   create_wallet(&rpc_server);
@@ -115,8 +117,8 @@ fn regtest_has_no_content_size_limit() {
 
 #[test]
 fn mainnet_has_no_content_size_limit() {
-  let rpc_server = test_bitcoincore_rpc::builder()
-    .network(Network::Bitcoin)
+  let rpc_server = test_groestlcoincore_rpc::builder()
+    .network(Network::Groestlcoin)
     .build();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
@@ -130,7 +132,7 @@ fn mainnet_has_no_content_size_limit() {
 
 #[test]
 fn inscribe_does_not_use_inscribed_sats_as_cardinal_utxos() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks_with_subsidy(1, 100);
@@ -147,7 +149,7 @@ fn inscribe_does_not_use_inscribed_sats_as_cardinal_utxos() {
 
 #[test]
 fn refuse_to_reinscribe_sats() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(1);
@@ -162,13 +164,13 @@ fn refuse_to_reinscribe_sats() {
   .write("hello.txt", "HELLOWORLD")
   .rpc_server(&rpc_server)
   .expected_exit_code(1)
-  .expected_stderr(format!("error: sat at {reveal}:0:0 already inscribed\n"))
+  .expected_stderr(format!("error: gro at {reveal}:0:0 already inscribed\n"))
   .run();
 }
 
 #[test]
 fn refuse_to_inscribe_already_inscribed_utxo() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let Inscribe {
@@ -189,14 +191,14 @@ fn refuse_to_inscribe_already_inscribed_utxo() {
   .rpc_server(&rpc_server)
   .expected_exit_code(1)
   .expected_stderr(format!(
-    "error: utxo {output} already inscribed with inscription {inscription} on sat {output}:0\n",
+    "error: utxo {output} already inscribed with inscription {inscription} on gro {output}:0\n",
   ))
   .run();
 }
 
 #[test]
 fn inscribe_with_optional_satpoint_arg() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   let txid = rpc_server.mine_blocks(1)[0].txdata[0].txid();
 
@@ -220,7 +222,7 @@ fn inscribe_with_optional_satpoint_arg() {
 
 #[test]
 fn inscribe_with_fee_rate() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -261,7 +263,7 @@ fn inscribe_with_fee_rate() {
 
 #[test]
 fn inscribe_with_commit_fee_rate() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -304,7 +306,7 @@ fn inscribe_with_commit_fee_rate() {
 
 #[test]
 fn inscribe_with_wallet_named_foo() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   CommandBuilder::new("--wallet foo wallet create")
     .rpc_server(&rpc_server)
@@ -320,7 +322,7 @@ fn inscribe_with_wallet_named_foo() {
 
 #[test]
 fn inscribe_with_dry_run_flag() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -341,7 +343,7 @@ fn inscribe_with_dry_run_flag() {
 
 #[test]
 fn inscribe_with_dry_run_flag_fees_inscrease() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -364,7 +366,7 @@ fn inscribe_with_dry_run_flag_fees_inscrease() {
 
 #[test]
 fn inscribe_to_specific_destination() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -391,7 +393,7 @@ fn inscribe_to_specific_destination() {
 
 #[test]
 fn inscribe_with_no_limit() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 

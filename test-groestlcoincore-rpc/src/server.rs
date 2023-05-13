@@ -1,11 +1,11 @@
 use {
   super::*,
-  bitcoin::{
+  groestlcoin::{
     psbt::serialize::Deserialize,
     secp256k1::{rand, KeyPair, Secp256k1, XOnlyPublicKey},
     Address, Witness,
   },
-  bitcoincore_rpc::RawTx,
+  groestlcoincore_rpc::RawTx,
 };
 
 pub(crate) struct Server {
@@ -47,7 +47,7 @@ impl Api for Server {
   fn get_blockchain_info(&self) -> Result<GetBlockchainInfoResult, jsonrpc_core::Error> {
     Ok(GetBlockchainInfoResult {
       chain: String::from(match self.network {
-        Network::Bitcoin => "main",
+        Network::Groestlcoin => "main",
         Network::Testnet => "test",
         Network::Signet => "signet",
         Network::Regtest => "regtest",
@@ -378,7 +378,7 @@ impl Api for Server {
     &self,
     minconf: Option<usize>,
     maxconf: Option<usize>,
-    address: Option<bitcoin::Address>,
+    address: Option<groestlcoin::Address>,
     include_unsafe: Option<bool>,
     query_options: Option<String>,
   ) -> Result<Vec<ListUnspentResultEntry>, jsonrpc_core::Error> {
@@ -427,8 +427,8 @@ impl Api for Server {
 
   fn get_raw_change_address(
     &self,
-    _address_type: Option<bitcoincore_rpc::json::AddressType>,
-  ) -> Result<bitcoin::Address, jsonrpc_core::Error> {
+    _address_type: Option<groestlcoincore_rpc::json::AddressType>,
+  ) -> Result<groestlcoin::Address, jsonrpc_core::Error> {
     let secp256k1 = Secp256k1::new();
     let key_pair = KeyPair::new(&secp256k1, &mut rand::thread_rng());
     let (public_key, _parity) = XOnlyPublicKey::from_keypair(&key_pair);
@@ -469,8 +469,8 @@ impl Api for Server {
   fn get_new_address(
     &self,
     _label: Option<String>,
-    _address_type: Option<bitcoincore_rpc::json::AddressType>,
-  ) -> Result<bitcoin::Address, jsonrpc_core::Error> {
+    _address_type: Option<groestlcoincore_rpc::json::AddressType>,
+  ) -> Result<groestlcoin::Address, jsonrpc_core::Error> {
     let secp256k1 = Secp256k1::new();
     let key_pair = KeyPair::new(&secp256k1, &mut rand::thread_rng());
     let (public_key, _parity) = XOnlyPublicKey::from_keypair(&key_pair);

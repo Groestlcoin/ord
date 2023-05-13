@@ -4,7 +4,7 @@ use {super::*, crate::wallet::Wallet};
 pub(crate) struct Sats {
   #[clap(
     long,
-    help = "Find satoshis listed in first column of tab-separated value file <TSV>."
+    help = "Find gros listed in first column of tab-separated value file <TSV>."
   )]
   tsv: Option<PathBuf>,
 }
@@ -93,7 +93,7 @@ fn sats_from_tsv(
     if let Some(value) = line.split('\t').next() {
       let sat = Sat::from_str(value).map_err(|err| {
         anyhow!(
-          "failed to parse sat from string \"{value}\" on line {}: {err}",
+          "failed to parse gro from string \"{value}\" on line {}: {err}",
           i + 1,
         )
       })?;
@@ -169,7 +169,7 @@ mod tests {
       )]),
       vec![
         (outpoint(1), Sat(0), 0, Rarity::Mythic),
-        (outpoint(1), Sat(1050000000000000), 100, Rarity::Epic)
+        (outpoint(1), Sat(1050000000000000), 100, Rarity::Uncommon)
       ]
     )
   }
@@ -278,7 +278,7 @@ mod tests {
       sats_from_tsv(vec![(outpoint(1), vec![(0, 1)])], "0\n===\n")
         .unwrap_err()
         .to_string(),
-      "failed to parse sat from string \"===\" on line 2: invalid digit found in string",
+      "failed to parse gro from string \"===\" on line 2: invalid digit found in string",
     )
   }
 

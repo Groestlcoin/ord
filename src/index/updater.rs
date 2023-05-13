@@ -273,7 +273,7 @@ impl Updater {
     // Batch 2048 missing inputs at a time. Arbitrarily chosen for now, maybe higher or lower can be faster?
     // Did rudimentary benchmarks with 1024 and 4096 and time was roughly the same.
     const BATCH_SIZE: usize = 2048;
-    // Default rpcworkqueue in bitcoind is 16, meaning more than 16 concurrent requests will be rejected.
+    // Default rpcworkqueue in groestlcoind is 16, meaning more than 16 concurrent requests will be rejected.
     // Since we are already requesting blocks on a separate thread, and we don't want to break if anything
     // else runs a request, we keep this to 12.
     const PARALLEL_REQUESTS: usize = 12;
@@ -339,7 +339,7 @@ impl Updater {
     // If value_receiver still has values something went wrong with the last block
     // Could be an assert, shouldn't recover from this and commit the last block
     let Err(TryRecvError::Empty) = value_receiver.try_recv() else {
-      return Err(anyhow!("Previous block did not consume all input values")); 
+      return Err(anyhow!("Previous block did not consume all input values"));
     };
 
     let mut outpoint_to_value = wtx.open_table(OUTPOINT_TO_VALUE)?;
@@ -536,7 +536,7 @@ impl Updater {
     self.outputs_traversed += outputs_in_block;
 
     log::info!(
-      "Wrote {sat_ranges_written} sat ranges from {outputs_in_block} outputs in {} ms",
+      "Wrote {sat_ranges_written} gro ranges from {outputs_in_block} outputs in {} ms",
       (Instant::now() - start).as_millis(),
     );
 

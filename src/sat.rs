@@ -6,7 +6,7 @@ pub struct Sat(pub u64);
 
 impl Sat {
   pub(crate) const LAST: Self = Self(Self::SUPPLY - 1);
-  pub(crate) const SUPPLY: u64 = 2099999997690000;
+  pub(crate) const SUPPLY: u64 = 10500000000000000;
 
   pub(crate) fn n(self) -> u64 {
     self.0
@@ -82,11 +82,11 @@ impl Sat {
         'a'..='z' => {
           x = x * 26 + c as u64 - 'a' as u64 + 1;
         }
-        _ => bail!("invalid character in sat name: {c}"),
+        _ => bail!("invalid character in gro name: {c}"),
       }
     }
     if x > Self::SUPPLY {
-      bail!("sat name out of range");
+      bail!("gro name out of range");
     }
     Ok(Sat(Self::SUPPLY - x))
   }
@@ -255,20 +255,20 @@ mod tests {
       SUBSIDY_HALVING_INTERVAL * 2
     );
     assert_eq!(Sat(50 * COIN_VALUE).height(), 1);
-    assert_eq!(Sat(2099999997689999).height(), 6929999);
-    assert_eq!(Sat(2099999997689998).height(), 6929998);
+    assert_eq!(Sat(2099999997689999).height(), 419999);
+    assert_eq!(Sat(2099999997689998).height(), 419999);
   }
 
   #[test]
   fn name() {
-    assert_eq!(Sat(0).name(), "nvtdijuwxlp");
-    assert_eq!(Sat(1).name(), "nvtdijuwxlo");
-    assert_eq!(Sat(26).name(), "nvtdijuwxkp");
-    assert_eq!(Sat(27).name(), "nvtdijuwxko");
-    assert_eq!(Sat(2099999997689999).name(), "a");
-    assert_eq!(Sat(2099999997689999 - 1).name(), "b");
-    assert_eq!(Sat(2099999997689999 - 25).name(), "z");
-    assert_eq!(Sat(2099999997689999 - 26).name(), "aa");
+    assert_eq!(Sat(0).name(), "bvivuucdvvev");
+    assert_eq!(Sat(1).name(), "bvivuucdvveu");
+    assert_eq!(Sat(26).name(), "bvivuucdvvdv");
+    assert_eq!(Sat(27).name(), "bvivuucdvvdu");
+    assert_eq!(Sat(10499999999999999).name(), "a");
+    assert_eq!(Sat(10499999999999999 - 1).name(), "b");
+    assert_eq!(Sat(10499999999999999 - 25).name(), "z");
+    assert_eq!(Sat(10499999999999999 - 26).name(), "aa");
   }
 
   #[test]
@@ -308,26 +308,32 @@ mod tests {
       Sat(50 * COIN_VALUE * SUBSIDY_HALVING_INTERVAL - 1)
         .degree()
         .to_string(),
-      "0°209999′335″4999999999‴"
+      "0°1049999′1679″4999999999‴"
     );
     assert_eq!(
       Sat(50 * COIN_VALUE * SUBSIDY_HALVING_INTERVAL)
         .degree()
         .to_string(),
-      "0°0′336″0‴"
+      "0°0′1680″0‴"
     );
     assert_eq!(
       Sat(50 * COIN_VALUE * SUBSIDY_HALVING_INTERVAL + 1)
         .degree()
         .to_string(),
-      "0°0′336″1‴"
+      "0°0′1680″1‴"
     );
     assert_eq!(
       Sat(2067187500000000 - 1).degree().to_string(),
-      "0°209999′2015″156249999‴"
+      "0°413437′157″2499999999‴"
     );
-    assert_eq!(Sat(2067187500000000).degree().to_string(), "1°0′0″0‴");
-    assert_eq!(Sat(2067187500000000 + 1).degree().to_string(), "1°0′0″1‴");
+    assert_eq!(
+      Sat(2067187500000000).degree().to_string(),
+      "0°413437′157″2500000000‴"
+    );
+    assert_eq!(
+      Sat(2067187500000000 + 1).degree().to_string(),
+      "0°413437′157″2500000001‴"
+    );
   }
 
   #[test]
@@ -342,29 +348,32 @@ mod tests {
     //   let actual = degree.to_string().parse::<Sat>().unwrap();
     //   assert_eq!(
     //     actual, expected,
-    //     "Sat at height {height} did not round-trip from degree {degree} successfully"
+    //     "Gro at height {height} did not round-trip from degree {degree} successfully"
     //   );
     // }
-    assert_eq!(Sat(1054200000000000).degree().to_string(), "0°1680′0″0‴");
-    assert_eq!(parse("0°1680′0″0‴").unwrap(), 1054200000000000);
+    assert_eq!(Sat(8400000000000).degree().to_string(), "0°1680′1680″0‴");
+    assert_eq!(parse("0°1680′0″0‴").unwrap(), 8400000000000);
     assert_eq!(
       Sat(1914226250000000).degree().to_string(),
-      "0°122762′794″0‴"
+      "0°382845′1821″1250000000‴"
     );
-    assert_eq!(parse("0°122762′794″0‴").unwrap(), 1914226250000000);
+    assert_eq!(
+      parse("0°382845′1821″1250000000‴").unwrap(),
+      1914226250000000
+    );
   }
 
   #[test]
   fn period() {
     assert_eq!(Sat(0).period(), 0);
     assert_eq!(Sat(10080000000000).period(), 1);
-    assert_eq!(Sat(2099999997689999).period(), 3437);
+    assert_eq!(Sat(2099999997689999).period(), 208);
     assert_eq!(Sat(10075000000000).period(), 0);
     assert_eq!(Sat(10080000000000 - 1).period(), 0);
     assert_eq!(Sat(10080000000000).period(), 1);
     assert_eq!(Sat(10080000000000 + 1).period(), 1);
     assert_eq!(Sat(10085000000000).period(), 1);
-    assert_eq!(Sat(2099999997689999).period(), 3437);
+    assert_eq!(Sat(2099999997689999).period(), 208);
   }
 
   #[test]
@@ -372,7 +381,7 @@ mod tests {
     assert_eq!(Sat(0).epoch(), 0);
     assert_eq!(Sat(1).epoch(), 0);
     assert_eq!(Sat(50 * COIN_VALUE * SUBSIDY_HALVING_INTERVAL).epoch(), 1);
-    assert_eq!(Sat(2099999997689999).epoch(), 32);
+    assert_eq!(Sat(2099999997689999).epoch(), 0);
   }
 
   #[test]
@@ -397,7 +406,7 @@ mod tests {
       Sat(Epoch(1).starting_sat().n() + Epoch(1).subsidy()).third(),
       0
     );
-    assert_eq!(Sat::LAST.third(), 0);
+    assert_eq!(Sat::LAST.third(), 1);
   }
 
   #[test]
@@ -458,9 +467,9 @@ mod tests {
     assert_eq!(parse("0.0").unwrap(), 0);
     assert_eq!(parse("0.1").unwrap(), 1);
     assert_eq!(parse("1.0").unwrap(), 50 * COIN_VALUE);
-    assert_eq!(parse("6929999.0").unwrap(), 2099999997689999);
+    assert_eq!(parse("6929999.0").unwrap(), 10385156171875000);
     assert!(parse("0.5000000000").is_err());
-    assert!(parse("6930000.0").is_err());
+    assert!(parse("46200000.0").is_err());
   }
 
   #[test]
@@ -493,7 +502,7 @@ mod tests {
   fn from_str_number() {
     assert_eq!(parse("0").unwrap(), 0);
     assert_eq!(parse("2099999997689999").unwrap(), 2099999997689999);
-    assert!(parse("2099999997690000").is_err());
+    assert!(parse("10500000000000000").is_err());
   }
 
   #[test]
@@ -538,11 +547,11 @@ mod tests {
 
   #[test]
   fn from_str_name() {
-    assert_eq!(parse("nvtdijuwxlp").unwrap(), 0);
-    assert_eq!(parse("a").unwrap(), 2099999997689999);
+    assert_eq!(parse("nvtdijuwxlp").unwrap(), 8400000002310000);
+    assert_eq!(parse("a").unwrap(), 10499999999999999);
     assert!(parse("(").is_err());
     assert!(parse("").is_err());
-    assert!(parse("nvtdijuwxlq").is_err());
+    assert!(parse("bvivuucdvvew").is_err());
   }
 
   #[test]
@@ -563,7 +572,7 @@ mod tests {
 
     assert_eq!(Sat(0).cycle(), 0);
     assert_eq!(Sat(2067187500000000 - 1).cycle(), 0);
-    assert_eq!(Sat(2067187500000000).cycle(), 1);
+    assert_eq!(Sat(2067187500000000).cycle(), 0);
     assert_eq!(Sat(2067187500000000 + 1).cycle(), 1);
   }
 
@@ -578,7 +587,7 @@ mod tests {
   #[test]
   fn percentile() {
     assert_eq!(Sat(0).percentile(), "0%");
-    assert_eq!(Sat(Sat::LAST.n() / 2).percentile(), "49.99999999999998%");
+    assert_eq!(Sat(Sat::LAST.n() / 2).percentile(), "49.999999999999986%");
     assert_eq!(Sat::LAST.percentile(), "100%");
   }
 

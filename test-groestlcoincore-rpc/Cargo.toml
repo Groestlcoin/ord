@@ -1,0 +1,19 @@
+[package]
+name = "test-groestlcoincore-rpc"
+description = "Test Groestlcoin Core RPC server"
+version = "0.0.1"
+edition = "2021"
+license = "CC0-1.0"
+homepage = "https://github.com/Groestlcoin/ord-groestlcoin"
+repository = "https://github.com/Groestlcoin/ord-groestlcoin"
+
+[dependencies]
+groestlcoin = { version = "0.29.0", features = ["serde", "rand"] }
+groestlcoincore-rpc = { git = "https://github.com/Groestlcoin/rust-groestlcoincore-rpc", branch = "0.16.5" }
+hex = "0.4.3"
+jsonrpc-core = "18.0.0"
+jsonrpc-derive = "18.0.0"
+jsonrpc-http-server = "18.0.0"
+reqwest = { version = "0.11.10", features = ["blocking"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.0"

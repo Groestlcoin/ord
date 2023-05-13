@@ -1,4 +1,4 @@
-use {super::*, bitcoincore_rpc::Auth};
+use {super::*, groestlcoincore_rpc::Auth};
 
 #[derive(Clone, Default, Debug, Parser)]
 #[clap(group(
@@ -7,8 +7,11 @@ use {super::*, bitcoincore_rpc::Auth};
     .args(&["chain-argument", "signet", "regtest", "testnet"]),
 ))]
 pub(crate) struct Options {
-  #[clap(long, help = "Load Bitcoin Core data dir from <BITCOIN_DATA_DIR>.")]
-  pub(crate) bitcoin_data_dir: Option<PathBuf>,
+  #[clap(
+    long,
+    help = "Load Groestlcoin Core data dir from <GROESTLCOIN_DATA_DIR>."
+  )]
+  pub(crate) groestlcoin_data_dir: Option<PathBuf>,
   #[clap(
     long = "chain",
     arg_enum,
@@ -20,7 +23,10 @@ pub(crate) struct Options {
   pub(crate) config: Option<PathBuf>,
   #[clap(long, help = "Load configuration from <CONFIG_DIR>.")]
   pub(crate) config_dir: Option<PathBuf>,
-  #[clap(long, help = "Load Bitcoin Core RPC cookie file from <COOKIE_FILE>.")]
+  #[clap(
+    long,
+    help = "Load Groestlcoin Core RPC cookie file from <COOKIE_FILE>."
+  )]
   pub(crate) cookie_file: Option<PathBuf>,
   #[clap(long, help = "Store index in <DATA_DIR>.")]
   pub(crate) data_dir: Option<PathBuf>,
@@ -33,11 +39,11 @@ pub(crate) struct Options {
   pub(crate) height_limit: Option<u64>,
   #[clap(long, help = "Use index at <INDEX>.")]
   pub(crate) index: Option<PathBuf>,
-  #[clap(long, help = "Track location of all satoshis.")]
+  #[clap(long, help = "Track location of all gros.")]
   pub(crate) index_sats: bool,
   #[clap(long, short, help = "Use regtest. Equivalent to `--chain regtest`.")]
   pub(crate) regtest: bool,
-  #[clap(long, help = "Connect to Bitcoin Core RPC at <RPC_URL>.")]
+  #[clap(long, help = "Connect to Groestlcoin Core RPC at <RPC_URL>.")]
   pub(crate) rpc_url: Option<String>,
   #[clap(long, short, help = "Use signet. Equivalent to `--chain signet`.")]
   pub(crate) signet: bool,
@@ -87,16 +93,16 @@ impl Options {
       return Ok(cookie_file.clone());
     }
 
-    let path = if let Some(bitcoin_data_dir) = &self.bitcoin_data_dir {
-      bitcoin_data_dir.clone()
+    let path = if let Some(groestlcoin_data_dir) = &self.groestlcoin_data_dir {
+      groestlcoin_data_dir.clone()
     } else if cfg!(target_os = "linux") {
       dirs::home_dir()
         .ok_or_else(|| anyhow!("failed to retrieve home dir"))?
-        .join(".bitcoin")
+        .join(".groestlcoin")
     } else {
       dirs::data_dir()
         .ok_or_else(|| anyhow!("failed to retrieve data dir"))?
-        .join("Bitcoin")
+        .join("Groestlcoin")
     };
 
     let path = self.chain().join_with_data_dir(&path);
@@ -144,14 +150,14 @@ impl Options {
     let rpc_url = self.rpc_url();
 
     log::info!(
-      "Connecting to Bitcoin Core RPC server at {rpc_url} using credentials from `{}`",
+      "Connecting to Groestlcoin Core RPC server at {rpc_url} using credentials from `{}`",
       cookie_file.display()
     );
 
     let client =
       Client::new(&rpc_url, Auth::CookieFile(cookie_file.clone())).with_context(|| {
         format!(
-          "failed to connect to Bitcoin Core RPC at {rpc_url} using cookie file {}",
+          "failed to connect to Groestlcoin Core RPC at {rpc_url} using cookie file {}",
           cookie_file.display()
         )
       })?;
@@ -161,13 +167,13 @@ impl Options {
       "test" => Chain::Testnet,
       "regtest" => Chain::Regtest,
       "signet" => Chain::Signet,
-      other => bail!("Bitcoin RPC server on unknown chain: {other}"),
+      other => bail!("Groestlcoin RPC server on unknown chain: {other}"),
     };
 
     let ord_chain = self.chain();
 
     if rpc_chain != ord_chain {
-      bail!("Bitcoin RPC server is on {rpc_chain} but ord is on {ord_chain}");
+      bail!("Groestlcoin RPC server is on {rpc_chain} but ord is on {ord_chain}");
     }
 
     Ok(client)
@@ -181,7 +187,7 @@ impl Options {
     let bitcoin_version = client.version()?;
     if bitcoin_version < MIN_VERSION {
       bail!(
-        "Bitcoin Core {} or newer required, current version is {}",
+        "Groestlcoin Core {} or newer required, current version is {}",
         Self::format_bitcoin_core_version(MIN_VERSION),
         Self::format_bitcoin_core_version(bitcoin_version),
       );
@@ -215,7 +221,7 @@ impl Options {
 
 #[cfg(test)]
 mod tests {
-  use {super::*, bitcoin::Network, std::path::Path};
+  use {super::*, groestlcoin::Network, std::path::Path};
 
   #[test]
   fn rpc_url_overrides_network() {
@@ -244,7 +250,7 @@ mod tests {
   fn use_default_network() {
     let arguments = Arguments::try_parse_from(["ord", "index"]).unwrap();
 
-    assert_eq!(arguments.options.rpc_url(), "127.0.0.1:8332/wallet/ord");
+    assert_eq!(arguments.options.rpc_url(), "127.0.0.1:1441/wallet/ord");
 
     assert!(arguments
       .options
@@ -257,7 +263,7 @@ mod tests {
   fn uses_network_defaults() {
     let arguments = Arguments::try_parse_from(["ord", "--chain=signet", "index"]).unwrap();
 
-    assert_eq!(arguments.options.rpc_url(), "127.0.0.1:38332/wallet/ord");
+    assert_eq!(arguments.options.rpc_url(), "127.0.0.1:31441/wallet/ord");
 
     assert!(arguments
       .options
@@ -283,11 +289,11 @@ mod tests {
       .to_string();
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/.cookie"
+      "/.groestlcoin/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\.cookie"
+      r"\Groestlcoin\.cookie"
     } else {
-      "/Bitcoin/.cookie"
+      "/Groestlcoin/.cookie"
     }))
   }
 
@@ -303,19 +309,23 @@ mod tests {
       .to_string();
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/signet/.cookie"
+      "/.groestlcoin/signet/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\signet\.cookie"
+      r"\Groestlcoin\signet\.cookie"
     } else {
-      "/Bitcoin/signet/.cookie"
+      "/Groestlcoin/signet/.cookie"
     }));
   }
 
   #[test]
-  fn cookie_file_defaults_to_bitcoin_data_dir() {
-    let arguments =
-      Arguments::try_parse_from(["ord", "--bitcoin-data-dir=foo", "--chain=signet", "index"])
-        .unwrap();
+  fn cookie_file_defaults_to_groestlcoin_data_dir() {
+    let arguments = Arguments::try_parse_from([
+      "ord",
+      "--groestlcoin-data-dir=foo",
+      "--chain=signet",
+      "index",
+    ])
+    .unwrap();
 
     let cookie_file = arguments
       .options
@@ -437,7 +447,7 @@ mod tests {
 
   #[test]
   fn rpc_server_chain_must_match() {
-    let rpc_server = test_bitcoincore_rpc::builder()
+    let rpc_server = test_groestlcoincore_rpc::builder()
       .network(Network::Testnet)
       .build();
 
@@ -457,7 +467,7 @@ mod tests {
 
     assert_eq!(
       options.bitcoin_rpc_client().unwrap_err().to_string(),
-      "Bitcoin RPC server is on testnet but ord is on mainnet"
+      "Groestlcoin RPC server is on testnet but ord is on mainnet"
     );
   }
 

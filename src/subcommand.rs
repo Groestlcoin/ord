@@ -21,27 +21,27 @@ fn print_json(output: impl Serialize) -> Result {
 
 #[derive(Debug, Parser)]
 pub(crate) enum Subcommand {
-  #[clap(about = "List the first satoshis of each reward epoch")]
+  #[clap(about = "List the first gros of each reward epoch")]
   Epochs,
   #[clap(about = "Run an explorer server populated with inscriptions")]
   Preview(preview::Preview),
-  #[clap(about = "Find a satoshi's current location")]
+  #[clap(about = "Find a gro's current location")]
   Find(find::Find),
   #[clap(about = "Update the index")]
   Index,
   #[clap(about = "Display index statistics")]
   Info(info::Info),
-  #[clap(about = "List the satoshis in an output")]
+  #[clap(about = "List the gros in an output")]
   List(list::List),
-  #[clap(about = "Parse a satoshi from ordinal notation")]
+  #[clap(about = "Parse a gro from ordinal notation")]
   Parse(parse::Parse),
   #[clap(about = "Display information about a block's subsidy")]
   Subsidy(subsidy::Subsidy),
   #[clap(about = "Run the explorer server")]
   Server(server::Server),
-  #[clap(about = "Display Bitcoin supply information")]
+  #[clap(about = "Display Groestlcoin supply information")]
   Supply,
-  #[clap(about = "Display satoshi traits")]
+  #[clap(about = "Display gro traits")]
   Traits(traits::Traits),
   #[clap(subcommand, about = "Wallet commands")]
   Wallet(wallet::Wallet),

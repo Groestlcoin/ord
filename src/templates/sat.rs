@@ -10,7 +10,7 @@ pub(crate) struct SatHtml {
 
 impl PageContent for SatHtml {
   fn title(&self) -> String {
-    format!("Sat {}", self.sat)
+    format!("Gro {}", self.sat)
   }
 }
 
@@ -28,12 +28,12 @@ mod tests {
         inscription: None,
       },
       "
-        <h1>Sat 0</h1>
+        <h1>Gro 0</h1>
         <dl>
           <dt>decimal</dt><dd>0.0</dd>
           <dt>degree</dt><dd>0°0′0″0‴</dd>
           <dt>percentile</dt><dd>0%</dd>
-          <dt>name</dt><dd>nvtdijuwxlp</dd>
+          <dt>name</dt><dd>bvivuucdvvev</dd>
           <dt>cycle</dt><dd>0</dd>
           <dt>epoch</dt><dd>0</dd>
           <dt>period</dt><dd>0</dd>
@@ -55,28 +55,28 @@ mod tests {
   fn last() {
     assert_regex_match!(
       SatHtml {
-        sat: Sat(2099999997689999),
+        sat: Sat(10499999999999999),
         satpoint: None,
         blocktime: Blocktime::confirmed(0),
         inscription: None,
       },
       "
-        <h1>Sat 2099999997689999</h1>
+        <h1>Gro 10499999999999999</h1>
         <dl>
-          <dt>decimal</dt><dd>6929999.0</dd>
-          <dt>degree</dt><dd>5°209999′1007″0‴</dd>
+          <dt>decimal</dt><dd>46199999.0</dd>
+          <dt>degree</dt><dd>7°1049999′1343″0‴</dd>
           <dt>percentile</dt><dd>100%</dd>
           <dt>name</dt><dd>a</dd>
           <dt>cycle</dt><dd>5</dd>
           <dt>epoch</dt><dd>32</dd>
-          <dt>period</dt><dd>3437</dd>
-          <dt>block</dt><dd><a href=/block/6929999>6929999</a></dd>
+          <dt>period</dt><dd>22916</dd>
+          <dt>block</dt><dd><a href=/block/46199999>46199999</a></dd>
           <dt>offset</dt><dd>0</dd>
           <dt>rarity</dt><dd><span class=uncommon>uncommon</span></dd>
           <dt>timestamp</dt><dd><time>1970-01-01 00:00:00 UTC</time></dd>
         </dl>
         .*
-        <a class=prev href=/sat/2099999997689998>prev</a>
+        <a class=prev href=/sat/10499999999999998>prev</a>
         next
         .*
       "
@@ -93,7 +93,7 @@ mod tests {
         blocktime: Blocktime::confirmed(0),
         inscription: None,
       },
-      r"<h1>Sat 1</h1>.*<a class=prev href=/sat/0>prev</a>\n<a class=next href=/sat/2>next</a>.*",
+      r"<h1>Gro 1</h1>.*<a class=prev href=/sat/0>prev</a>\n<a class=next href=/sat/2>next</a>.*",
     );
   }
 
@@ -106,7 +106,7 @@ mod tests {
         blocktime: Blocktime::confirmed(0),
         inscription: Some(inscription_id(1)),
       },
-      r"<h1>Sat 0</h1>.*<dt>inscription</dt><dd class=thumbnails><a href=/inscription/1{64}i1>.*</a></dd>.*",
+      r"<h1>Gro 0</h1>.*<dt>inscription</dt><dd class=thumbnails><a href=/inscription/1{64}i1>.*</a></dd>.*",
     );
   }
 
@@ -119,7 +119,7 @@ mod tests {
         blocktime: Blocktime::confirmed(0),
         inscription: None,
       },
-      r"<h1>Sat 2099999997689999</h1>.*<a class=prev href=/sat/2099999997689998>prev</a>\nnext.*",
+      r"<h1>Gro 10499999999999999</h1>.*<a class=prev href=/sat/10499999999999998>prev</a>\nnext.*",
     );
   }
 
@@ -132,7 +132,7 @@ mod tests {
         blocktime: Blocktime::confirmed(0),
         inscription: None,
       },
-      "<h1>Sat 0</h1>.*<dt>location</dt><dd class=monospace>1{64}:1:0</dd>.*",
+      "<h1>Gro 0</h1>.*<dt>location</dt><dd class=monospace>1{64}:1:0</dd>.*",
     );
   }
 }

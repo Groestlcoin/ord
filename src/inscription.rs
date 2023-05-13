@@ -1,6 +1,6 @@
 use {
   super::*,
-  bitcoin::{
+  groestlcoin::{
     blockdata::{
       opcodes,
       script::{self, Instruction, Instructions},
@@ -559,7 +559,7 @@ mod tests {
   fn extract_from_transaction() {
     let tx = Transaction {
       version: 0,
-      lock_time: bitcoin::PackedLockTime(0),
+      lock_time: groestlcoin::PackedLockTime(0),
       input: vec![TxIn {
         previous_output: OutPoint::null(),
         script_sig: Script::new(),
@@ -579,7 +579,7 @@ mod tests {
   fn do_not_extract_from_second_input() {
     let tx = Transaction {
       version: 0,
-      lock_time: bitcoin::PackedLockTime(0),
+      lock_time: groestlcoin::PackedLockTime(0),
       input: vec![
         TxIn {
           previous_output: OutPoint::null(),
@@ -610,7 +610,7 @@ mod tests {
 
     let tx = Transaction {
       version: 0,
-      lock_time: bitcoin::PackedLockTime(0),
+      lock_time: groestlcoin::PackedLockTime(0),
       input: vec![TxIn {
         previous_output: OutPoint::null(),
         script_sig: Script::new(),

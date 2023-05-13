@@ -5,13 +5,13 @@ version = "0.5.1"
 license = "CC0-1.0"
 edition = "2021"
 autotests = false
-homepage = "https://github.com/casey/ord"
-repository = "https://github.com/casey/ord"
+homepage = "https://github.com/Groestlcoin/ord-groestlcoin"
+repository = "https://github.com/Groestlcoin/ord-groestlcoin"
 autobins = false
 rust-version = "1.67"
 
 [workspace]
-members = [".", "test-bitcoincore-rpc"]
+members = [".", "test-groestlcoincore-rpc"]
 
 [dependencies]
 anyhow = { version = "1.0.56", features = ["backtrace"] }
@@ -20,7 +20,6 @@ axum-server = "0.4.0"
 base64 = "0.13.1"
 bech32 = "0.9.1"
 bip39 = "1.0.1"
-bitcoin = { version = "0.29.1", features = ["rand"] }
 boilerplate = { version = "0.2.3", features = ["axum"] }
 chrono = "0.4.19"
 clap = { version = "3.1.0", features = ["derive"] }
@@ -29,6 +28,8 @@ derive_more = "0.99.17"
 dirs = "4.0.0"
 env_logger = "0.10.0"
 futures = "0.3.21"
+groestlcoin = { version = "0.29.0", features = ["rand"] }
+groestlcoincore-rpc = { git = "https://github.com/Groestlcoin/rust-groestlcoincore-rpc", branch = "0.16.5" }
 hex = "0.4.3"
 html-escaper = "0.2.0"
 http = "0.2.6"
@@ -38,9 +39,8 @@ lazy_static = "1.4.0"
 log = "0.4.14"
 mime = "0.3.16"
 mime_guess = "2.0.4"
-miniscript = "9.0.1"
+miniscript = { git = "https://github.com/Groestlcoin/rust-miniscript", branch = "master" }
 mp4 = "0.13.0"
-ord-bitcoincore-rpc = "0.16.5"
 redb = "0.13.0"
 regex = "1.6.0"
 rss = "2.0.1"
@@ -61,7 +61,7 @@ tower-http = { version = "0.3.3", features = ["compression-br", "compression-gzi
 executable-path = "1.0.0"
 pretty_assertions = "1.2.1"
 reqwest = { version = "0.11.10", features = ["blocking"] }
-test-bitcoincore-rpc = { path = "test-bitcoincore-rpc" }
+test-groestlcoincore-rpc = { path = "test-groestlcoincore-rpc" }
 unindent = "0.2.1"
 
 [[bin]]
@@ -78,3 +78,6 @@ path = "tests/lib.rs"
 
 [build-dependencies]
 pulldown-cmark = "0.9.2"
+
+[patch.crates-io]
+groestlcoin = { git = "https://github.com/Groestlcoin/rust-groestlcoin", branch = "ord" }

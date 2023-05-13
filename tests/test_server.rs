@@ -1,7 +1,7 @@
 use {
   super::*,
   crate::command_builder::ToArgs,
-  bitcoincore_rpc::{Auth, Client, RpcApi},
+  groestlcoincore_rpc::{Auth, Client, RpcApi},
   reqwest::blocking::Response,
 };
 
@@ -14,7 +14,10 @@ pub(crate) struct TestServer {
 }
 
 impl TestServer {
-  pub(crate) fn spawn_with_args(rpc_server: &test_bitcoincore_rpc::Handle, args: &[&str]) -> Self {
+  pub(crate) fn spawn_with_args(
+    rpc_server: &test_groestlcoincore_rpc::Handle,
+    args: &[&str],
+  ) -> Self {
     let tempdir = TempDir::new().unwrap();
     fs::write(tempdir.path().join(".cookie"), "foo:bar").unwrap();
     let port = TcpListener::bind("127.0.0.1:0")
@@ -24,7 +27,7 @@ impl TestServer {
       .port();
 
     let child = Command::new(executable_path("ord")).args(format!(
-      "--rpc-url {} --bitcoin-data-dir {} --data-dir {} {} server --http-port {port} --address 127.0.0.1",
+      "--rpc-url {} --groestlcoin-data-dir {} --data-dir {} {} server --http-port {port} --address 127.0.0.1",
       rpc_server.url(),
       tempdir.path().display(),
       tempdir.path().display(),

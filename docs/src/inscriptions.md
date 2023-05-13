@@ -1,14 +1,14 @@
 Inscriptions
 ============
 
-Inscriptions inscribe sats with arbitrary content, creating bitcoin-native
+Inscriptions inscribe gros with arbitrary content, creating groestlcoin-native
 digital artifacts, more commonly known as NFTs. Inscriptions do not require a
 sidechain or separate token.
 
-These inscribed sats can then be transferred using bitcoin transactions, sent
-to bitcoin addresses, and held in bitcoin UTXOs. These transactions, addresses,
-and UTXOs are normal bitcoin transactions, addresses, and UTXOS in all
-respects, with the exception that in order to send individual sats,
+These inscribed gros can then be transferred using groestlcoin transactions, sent
+to groestlcoin addresses, and held in groestlcoin UTXOs. These transactions, addresses,
+and UTXOs are normal groestlcoin transactions, addresses, and UTXOS in all
+respects, with the exception that in order to send individual gros,
 transactions must control the order and value of inputs and outputs according
 to ordinal theory.
 
@@ -59,6 +59,6 @@ pushes must be used for large inscriptions, as one of taproot's few
 restrictions is that individual data pushes may not be larger than 520 bytes.
 
 The inscription content is contained within the input of a reveal transaction,
-and the inscription is made on the first sat of its first output. This sat can
+and the inscription is made on the first gro of its first output. This gro can
 then be tracked using the familiar rules of ordinal theory, allowing it to be
 transferred, bought, sold, lost to fees, and recovered.

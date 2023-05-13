@@ -21,7 +21,7 @@ impl FromStr for Object {
       Address => Ok(Self::Address(s.parse()?)),
       Decimal | Degree | Percentile | Name => Ok(Self::Sat(s.parse()?)),
       Hash => Ok(Self::Hash(
-        bitcoin::hashes::sha256::Hash::from_str(s)?.into_inner(),
+        groestlcoin::hashes::sha256::Hash::from_str(s)?.into_inner(),
       )),
       InscriptionId => Ok(Self::InscriptionId(s.parse()?)),
       Integer => Ok(Self::Integer(s.parse()?)),
@@ -84,7 +84,7 @@ mod tests {
 
     assert_eq!(
       "nvtdijuwxlp".parse::<Object>().unwrap(),
-      Object::Sat(Sat(0))
+      Object::Sat(Sat(8400000002310000))
     );
     assert_eq!("a".parse::<Object>().unwrap(), Object::Sat(Sat::LAST));
     assert_eq!(
@@ -93,7 +93,7 @@ mod tests {
     );
     assert_eq!(
       "1°0′0″0‴".parse::<Object>().unwrap(),
-      Object::Sat(Sat(2067187500000000))
+      Object::Sat(Sat(10335937500000000))
     );
     assert_eq!("0%".parse::<Object>().unwrap(), Object::Sat(Sat(0)));
 
@@ -117,49 +117,49 @@ mod tests {
       ]),
     );
     case(
-      "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+      "grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5",
       Object::Address(
-        "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+        "grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5"
           .parse()
           .unwrap(),
       ),
     );
     case(
-      "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4",
+      "GRS1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7K3K4SJ5",
       Object::Address(
-        "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4"
+        "GRS1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7K3K4SJ5"
           .parse()
           .unwrap(),
       ),
     );
     case(
-      "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy",
+      "tgrs1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsess668a6",
       Object::Address(
-        "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy"
+        "tgrs1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsess668a6"
           .parse()
           .unwrap(),
       ),
     );
     case(
-      "TB1QQQQQP399ET2XYGDJ5XREQHJJVCMZHXW4AYWXECJDZEW6HYLGVSESRXH6HY",
+      "TGRS1QQQQQP399ET2XYGDJ5XREQHJJVCMZHXW4AYWXECJDZEW6HYLGVSESS668A6",
       Object::Address(
-        "TB1QQQQQP399ET2XYGDJ5XREQHJJVCMZHXW4AYWXECJDZEW6HYLGVSESRXH6HY"
+        "TGRS1QQQQQP399ET2XYGDJ5XREQHJJVCMZHXW4AYWXECJDZEW6HYLGVSESS668A6"
           .parse()
           .unwrap(),
       ),
     );
     case(
-      "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw",
+      "grsrt1qs758ursh4q9z627kt3pp5yysm78ddny6dv3fws",
       Object::Address(
-        "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw"
+        "grsrt1qs758ursh4q9z627kt3pp5yysm78ddny6dv3fws"
           .parse()
           .unwrap(),
       ),
     );
     case(
-      "BCRT1QS758URSH4Q9Z627KT3PP5YYSM78DDNY6TXAQGW",
+      "GRSRT1QS758URSH4Q9Z627KT3PP5YYSM78DDNY6DV3FWS",
       Object::Address(
-        "BCRT1QS758URSH4Q9Z627KT3PP5YYSM78DDNY6TXAQGW"
+        "GRSRT1QS758URSH4Q9Z627KT3PP5YYSM78DDNY6DV3FWS"
           .parse()
           .unwrap(),
       ),

@@ -458,7 +458,7 @@ impl Server {
   async fn rare_txt(Extension(index): Extension<Arc<Index>>) -> ServerResult<RareTxt> {
     Ok(RareTxt(index.rare_sat_satpoints()?.ok_or_else(|| {
       ServerError::NotFound(
-        "tracking rare sats requires index created with `--index-sats` flag".into(),
+        "tracking rare gros requires index created with `--index-sats` flag".into(),
       )
     })?))
   }
@@ -474,7 +474,7 @@ impl Server {
   }
 
   async fn install_script() -> Redirect {
-    Redirect::to("https://raw.githubusercontent.com/casey/ord/master/install.sh")
+    Redirect::to("https://raw.githubusercontent.com/Groestlcoin/ord-groestlcoin/master/install.sh")
   }
 
   async fn block(
@@ -705,11 +705,11 @@ impl Server {
   }
 
   async fn faq() -> Redirect {
-    Redirect::to("https://docs.ordinals.com/faq/")
+    Redirect::to("https://groestlcoin.github.io/ord-groestlcoin/faq.html")
   }
 
   async fn bounties() -> Redirect {
-    Redirect::to("https://docs.ordinals.com/bounty/")
+    Redirect::to("https://groestlcoin.github.io/ord-groestlcoin/bounties.html")
   }
 
   async fn content(
@@ -916,7 +916,7 @@ mod tests {
   use {super::*, reqwest::Url, std::net::TcpListener};
 
   struct TestServer {
-    bitcoin_rpc_server: test_bitcoincore_rpc::Handle,
+    bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
     index: Arc<Index>,
     ord_server_handle: Handle,
     url: Url,
@@ -934,18 +934,23 @@ mod tests {
     }
 
     fn new_with_args(ord_args: &[&str], server_args: &[&str]) -> Self {
-      Self::new_server(test_bitcoincore_rpc::spawn(), None, ord_args, server_args)
+      Self::new_server(
+        test_groestlcoincore_rpc::spawn(),
+        None,
+        ord_args,
+        server_args,
+      )
     }
 
     fn new_with_bitcoin_rpc_server_and_config(
-      bitcoin_rpc_server: test_bitcoincore_rpc::Handle,
+      bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
       config: String,
     ) -> Self {
       Self::new_server(bitcoin_rpc_server, Some(config), &[], &[])
     }
 
     fn new_server(
-      bitcoin_rpc_server: test_bitcoincore_rpc::Handle,
+      bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
       config: Option<String>,
       ord_args: &[&str],
       server_args: &[&str],
@@ -1083,7 +1088,7 @@ mod tests {
       assert_eq!(response.headers().get(header::LOCATION).unwrap(), location);
     }
 
-    fn mine_blocks(&self, n: u64) -> Vec<bitcoin::Block> {
+    fn mine_blocks(&self, n: u64) -> Vec<groestlcoin::Block> {
       let blocks = self.bitcoin_rpc_server.mine_blocks(n);
       self.index.update().unwrap();
       blocks
@@ -1279,7 +1284,7 @@ mod tests {
   fn install_sh_redirects_to_github() {
     TestServer::new().assert_redirect(
       "/install.sh",
-      "https://raw.githubusercontent.com/casey/ord/master/install.sh",
+      "https://raw.githubusercontent.com/Groestlcoin/ord-groestlcoin/master/install.sh",
     );
   }
 
@@ -1290,12 +1295,18 @@ mod tests {
 
   #[test]
   fn bounties_redirects_to_docs_site() {
-    TestServer::new().assert_redirect("/bounties", "https://docs.ordinals.com/bounty/");
+    TestServer::new().assert_redirect(
+      "/bounties",
+      "https://groestlcoin.github.io/ord-groestlcoin/bounties.html",
+    );
   }
 
   #[test]
   fn faq_redirects_to_docs_site() {
-    TestServer::new().assert_redirect("/faq", "https://docs.ordinals.com/faq/");
+    TestServer::new().assert_redirect(
+      "/faq",
+      "https://groestlcoin.github.io/ord-groestlcoin/faq.html",
+    );
   }
 
   #[test]
@@ -1324,8 +1335,8 @@ mod tests {
   #[test]
   fn search_for_blockhash_returns_block() {
     TestServer::new().assert_redirect(
-      "/search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
-      "/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+      "/search/00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023",
+      "/block/00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023",
     );
   }
 
@@ -1426,7 +1437,7 @@ mod tests {
     TestServer::new().assert_response_regex(
       "/range/0/1",
       StatusCode::OK,
-      r".*<title>Sat range 0–1</title>.*<h1>Sat range 0–1</h1>
+      r".*<title>Gro range 0–1</title>.*<h1>Gro range 0–1</h1>
 <dl>
   <dt>value</dt><dd>1</dd>
   <dt>first</dt><dd><a href=/sat/0 class=mythic>0</a></dd>
@@ -1435,17 +1446,17 @@ mod tests {
   }
   #[test]
   fn sat_number() {
-    TestServer::new().assert_response_regex("/sat/0", StatusCode::OK, ".*<h1>Sat 0</h1>.*");
+    TestServer::new().assert_response_regex("/sat/0", StatusCode::OK, ".*<h1>Gro 0</h1>.*");
   }
 
   #[test]
   fn sat_decimal() {
-    TestServer::new().assert_response_regex("/sat/0.0", StatusCode::OK, ".*<h1>Sat 0</h1>.*");
+    TestServer::new().assert_response_regex("/sat/0.0", StatusCode::OK, ".*<h1>Gro 0</h1>.*");
   }
 
   #[test]
   fn sat_degree() {
-    TestServer::new().assert_response_regex("/sat/0°0′0″0‴", StatusCode::OK, ".*<h1>Sat 0</h1>.*");
+    TestServer::new().assert_response_regex("/sat/0°0′0″0‴", StatusCode::OK, ".*<h1>Gro 0</h1>.*");
   }
 
   #[test]
@@ -1453,7 +1464,7 @@ mod tests {
     TestServer::new().assert_response_regex(
       "/sat/nvtdijuwxlp",
       StatusCode::OK,
-      ".*<h1>Sat 0</h1>.*",
+      ".*<h1>Gro 8400000002310000</h1>.*",
     );
   }
 
@@ -1462,7 +1473,7 @@ mod tests {
     TestServer::new().assert_response_regex(
       "/sat/0",
       StatusCode::OK,
-      ".*<title>Sat 0</title>.*<h1>Sat 0</h1>.*",
+      ".*<title>Gro 0</title>.*<h1>Gro 0</h1>.*",
     );
   }
 
@@ -1478,7 +1489,7 @@ mod tests {
   #[test]
   fn sat_out_of_range() {
     TestServer::new().assert_response(
-      "/sat/2099999997690000",
+      "/sat/10500000000000000",
       StatusCode::BAD_REQUEST,
       "Invalid URL: invalid sat",
     );
@@ -1495,18 +1506,18 @@ mod tests {
 
   #[test]
   fn output_with_sat_index() {
-    let txid = "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b";
+    let txid = "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb";
     TestServer::new_with_sat_index().assert_response_regex(
       format!("/output/{txid}:0"),
       StatusCode::OK,
       format!(
         ".*<title>Output {txid}:0</title>.*<h1>Output <span class=monospace>{txid}:0</span></h1>
 <dl>
-  <dt>value</dt><dd>5000000000</dd>
+  <dt>value</dt><dd>0</dd>
   <dt>script pubkey</dt><dd class=monospace>OP_PUSHBYTES_65 [[:xdigit:]]{{130}} OP_CHECKSIG</dd>
   <dt>transaction</dt><dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
 </dl>
-<h2>1 Sat Range</h2>
+<h2>0 Gro Ranges</h2>
 <ul class=monospace>
   <li><a href=/range/0/5000000000 class=mythic>0–5000000000</a></li>
 </ul>.*"
@@ -1516,14 +1527,14 @@ mod tests {
 
   #[test]
   fn output_without_sat_index() {
-    let txid = "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b";
+    let txid = "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb";
     TestServer::new().assert_response_regex(
       format!("/output/{txid}:0"),
       StatusCode::OK,
       format!(
         ".*<title>Output {txid}:0</title>.*<h1>Output <span class=monospace>{txid}:0</span></h1>
 <dl>
-  <dt>value</dt><dd>5000000000</dd>
+  <dt>value</dt><dd>0</dd>
   <dt>script pubkey</dt><dd class=monospace>OP_PUSHBYTES_65 [[:xdigit:]]{{130}} OP_CHECKSIG</dd>
   <dt>transaction</dt><dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
 </dl>.*"
@@ -1540,11 +1551,11 @@ mod tests {
       format!(
         ".*<title>Output {txid}:4294967295</title>.*<h1>Output <span class=monospace>{txid}:4294967295</span></h1>
 <dl>
-  <dt>value</dt><dd>0</dd>
+  <dt>value</dt><dd>5000000000</dd>
   <dt>script pubkey</dt><dd class=monospace></dd>
   <dt>transaction</dt><dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
 </dl>
-<h2>0 Sat Ranges</h2>
+<h2>1 Gro Range</h2>
 <ul class=monospace>
 </ul>.*"
       ),
@@ -1565,11 +1576,11 @@ mod tests {
       format!(
         ".*<title>Output {txid}:4294967295</title>.*<h1>Output <span class=monospace>{txid}:4294967295</span></h1>
 <dl>
-  <dt>value</dt><dd>5000000000</dd>
+  <dt>value</dt><dd>10000000000</dd>
   <dt>script pubkey</dt><dd class=monospace></dd>
   <dt>transaction</dt><dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
 </dl>
-<h2>1 Sat Range</h2>
+<h2>2 Gro Ranges</h2>
 <ul class=monospace>
   <li><a href=/range/5000000000/10000000000 class=uncommon>5000000000–10000000000</a></li>
 </ul>.*"
@@ -1608,7 +1619,7 @@ mod tests {
 <h2>Latest Blocks</h2>
 <ol start=1 reversed class=blocks>
   <li><a href=/block/[[:xdigit:]]{64}>[[:xdigit:]]{64}</a></li>
-  <li><a href=/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f>000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</a></li>
+  <li><a href=/block/00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023>00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023</a></li>
 </ol>.*",
   );
   }
@@ -1649,7 +1660,7 @@ mod tests {
     TestServer::new().assert_response_regex(
       "/sat/0",
       StatusCode::OK,
-      ".*<dt>timestamp</dt><dd><time>2009-01-03 18:15:05 UTC</time></dd>.*",
+      ".*<dt>timestamp</dt><dd><time>2014-03-20 19:13:49 UTC</time></dd>.*",
     );
   }
 
@@ -1765,7 +1776,7 @@ mod tests {
       "/rare.txt",
       StatusCode::OK,
       "sat\tsatpoint
-0\t4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0:0
+0\t3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0:0
 ",
     );
   }
@@ -1775,7 +1786,7 @@ mod tests {
     TestServer::new().assert_response(
       "/rare.txt",
       StatusCode::NOT_FOUND,
-      "tracking rare sats requires index created with `--index-sats` flag",
+      "tracking rare gros requires index created with `--index-sats` flag",
     );
   }
 
@@ -1796,7 +1807,7 @@ mod tests {
     TestServer::new_with_sat_index().assert_response_regex(
       "/sat/0",
       StatusCode::OK,
-      ".*>4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0:0<.*",
+      ".*>3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0:0<.*",
     );
   }
 
@@ -1816,7 +1827,7 @@ mod tests {
     TestServer::new().assert_response_regex(
       "/input/0/0/0",
       StatusCode::OK,
-      ".*<title>Input /0/0/0</title>.*<h1>Input /0/0/0</h1>.*<dt>text</dt><dd>.*The Times 03/Jan/2009 Chancellor on brink of second bailout for banks</dd>.*",
+      ".*<title>Input /0/0/0</title>.*<h1>Input /0/0/0</h1>.*<dt>text</dt><dd>.*Pressure must be put on Vladimir Putin over Crimea</dd>.*",
     );
   }
 
@@ -2228,7 +2239,7 @@ mod tests {
     server.assert_response_regex(
       format!("/inscription/{}", InscriptionId::from(txid)),
       StatusCode::OK,
-      r".*<dt>sat</dt>\s*<dd><a href=/sat/5000000000>5000000000</a></dd>\s*<dt>preview</dt>.*",
+      r".*<dt>gro</dt>\s*<dd><a href=/sat/5000000000>5000000000</a></dd>\s*<dt>preview</dt>.*",
     );
   }
 
@@ -2449,7 +2460,7 @@ mod tests {
 
   #[test]
   fn inscriptions_can_be_hidden_with_config() {
-    let bitcoin_rpc_server = test_bitcoincore_rpc::spawn();
+    let bitcoin_rpc_server = test_groestlcoincore_rpc::spawn();
     bitcoin_rpc_server.mine_blocks(1);
     let txid = bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0)],

@@ -22,7 +22,7 @@ impl Find {
         print_json(Output { satpoint })?;
         Ok(())
       }
-      None => Err(anyhow!("sat has not been mined as of index height")),
+      None => Err(anyhow!("gro has not been mined as of index height")),
     }
   }
 }

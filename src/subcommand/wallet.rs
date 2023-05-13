@@ -1,15 +1,15 @@
 use {
   super::*,
-  bitcoin::secp256k1::{
+  fee_rate::FeeRate,
+  groestlcoin::secp256k1::{
     rand::{self, RngCore},
     All, Secp256k1,
   },
-  bitcoin::{
+  groestlcoin::{
     util::bip32::{ChildNumber, DerivationPath, ExtendedPrivKey, Fingerprint},
     Network,
   },
-  bitcoincore_rpc::bitcoincore_rpc_json::{ImportDescriptors, Timestamp},
-  fee_rate::FeeRate,
+  groestlcoincore_rpc::groestlcoincore_rpc_json::{ImportDescriptors, Timestamp},
   miniscript::descriptor::{Descriptor, DescriptorSecretKey, DescriptorXKey, Wildcard},
   transaction_builder::TransactionBuilder,
 };
@@ -41,9 +41,9 @@ pub(crate) enum Wallet {
   Receive,
   #[clap(about = "Restore wallet")]
   Restore(restore::Restore),
-  #[clap(about = "List wallet satoshis")]
+  #[clap(about = "List wallet gros")]
   Sats(sats::Sats),
-  #[clap(about = "Send sat or inscription")]
+  #[clap(about = "Send gro or inscription")]
   Send(send::Send),
   #[clap(about = "See wallet transactions")]
   Transactions(transactions::Transactions),
@@ -92,7 +92,7 @@ pub(crate) fn initialize_wallet(options: &Options, seed: [u8; 64]) -> Result {
   let derivation_path = DerivationPath::master()
     .child(ChildNumber::Hardened { index: 86 })
     .child(ChildNumber::Hardened {
-      index: u32::from(network != Network::Bitcoin),
+      index: u32::from(network != Network::Groestlcoin),
     })
     .child(ChildNumber::Hardened { index: 0 });
 

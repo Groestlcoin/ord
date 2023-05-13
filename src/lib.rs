@@ -32,18 +32,18 @@ use {
   },
   anyhow::{anyhow, bail, Context, Error},
   bip39::Mnemonic,
-  bitcoin::{
+  chain::Chain,
+  chrono::{DateTime, TimeZone, Utc},
+  clap::{ArgGroup, Parser},
+  derive_more::{Display, FromStr},
+  groestlcoin::{
     blockdata::constants::COIN_VALUE,
     consensus::{self, Decodable, Encodable},
     hash_types::BlockHash,
     hashes::Hash,
     Address, Amount, Block, Network, OutPoint, Script, Sequence, Transaction, TxIn, TxOut, Txid,
   },
-  bitcoincore_rpc::{Client, RpcApi},
-  chain::Chain,
-  chrono::{DateTime, TimeZone, Utc},
-  clap::{ArgGroup, Parser},
-  derive_more::{Display, FromStr},
+  groestlcoincore_rpc::{Client, RpcApi},
   html_escaper::{Escape, Trusted},
   lazy_static::lazy_static,
   regex::Regex,
@@ -123,9 +123,9 @@ mod wallet;
 
 type Result<T = (), E = Error> = std::result::Result<T, E>;
 
-const DIFFCHANGE_INTERVAL: u64 = bitcoin::blockdata::constants::DIFFCHANGE_INTERVAL as u64;
+const DIFFCHANGE_INTERVAL: u64 = groestlcoin::blockdata::constants::DIFFCHANGE_INTERVAL as u64;
 const SUBSIDY_HALVING_INTERVAL: u64 =
-  bitcoin::blockdata::constants::SUBSIDY_HALVING_INTERVAL as u64;
+  groestlcoin::blockdata::constants::SUBSIDY_HALVING_INTERVAL as u64;
 const CYCLE_EPOCHS: u64 = 6;
 
 static INTERRUPTS: AtomicU64 = AtomicU64::new(0);

@@ -2,7 +2,7 @@
 //!
 //! Ordinal-aware transaction construction has additional invariants,
 //! constraints, and concerns in addition to those of normal, non-ordinal-aware
-//! Bitcoin transactions.
+//! Groestlcoin transactions.
 //!
 //! This module contains a `TransactionBuilder` struct that facilitates
 //! constructing ordinal-aware transactions that take these additional
@@ -11,12 +11,12 @@
 //! The external interfaces are
 //! `TransactionBuilder::build_transaction_with_postage`, and
 //! `TransactionBuilder::build_transaction_with_value`. Both return a
-//! constructed transaction given the arguments, which include the outgoing sat
-//! to send, the wallets current UTXOs and their sat ranges, and the
+//! constructed transaction given the arguments, which include the outgoing gro
+//! to send, the wallets current UTXOs and their gro ranges, and the
 //! recipient's address.
 //!
 //! `TransactionBuilder::build_transaction_with_postage` ensures that the
-//! outgoing value is at most 20,000 sats, reducing it to 10,000 sats if coin
+//! outgoing value is at most 20,000 gros, reducing it to 10,000 gros if coin
 //! selection requires adding excess value.
 //!
 //! `TransactionBuilder::build_transaction_with_value` ensures that the
@@ -34,7 +34,7 @@
 
 use {
   super::*,
-  bitcoin::{
+  groestlcoin::{
     blockdata::{locktime::PackedLockTime, witness::Witness},
     util::amount::Amount,
   },
@@ -258,7 +258,7 @@ impl TransactionBuilder {
     if sat_offset == 0 {
       tprintln!("outgoing is aligned");
     } else {
-      tprintln!("aligned outgoing with {sat_offset} sat padding output");
+      tprintln!("aligned outgoing with {sat_offset} gro padding output");
       self.outputs.insert(
         0,
         (
@@ -287,7 +287,7 @@ impl TransactionBuilder {
         self.inputs.insert(0, utxo);
         self.outputs[0].1 += size;
         tprintln!(
-          "padded alignment output to {} with additional {size} sat input",
+          "padded alignment output to {} with additional {size} gro input",
           self.outputs[0].1
         );
       }
@@ -316,7 +316,7 @@ impl TransactionBuilder {
         let (utxo, value) = self.select_cardinal_utxo(needed)?;
         self.inputs.push(utxo);
         self.outputs.last_mut().unwrap().1 += value;
-        tprintln!("added {value} sat input to cover {deficit} sat deficit");
+        tprintln!("added {value} gro input to cover {deficit} gro deficit");
       }
     }
 
@@ -358,7 +358,7 @@ impl TransactionBuilder {
               .fee_rate
               .fee(self.estimate_vbytes() + Self::ADDITIONAL_OUTPUT_VBYTES)
       {
-        tprintln!("stripped {} sats", (value - target).to_sat());
+        tprintln!("stripped {} gros", (value - target).to_sat());
         self.outputs.last_mut().expect("no outputs found").1 = target;
         self.outputs.push((
           self
@@ -391,7 +391,7 @@ impl TransactionBuilder {
 
     assert!(
       total_output_amount.checked_sub(fee).unwrap() > Amount::from_sat(sat_offset),
-      "invariant: deducting fee does not consume sat",
+      "invariant: deducting fee does not consume gro",
     );
 
     assert!(
@@ -482,7 +482,7 @@ impl TransactionBuilder {
           && self.outgoing.offset < amount.to_sat())
         .count(),
       1,
-      "invariant: outgoing sat is contained in utxos"
+      "invariant: outgoing gro is contained in utxos"
     );
 
     assert_eq!(
@@ -492,7 +492,7 @@ impl TransactionBuilder {
         .filter(|tx_in| tx_in.previous_output == self.outgoing.outpoint)
         .count(),
       1,
-      "invariant: inputs spend outgoing sat"
+      "invariant: inputs spend outgoing gro"
     );
 
     let mut sat_offset = 0;
@@ -506,7 +506,7 @@ impl TransactionBuilder {
         sat_offset += self.amounts[&tx_in.previous_output].to_sat();
       }
     }
-    assert!(found, "invariant: outgoing sat is found in inputs");
+    assert!(found, "invariant: outgoing gro is found in inputs");
 
     let mut output_end = 0;
     let mut found = false;
@@ -515,13 +515,13 @@ impl TransactionBuilder {
       if output_end > sat_offset {
         assert_eq!(
           tx_out.script_pubkey, recipient,
-          "invariant: outgoing sat is sent to recipient"
+          "invariant: outgoing gro is sent to recipient"
         );
         found = true;
         break;
       }
     }
-    assert!(found, "invariant: outgoing sat is found in outputs");
+    assert!(found, "invariant: outgoing gro is found in outputs");
 
     assert_eq!(
       transaction
@@ -574,7 +574,7 @@ impl TransactionBuilder {
         }
         assert_eq!(
           offset, sat_offset,
-          "invariant: sat is at first position in recipient output"
+          "invariant: gro is at first position in recipient output"
         );
       } else {
         assert!(
@@ -628,7 +628,7 @@ impl TransactionBuilder {
       }
     }
 
-    panic!("Could not find outgoing sat in inputs");
+    panic!("Could not find outgoing gro in inputs");
   }
 
   fn select_cardinal_utxo(&mut self, minimum_value: Amount) -> Result<(OutPoint, Amount)> {
@@ -780,7 +780,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: deducting fee does not consume sat")]
+  #[should_panic(expected = "invariant: deducting fee does not consume gro")]
   fn invariant_deduct_fee_does_not_consume_sat() {
     let utxos = vec![(outpoint(1), Amount::from_sat(5_000))];
 
@@ -893,7 +893,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: outgoing sat is contained in utxos")]
+  #[should_panic(expected = "invariant: outgoing gro is contained in utxos")]
   fn invariant_satpoint_outpoint_is_contained_in_utxos() {
     TransactionBuilder::new(
       satpoint(2, 0),
@@ -912,7 +912,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: outgoing sat is contained in utxos")]
+  #[should_panic(expected = "invariant: outgoing gro is contained in utxos")]
   fn invariant_satpoint_offset_is_contained_in_utxos() {
     TransactionBuilder::new(
       satpoint(1, 4),
@@ -931,7 +931,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: inputs spend outgoing sat")]
+  #[should_panic(expected = "invariant: inputs spend outgoing gro")]
   fn invariant_inputs_spend_sat() {
     TransactionBuilder::new(
       satpoint(1, 2),
@@ -950,7 +950,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: outgoing sat is sent to recipient")]
+  #[should_panic(expected = "invariant: outgoing gro is sent to recipient")]
   fn invariant_sat_is_sent_to_recipient() {
     let mut builder = TransactionBuilder::new(
       satpoint(1, 2),
@@ -967,7 +967,7 @@ mod tests {
     .select_outgoing()
     .unwrap();
 
-    builder.outputs[0].0 = "tb1qx4gf3ya0cxfcwydpq8vr2lhrysneuj5d7lqatw"
+    builder.outputs[0].0 = "tgrs1qx4gf3ya0cxfcwydpq8vr2lhrysneuj5d76yx6k"
       .parse()
       .unwrap();
 
@@ -975,7 +975,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: outgoing sat is found in outputs")]
+  #[should_panic(expected = "invariant: outgoing gro is found in outputs")]
   fn invariant_sat_is_found_in_outputs() {
     let mut builder = TransactionBuilder::new(
       satpoint(1, 2),
@@ -1145,7 +1145,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic(expected = "invariant: sat is at first position in recipient output")]
+  #[should_panic(expected = "invariant: gro is at first position in recipient output")]
   fn invariant_sat_is_aligned() {
     let utxos = vec![(outpoint(1), Amount::from_sat(10_000))];
 
@@ -1443,7 +1443,7 @@ mod tests {
     let after = TransactionBuilder::estimate_vbytes_with(
       0,
       vec![
-        "bc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqxrdu9k"
+        "grs1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqfcjs2j"
           .parse()
           .unwrap(),
       ],

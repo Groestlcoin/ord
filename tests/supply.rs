@@ -5,10 +5,10 @@ fn genesis() {
   assert_eq!(
     CommandBuilder::new("supply").output::<Output>(),
     Output {
-      supply: 2099999997690000,
+      supply: 10500000000000000,
       first: 0,
-      last: 2099999997689999,
-      last_mined_in_block: 6929999
+      last: 10500000000000000,
+      last_mined_in_block: 46199999
     }
   );
 }

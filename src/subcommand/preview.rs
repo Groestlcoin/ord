@@ -21,15 +21,15 @@ impl Preview {
 
     let rpc_port = TcpListener::bind("127.0.0.1:0")?.local_addr()?.port();
 
-    let bitcoin_data_dir = tmpdir.path().join("bitcoin");
+    let groestlcoin_data_dir = tmpdir.path().join("groestlcoin");
 
-    fs::create_dir(&bitcoin_data_dir)?;
+    fs::create_dir(&groestlcoin_data_dir)?;
 
-    let _bitcoind = KillOnDrop(
-      Command::new("bitcoind")
+    let _groestlcoind = KillOnDrop(
+      Command::new("groestlcoind")
         .arg({
           let mut arg = OsString::from("-datadir=");
-          arg.push(&bitcoin_data_dir);
+          arg.push(&groestlcoin_data_dir);
           arg
         })
         .arg("-regtest")
@@ -37,12 +37,12 @@ impl Preview {
         .arg("-listen=0")
         .arg(format!("-rpcport={rpc_port}"))
         .spawn()
-        .context("failed to spawn `bitcoind`")?,
+        .context("failed to spawn `groestlcoind`")?,
     );
 
     let options = Options {
       chain_argument: Chain::Regtest,
-      bitcoin_data_dir: Some(bitcoin_data_dir),
+      groestlcoin_data_dir: Some(groestlcoin_data_dir),
       data_dir: Some(tmpdir.path().into()),
       rpc_url: Some(format!("127.0.0.1:{rpc_port}")),
       index_sats: true,
@@ -55,7 +55,7 @@ impl Preview {
       }
 
       if attempt == 100 {
-        panic!("Bitcoin Core RPC did not respond");
+        panic!("Groestlcoin Core RPC did not respond");
       }
 
       thread::sleep(Duration::from_millis(50));
@@ -69,7 +69,7 @@ impl Preview {
     let rpc_client = options.bitcoin_rpc_client_for_wallet_command(false)?;
 
     let address =
-      rpc_client.get_new_address(None, Some(bitcoincore_rpc::json::AddressType::Bech32m))?;
+      rpc_client.get_new_address(None, Some(groestlcoincore_rpc::json::AddressType::Bech32m))?;
 
     rpc_client.generate_to_address(101, &address)?;
 

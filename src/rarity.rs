@@ -126,7 +126,7 @@ mod tests {
     );
 
     assert_eq!(Sat(2067187500000000 - 1).rarity(), Rarity::Common);
-    assert_eq!(Sat(2067187500000000).rarity(), Rarity::Legendary);
+    assert_eq!(Sat(2067187500000000).rarity(), Rarity::Common);
     assert_eq!(Sat(2067187500000000 + 1).rarity(), Rarity::Common);
   }
 

@@ -5,7 +5,7 @@ use {
 
 #[test]
 fn inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -24,7 +24,7 @@ fn inscriptions() {
   assert_eq!(output[0].location, format!("{reveal}:0:0").parse().unwrap());
   assert_eq!(
     output[0].explorer,
-    format!("https://ordinals.com/inscription/{inscription}")
+    format!("https://ordinals.groestlcoin.org/inscription/{inscription}")
   );
 
   let address = CommandBuilder::new("wallet receive")
@@ -53,7 +53,7 @@ fn inscriptions() {
 
 #[test]
 fn inscriptions_includes_locked_utxos() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(1);

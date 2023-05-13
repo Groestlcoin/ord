@@ -5,7 +5,7 @@ use {
 
 #[test]
 fn cardinals() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   // this creates 2 more cardinal outputs and one inscribed output

@@ -2,7 +2,7 @@
 
 use {
   api::Api,
-  bitcoin::{
+  groestlcoin::{
     blockdata::constants::COIN_VALUE,
     blockdata::script,
     consensus::encode::{deserialize, serialize},
@@ -12,7 +12,7 @@ use {
     Address, Amount, Block, BlockHeader, Network, OutPoint, PackedLockTime, Script, Sequence,
     Transaction, TxIn, TxMerkleNode, TxOut, Txid, Witness, Wtxid,
   },
-  bitcoincore_rpc::json::{
+  groestlcoincore_rpc::json::{
     Bip125Replaceable, CreateRawTransactionInput, Descriptor, EstimateMode, GetBalancesResult,
     GetBalancesResultEntry, GetBlockHeaderResult, GetBlockchainInfoResult, GetDescriptorInfoResult,
     GetNetworkInfoResult, GetRawTransactionResult, GetTransactionResult,
@@ -40,7 +40,7 @@ mod state;
 pub fn builder() -> Builder {
   Builder {
     fail_lock_unspent: false,
-    network: Network::Bitcoin,
+    network: Network::Groestlcoin,
     version: 240000,
   }
 }
@@ -130,7 +130,7 @@ pub struct Sent {
 
 #[derive(Serialize, Deserialize)]
 pub struct JsonOutPoint {
-  txid: bitcoin::Txid,
+  txid: groestlcoin::Txid,
   vout: u32,
 }
 
@@ -224,7 +224,7 @@ impl Handle {
 
   pub fn network(&self) -> String {
     match self.state().network {
-      Network::Bitcoin => "mainnet".to_string(),
+      Network::Groestlcoin => "mainnet".to_string(),
       Network::Testnet => Network::Testnet.to_string(),
       Network::Signet => Network::Signet.to_string(),
       Network::Regtest => Network::Regtest.to_string(),

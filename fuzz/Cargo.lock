@@ -1872,7 +1872,7 @@ dependencies = [
  "mime",
  "mime_guess",
  "miniscript",
- "ord-bitcoincore-rpc",
+ "groestlcoincore-rpc",
  "pulldown-cmark",
  "redb",
  "regex",
@@ -1891,19 +1891,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "ord-bitcoincore-rpc"
+name = "groestlcoincore-rpc"
 version = "0.16.4"
 source = "git+https://github.com/casey/rust-bitcoincore-rpc?branch=ord#1bc2638f5a3049495a7aa953c4c6dac44fd1524b"
 dependencies = [
  "jsonrpc",
  "log",
- "ord-bitcoincore-rpc-json",
+ "groestlcoincore-rpc-json",
  "serde",
  "serde_json",
 ]
 
 [[package]]
-name = "ord-bitcoincore-rpc-json"
+name = "groestlcoincore-rpc-json"
 version = "0.16.4"
 source = "git+https://github.com/casey/rust-bitcoincore-rpc?branch=ord#1bc2638f5a3049495a7aa953c4c6dac44fd1524b"
 dependencies = [

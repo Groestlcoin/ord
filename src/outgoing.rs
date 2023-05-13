@@ -56,13 +56,13 @@ mod tests {
     );
 
     assert_eq!(
-      "0 sat".parse::<Outgoing>().unwrap(),
-      Outgoing::Amount("0 sat".parse().unwrap()),
+      "0 gro".parse::<Outgoing>().unwrap(),
+      Outgoing::Amount("0 gro".parse().unwrap()),
     );
 
     assert_eq!(
-      "0sat".parse::<Outgoing>().unwrap(),
-      Outgoing::Amount("0 sat".parse().unwrap()),
+      "0gro".parse::<Outgoing>().unwrap(),
+      Outgoing::Amount("0 gro".parse().unwrap()),
     );
 
     assert!("0".parse::<Outgoing>().is_err());

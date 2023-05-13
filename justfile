@@ -30,13 +30,13 @@ deploy branch chain domain:
 
 deploy-all: deploy-testnet deploy-signet deploy-mainnet
 
-deploy-mainnet branch="master": (deploy branch "main" "ordinals.net")
+deploy-mainnet branch="master": (deploy branch "main" "ordinals.groestlcoin.org")
 
-deploy-signet branch="master": (deploy branch "signet" "signet.ordinals.net")
+deploy-signet branch="master": (deploy branch "signet" "ordinals-signet.groestlcoin.org")
 
-deploy-testnet branch="master": (deploy branch "test" "testnet.ordinals.net")
+deploy-testnet branch="master": (deploy branch "test" "ordinals-test.groestlcoin.org")
 
-log unit="ord" domain="ordinals.net":
+log unit="ord" domain="ordinals.groestlcoin.org":
   ssh root@{{domain}} 'journalctl -fu {{unit}}'
 
 test-deploy:
@@ -83,7 +83,7 @@ publish revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
   rm -rf tmp/release
-  git clone git@github.com:casey/ord.git tmp/release
+  git clone git@github.com:Groestlcoin/ord-groestlcoin.git tmp/release
   cd tmp/release
   git checkout {{ revision }}
   VERSION=`sed -En 's/version[[:space:]]*=[[:space:]]*"([^"]+)"/\1/p' Cargo.toml | head -1`
@@ -95,18 +95,18 @@ publish revision='master':
 
 list-outdated-dependencies:
   cargo outdated -R
-  cd test-bitcoincore-rpc && cargo outdated -R
+  cd test-groestlcoincore-rpc && cargo outdated -R
 
 update-modern-normalize:
   curl \
     https://raw.githubusercontent.com/sindresorhus/modern-normalize/main/modern-normalize.css \
     > static/modern-normalize.css
 
-download-log unit='ord' host='ordinals.net':
+download-log unit='ord' host='ordinals.groestlcoin.org':
   ssh root@{{host}} 'mkdir -p tmp && journalctl -u {{unit}} > tmp/{{unit}}.log'
   rsync --progress --compress root@{{host}}:tmp/{{unit}}.log tmp/{{unit}}.log
 
-download-index unit='ord' host='ordinals.net':
+download-index unit='ord' host='ordinals.groestlcoin.org':
   rsync --progress --compress root@{{host}}:/var/lib/{{unit}}/index.redb tmp/{{unit}}.index.redb
 
 graph log:
@@ -119,12 +119,12 @@ benchmark index height-limit:
   ./bin/benchmark $1 $2
 
 benchmark-revision rev:
-  ssh root@ordinals.net "mkdir -p benchmark \
+  ssh root@ordinals.groestlcoin.org "mkdir -p benchmark \
     && apt-get update --yes \
     && apt-get upgrade --yes \
     && apt-get install --yes git rsync"
-  rsync -avz benchmark/checkout root@ordinals.net:benchmark/checkout
-  ssh root@ordinals.net 'cd benchmark && ./checkout {{rev}}'
+  rsync -avz benchmark/checkout root@ordinals.groestlcoin.org:benchmark/checkout
+  ssh root@ordinals.groestlcoin.org 'cd benchmark && ./checkout {{rev}}'
 
 build-snapshots:
   #!/usr/bin/env bash

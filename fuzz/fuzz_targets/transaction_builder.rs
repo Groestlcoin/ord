@@ -2,7 +2,7 @@
 
 use {
   arbitrary::Arbitrary,
-  bitcoin::{Amount, OutPoint},
+  groestlcoin::{Amount, OutPoint},
   libfuzzer_sys::fuzz_target,
   ord::{FeeRate, SatPoint, TransactionBuilder},
   std::collections::BTreeMap,
@@ -43,15 +43,15 @@ fuzz_target!(|input: Input| {
     );
   }
 
-  let recipient = "bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6"
+  let recipient = "grs1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyswje5r7"
     .parse()
     .unwrap();
 
   let change = [
-    "bc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqxrdu9k"
+    "grs1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqfcjs2j"
       .parse()
       .unwrap(),
-    "bc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqxrdu9k"
+    "grs1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqfcjs2j"
       .parse()
       .unwrap(),
   ];

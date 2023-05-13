@@ -36,7 +36,7 @@ impl PageContent for TransactionHtml {
 mod tests {
   use {
     super::*,
-    bitcoin::{blockdata::script, PackedLockTime, TxOut},
+    groestlcoin::{blockdata::script, PackedLockTime, TxOut},
   };
 
   #[test]

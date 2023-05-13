@@ -5,7 +5,7 @@ use {
 
 #[test]
 fn sats() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   let second_coinbase = rpc_server.mine_blocks(1)[0].txdata[0].txid();
 
@@ -19,7 +19,7 @@ fn sats() {
 
 #[test]
 fn sats_from_tsv_success() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   let second_coinbase = rpc_server.mine_blocks(1)[0].txdata[0].txid();
 
@@ -34,7 +34,7 @@ fn sats_from_tsv_success() {
 
 #[test]
 fn sats_from_tsv_parse_error() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   CommandBuilder::new("wallet sats --tsv foo.tsv")
@@ -42,14 +42,14 @@ fn sats_from_tsv_parse_error() {
     .rpc_server(&rpc_server)
     .expected_exit_code(1)
     .expected_stderr(
-      "error: failed to parse sat from string \"===\" on line 1: invalid digit found in string\n",
+      "error: failed to parse gro from string \"===\" on line 1: invalid digit found in string\n",
     )
     .run();
 }
 
 #[test]
 fn sats_from_tsv_file_not_found() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   CommandBuilder::new("wallet sats --tsv foo.tsv")
     .rpc_server(&rpc_server)

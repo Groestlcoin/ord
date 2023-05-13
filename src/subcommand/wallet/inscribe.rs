@@ -1,7 +1,7 @@
 use {
   super::*,
   crate::wallet::Wallet,
-  bitcoin::{
+  groestlcoin::{
     blockdata::{opcodes, script},
     policy::MAX_STANDARD_TX_WEIGHT,
     schnorr::{TapTweak, TweakedKeyPair, TweakedPublicKey, UntweakedKeyPair},
@@ -13,8 +13,8 @@ use {
     util::taproot::{ControlBlock, LeafVersion, TapLeafHash, TaprootBuilder},
     PackedLockTime, SchnorrSighashType, Witness,
   },
-  bitcoincore_rpc::bitcoincore_rpc_json::{ImportDescriptors, Timestamp},
-  bitcoincore_rpc::Client,
+  groestlcoincore_rpc::groestlcoincore_rpc_json::{ImportDescriptors, Timestamp},
+  groestlcoincore_rpc::Client,
   std::collections::BTreeSet,
 };
 
@@ -30,20 +30,20 @@ struct Output {
 pub(crate) struct Inscribe {
   #[clap(long, help = "Inscribe <SATPOINT>")]
   pub(crate) satpoint: Option<SatPoint>,
-  #[clap(long, help = "Use fee rate of <FEE_RATE> sats/vB")]
+  #[clap(long, help = "Use fee rate of <FEE_RATE> gros/vB")]
   pub(crate) fee_rate: FeeRate,
   #[clap(
     long,
-    help = "Use <COMMIT_FEE_RATE> sats/vbyte for commit transaction.\nDefaults to <FEE_RATE> if unset."
+    help = "Use <COMMIT_FEE_RATE> gros/vbyte for commit transaction.\nDefaults to <FEE_RATE> if unset."
   )]
   pub(crate) commit_fee_rate: Option<FeeRate>,
-  #[clap(help = "Inscribe sat with contents of <FILE>")]
+  #[clap(help = "Inscribe gro with contents of <FILE>")]
   pub(crate) file: PathBuf,
   #[clap(long, help = "Do not back up recovery key.")]
   pub(crate) no_backup: bool,
   #[clap(
     long,
-    help = "Do not check that transactions are equal to or below the MAX_STANDARD_TX_WEIGHT of 400,000 weight units. Transactions over this limit are currently nonstandard and will not be relayed by bitcoind in its default configuration. Do not use this flag unless you understand the implications."
+    help = "Do not check that transactions are equal to or below the MAX_STANDARD_TX_WEIGHT of 400,000 weight units. Transactions over this limit are currently nonstandard and will not be relayed by groestlcoind in its default configuration. Do not use this flag unless you understand the implications."
   )]
   pub(crate) no_limit: bool,
   #[clap(long, help = "Don't sign or broadcast transactions.")]
@@ -172,12 +172,12 @@ impl Inscribe {
 
     for (inscribed_satpoint, inscription_id) in &inscriptions {
       if inscribed_satpoint == &satpoint {
-        return Err(anyhow!("sat at {} already inscribed", satpoint));
+        return Err(anyhow!("gro at {} already inscribed", satpoint));
       }
 
       if inscribed_satpoint.outpoint == satpoint.outpoint {
         return Err(anyhow!(
-          "utxo {} already inscribed with inscription {inscription_id} on sat {inscribed_satpoint}",
+          "utxo {} already inscribed with inscription {inscription_id} on gro {inscribed_satpoint}",
           satpoint.outpoint,
         ));
       }
@@ -231,7 +231,7 @@ impl Inscribe {
       .iter()
       .enumerate()
       .find(|(_vout, output)| output.script_pubkey == commit_tx_address.script_pubkey())
-      .expect("should find sat commit/inscription output");
+      .expect("should find gro commit/inscription output");
 
     let (mut reveal_tx, fee) = Self::build_reveal_transaction(
       &control_block,
@@ -382,7 +382,7 @@ mod tests {
       Some(satpoint(1, 0)),
       inscription,
       BTreeMap::new(),
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -413,7 +413,7 @@ mod tests {
       Some(satpoint(1, 0)),
       inscription,
       BTreeMap::new(),
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -448,7 +448,7 @@ mod tests {
       satpoint,
       inscription,
       inscriptions,
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -490,7 +490,7 @@ mod tests {
       satpoint,
       inscription,
       inscriptions,
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -526,7 +526,7 @@ mod tests {
       satpoint,
       inscription,
       inscriptions,
-      bitcoin::Network::Signet,
+      groestlcoin::Network::Signet,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -588,7 +588,7 @@ mod tests {
       satpoint,
       inscription,
       inscriptions,
-      bitcoin::Network::Signet,
+      groestlcoin::Network::Signet,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -637,7 +637,7 @@ mod tests {
       satpoint,
       inscription,
       BTreeMap::new(),
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,
@@ -668,7 +668,7 @@ mod tests {
       satpoint,
       inscription,
       BTreeMap::new(),
-      Network::Bitcoin,
+      Network::Groestlcoin,
       utxos.into_iter().collect(),
       [commit_address, change(1)],
       reveal_address,

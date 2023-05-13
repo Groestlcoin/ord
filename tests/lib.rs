@@ -3,8 +3,8 @@
 use {
   self::{command_builder::CommandBuilder, expected::Expected, test_server::TestServer},
   bip39::Mnemonic,
-  bitcoin::{blockdata::constants::COIN_VALUE, Network, OutPoint, Txid},
   executable_path::executable_path,
+  groestlcoin::{blockdata::constants::COIN_VALUE, Network, OutPoint, Txid},
   pretty_assertions::assert_eq as pretty_assert_eq,
   regex::Regex,
   reqwest::{StatusCode, Url},
@@ -19,7 +19,7 @@ use {
     time::Duration,
   },
   tempfile::TempDir,
-  test_bitcoincore_rpc::Sent,
+  test_groestlcoincore_rpc::Sent,
 };
 
 macro_rules! assert_regex_match {
@@ -45,7 +45,7 @@ struct Inscribe {
   fees: u64,
 }
 
-fn inscribe(rpc_server: &test_bitcoincore_rpc::Handle) -> Inscribe {
+fn inscribe(rpc_server: &test_groestlcoincore_rpc::Handle) -> Inscribe {
   rpc_server.mine_blocks(1);
 
   let output = CommandBuilder::new("wallet inscribe --fee-rate 1 foo.txt")
@@ -63,7 +63,7 @@ struct Create {
   mnemonic: Mnemonic,
 }
 
-fn create_wallet(rpc_server: &test_bitcoincore_rpc::Handle) {
+fn create_wallet(rpc_server: &test_groestlcoincore_rpc::Handle) {
   CommandBuilder::new(format!("--chain {} wallet create", rpc_server.network()))
     .rpc_server(rpc_server)
     .output::<Create>();

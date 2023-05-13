@@ -1,6 +1,6 @@
 pub(crate) use {
-  super::*, bitcoin::Witness, pretty_assertions::assert_eq as pretty_assert_eq, std::iter,
-  test_bitcoincore_rpc::TransactionTemplate, unindent::Unindent,
+  super::*, groestlcoin::Witness, pretty_assertions::assert_eq as pretty_assert_eq, std::iter,
+  test_groestlcoincore_rpc::TransactionTemplate, unindent::Unindent,
 };
 
 macro_rules! assert_regex_match {
@@ -62,22 +62,22 @@ pub(crate) fn satpoint(n: u64, offset: u64) -> SatPoint {
 }
 
 pub(crate) fn address() -> Address {
-  "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+  "grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5"
     .parse()
     .unwrap()
 }
 
 pub(crate) fn recipient() -> Address {
-  "tb1q6en7qjxgw4ev8xwx94pzdry6a6ky7wlfeqzunz"
+  "tgrs1q6en7qjxgw4ev8xwx94pzdry6a6ky7wlfe9x8z6"
     .parse()
     .unwrap()
 }
 
 pub(crate) fn change(n: u64) -> Address {
   match n {
-    0 => "tb1qjsv26lap3ffssj6hfy8mzn0lg5vte6a42j75ww",
-    1 => "tb1qakxxzv9n7706kc3xdcycrtfv8cqv62hnwexc0l",
-    2 => "tb1qxz9yk0td0yye009gt6ayn7jthz5p07a75luryg",
+    0 => "tgrs1qjsv26lap3ffssj6hfy8mzn0lg5vte6a42h60lk",
+    1 => "tgrs1qakxxzv9n7706kc3xdcycrtfv8cqv62hnwuzr78",
+    2 => "tgrs1qxz9yk0td0yye009gt6ayn7jthz5p07a756cc4s",
     _ => panic!(),
   }
   .parse()

@@ -27,9 +27,9 @@ fn second_block() {
 #[test]
 fn second_to_last_block_with_subsidy() {
   assert_eq!(
-    CommandBuilder::new("subsidy 6929998").output::<Output>(),
+    CommandBuilder::new("subsidy 46199998").output::<Output>(),
     Output {
-      first: 2099999997689998,
+      first: 10499999999999998,
       subsidy: 1,
       name: "b".into(),
     }
@@ -39,9 +39,9 @@ fn second_to_last_block_with_subsidy() {
 #[test]
 fn last_block_with_subsidy() {
   assert_eq!(
-    CommandBuilder::new("subsidy 6929999").output::<Output>(),
+    CommandBuilder::new("subsidy 46199999").output::<Output>(),
     Output {
-      first: 2099999997689999,
+      first: 10499999999999999,
       subsidy: 1,
       name: "a".into(),
     }

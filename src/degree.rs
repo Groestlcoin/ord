@@ -58,7 +58,7 @@ mod tests {
       0,
       0,
     );
-    case(5_000_000_000 * SUBSIDY_HALVING_INTERVAL, 0, 0, 336, 0);
+    case(5_000_000_000 * SUBSIDY_HALVING_INTERVAL, 0, 0, 1680, 0);
     case(
       5_000_000_000 * SUBSIDY_HALVING_INTERVAL
         + 2_500_000_000 * SUBSIDY_HALVING_INTERVAL

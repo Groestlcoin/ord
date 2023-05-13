@@ -1,7 +1,7 @@
 use {
   anyhow::{anyhow, Result},
-  bitcoin::{Transaction, Txid},
-  bitcoincore_rpc::Auth,
+  groestlcoin::{Transaction, Txid},
+  groestlcoincore_rpc::Auth,
   hyper::{client::HttpConnector, Body, Client, Method, Request, Uri},
   serde::Deserialize,
   serde_json::{json, Value},
@@ -101,8 +101,8 @@ impl Fetcher {
               .map_err(|e| anyhow!("Result for batched JSON-RPC response not valid hex: {e}"))
           })
           .and_then(|hex| {
-            bitcoin::consensus::deserialize(&hex).map_err(|e| {
-              anyhow!("Result for batched JSON-RPC response not valid bitcoin tx: {e}")
+            groestlcoin::consensus::deserialize(&hex).map_err(|e| {
+              anyhow!("Result for batched JSON-RPC response not valid groestlcoin tx: {e}")
             })
           })
       })

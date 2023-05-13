@@ -94,7 +94,7 @@ pub trait Api {
     &self,
     minconf: Option<usize>,
     maxconf: Option<usize>,
-    address: Option<bitcoin::Address>,
+    address: Option<groestlcoin::Address>,
     include_unsafe: Option<bool>,
     query_options: Option<String>,
   ) -> Result<Vec<ListUnspentResultEntry>, jsonrpc_core::Error>;
@@ -105,8 +105,8 @@ pub trait Api {
   #[rpc(name = "getrawchangeaddress")]
   fn get_raw_change_address(
     &self,
-    address_type: Option<bitcoincore_rpc::json::AddressType>,
-  ) -> Result<bitcoin::Address, jsonrpc_core::Error>;
+    address_type: Option<groestlcoincore_rpc::json::AddressType>,
+  ) -> Result<groestlcoin::Address, jsonrpc_core::Error>;
 
   #[rpc(name = "getdescriptorinfo")]
   fn get_descriptor_info(
@@ -124,8 +124,8 @@ pub trait Api {
   fn get_new_address(
     &self,
     label: Option<String>,
-    address_type: Option<bitcoincore_rpc::json::AddressType>,
-  ) -> Result<bitcoin::Address, jsonrpc_core::Error>;
+    address_type: Option<groestlcoincore_rpc::json::AddressType>,
+  ) -> Result<groestlcoin::Address, jsonrpc_core::Error>;
 
   #[rpc(name = "listtransactions")]
   fn list_transactions(

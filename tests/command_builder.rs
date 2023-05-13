@@ -54,7 +54,7 @@ impl CommandBuilder {
     self
   }
 
-  pub(crate) fn rpc_server(self, rpc_server: &test_bitcoincore_rpc::Handle) -> Self {
+  pub(crate) fn rpc_server(self, rpc_server: &test_groestlcoincore_rpc::Handle) -> Self {
     Self {
       rpc_server_url: Some(rpc_server.url()),
       ..self

@@ -8,7 +8,7 @@ fn traits_command_prints_sat_traits() {
       number: 0,
       decimal: "0.0".into(),
       degree: "0°0′0″0‴".into(),
-      name: "nvtdijuwxlp".into(),
+      name: "bvivuucdvvev".into(),
       height: 0,
       cycle: 0,
       epoch: 0,
@@ -23,14 +23,14 @@ fn traits_command_for_last_sat() {
   assert_eq!(
     CommandBuilder::new("traits 2099999997689999").output::<Output>(),
     Output {
-      number: 2099999997689999,
-      decimal: "6929999.0".into(),
-      degree: "5°209999′1007″0‴".into(),
+      number: 10499999999999999,
+      decimal: "46199999.0".into(),
+      degree: "7°1049999′1343″0‴".into(),
       name: "a".into(),
-      height: 6929999,
+      height: 46199999,
       cycle: 5,
       epoch: 32,
-      period: 3437,
+      period: 22916,
       offset: 0,
       rarity: Rarity::Uncommon,
     }

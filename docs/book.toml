@@ -8,9 +8,9 @@ build-dir = "build"
 create-missing = false
 
 [output.html]
-cname = "docs.ordinals.com"
+cname = "groestlcoin.github.io/ord-groestlcoin"
 default-theme = "coal"
-git-repository-url = "https://github.com/casey/ord"
+git-repository-url = "https://github.com/Groestlcoin/ord-groestlcoin"
 preferred-dark-theme = "coal"
 
 [output.linkcheck]

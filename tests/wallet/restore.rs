@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn restore_generates_same_descriptors() {
   let (mnemonic, descriptors) = {
-    let rpc_server = test_bitcoincore_rpc::spawn();
+    let rpc_server = test_groestlcoincore_rpc::spawn();
 
     let Create { mnemonic } = CommandBuilder::new("wallet create")
       .rpc_server(&rpc_server)
@@ -12,7 +12,7 @@ fn restore_generates_same_descriptors() {
     (mnemonic, rpc_server.descriptors())
   };
 
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   CommandBuilder::new(["wallet", "restore", &mnemonic.to_string()])
     .rpc_server(&rpc_server)
@@ -25,7 +25,7 @@ fn restore_generates_same_descriptors() {
 fn restore_generates_same_descriptors_with_passphrase() {
   let passphrase = "foo";
   let (mnemonic, descriptors) = {
-    let rpc_server = test_bitcoincore_rpc::spawn();
+    let rpc_server = test_groestlcoincore_rpc::spawn();
 
     let Create { mnemonic } = CommandBuilder::new(["wallet", "create", "--passphrase", passphrase])
       .rpc_server(&rpc_server)
@@ -34,7 +34,7 @@ fn restore_generates_same_descriptors_with_passphrase() {
     (mnemonic, rpc_server.descriptors())
   };
 
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   CommandBuilder::new([
     "wallet",
