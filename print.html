@@ -177,7 +177,7 @@ enabled by ordinal theory.</p>
 <li><a href="https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki">BIP</a></li>
 <li><a href="https://discord.gg/vCKxQBz">Discord</a></li>
 <li><a href="https://ordinals.groestlcoin.org">Mainnet Block Explorer</a></li>
-<li><a href="https://ordinales-signet.groestlcoin.org">Signet Block Explorer</a></li>
+<li><a href="https://ordinals-signet.groestlcoin.org">Signet Block Explorer</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-theory-overview"><a class="header" href="#ordinal-theory-overview">Ordinal Theory Overview</a></h1>
 <p>Ordinals are a numbering scheme for gros that allows tracking and
@@ -392,7 +392,7 @@ because nobody can own it.</p>
 </li>
 <li>
 <p>Digital artifacts are complete. An NFT that points to off-chain content
-on IPFS or Arweave is incomplete, and thus is not a digital artifact.</p>
+on IPFS or Arweave is incomplete, and thus not a digital artifact.</p>
 </li>
 <li>
 <p>Digital artifacts are permissionless. An NFT which cannot be sold without
@@ -444,20 +444,19 @@ follows:</p>
 <pre><code>OP_FALSE
 OP_IF
   OP_PUSH &quot;ord&quot;
-  OP_1
+  OP_PUSH 1
   OP_PUSH &quot;text/plain;charset=utf-8&quot;
-  OP_0
+  OP_PUSH 0
   OP_PUSH &quot;Hello, world!&quot;
 OP_ENDIF
 </code></pre>
 <p>First the string <code>ord</code> is pushed, to disambiguate inscriptions from other uses
 of envelopes.</p>
-<p><code>OP_1</code> indicates that the next push contains the content type, and <code>OP_0</code>
-indicates that subsequent data pushes contain the content itself. Multiple data
+<p><code>OP_PUSH 1</code> indicates that the next push contains the content type, and <code>OP_PUSH 0</code>indicates that subsequent data pushes contain the content itself. Multiple data
 pushes must be used for large inscriptions, as one of taproot's few
 restrictions is that individual data pushes may not be larger than 520 bytes.</p>
 <p>The inscription content is contained within the input of a reveal transaction,
-and the inscription is made on the first gro of its first output. This gro can
+and the inscription is made on the first gro of its input. This gro can
 then be tracked using the familiar rules of ordinal theory, allowing it to be
 transferred, bought, sold, lost to fees, and recovered.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-theory-faq"><a class="header" href="#ordinal-theory-faq">Ordinal Theory FAQ</a></h1>
@@ -1181,7 +1180,7 @@ ordinals.</p>
 <p><img src="guides/collecting/images/wallet_setup_07.png" alt="" /></p>
 <p>You now have a wallet which is compatible with <code>ord</code>, and can be imported into <code>ord</code> using the BIP39 Seed Phrase. To receive ordinals or inscriptions, click on the <code>Receive</code> tab and copy a new address.</p>
 <p>Each time you want to receive you should use a brand-new address, and not re-use existing addresses.</p>
-<p>Note that groestlcoin is different to some other blockchain wallets, in that this wallet can generate an unlimited number of new addreses. You can generate a new address by clicking on the <code>Get Next Address</code> button. You can see all of your addresses in the <code>Addresses</code> tab of the app.</p>
+<p>Note that groestlcoin is different to some other blockchain wallets, in that this wallet can generate an unlimited number of new addresses. You can generate a new address by clicking on the <code>Get Next Address</code> button. You can see all of your addresses in the <code>Addresses</code> tab of the app.</p>
 <p>You can add a label to each address, so you can keep track of what it was used for.</p>
 <p><img src="guides/collecting/images/wallet_setup_08.png" alt="" /></p>
 <h2 id="validating--viewing-received-inscriptions"><a class="header" href="#validating--viewing-received-inscriptions">Validating / Viewing Received Inscriptions</a></h2>
@@ -1202,7 +1201,7 @@ ordinals.</p>
 <code>groestlcoin-cli -rpcwallet=ord rescanblockchain 767430</code></p>
 <p>You can then check your wallet's inscriptions using <code>ord wallet inscriptions</code></p>
 <p>Note that if you have previously created a wallet with <code>ord</code>, then you will already have a wallet with the default name, and will need to give your imported wallet a different name. You can use the <code>--wallet</code> parameter in all <code>ord</code> commands to reference a different wallet, eg:</p>
-<p><code>ord --wallet ord_from_sparrow restore &quot;BIP39 SEED PHRASE&quot;</code></p>
+<p><code>ord --wallet ord_from_sparrow wallet restore &quot;BIP39 SEED PHRASE&quot;</code></p>
 <p><code>ord --wallet ord_from_sparrow wallet inscriptions</code></p>
 <p><code>groestlcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430</code></p>
 <h2 id="sending-inscriptions-with-sparrow-wallet"><a class="header" href="#sending-inscriptions-with-sparrow-wallet">Sending inscriptions with Sparrow Wallet</a></h2>
