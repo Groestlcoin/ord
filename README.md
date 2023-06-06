@@ -10,6 +10,11 @@ be collected and traded as curios.
 Ordinal numbers are serial numbers for gros, assigned in the order in which
 they are mined, and preserved across transactions.
 
+See [the docs](https://groestlcoin.github.io/ord-groestlcoin/) for documentation and guides.
+
+See [the BIP](bip.mediawiki) for a technical description of the assignment and
+transfer algorithm.
+
 Join [the Discord server](https://discord.gg/vCKxQBz) to chat with fellow
 ordinal degenerates.
 
@@ -78,10 +83,9 @@ cd ord
 cargo build --release
 ```
 
-The default location for the `ord` binary once built is `./target/release/ord`.
+Once built, the `ord` binary can be found at `./target/release/ord`.
 
 `ord` requires `rustc` version 1.67.0 or later. Run `rustc --version` to ensure you have this version. Run `rustup update` to get the latest stable release.
-
 
 Syncing
 -------
@@ -96,6 +100,43 @@ from `groestlcoind`'s datadir, and connecting using the default RPC port.
 If `groestlcoind` is not on mainnet, is not run by the same user, has a non-default
 datadir, or a non-default port, you'll need to pass additional flags to `ord`.
 See `ord --help` for details.
+
+`groestlcoind` RPC Authentication
+-----------------------------
+
+`ord` makes RPC calls to `groestlcoind`, which usually require a username and
+password.
+
+By default, `ord` looks a username and password in the cookie file created by
+`groestlcoind`.
+
+The cookie file path can be configured using `--cookie-file`:
+
+```
+ord --cookie-file /path/to/cookie/file server
+```
+
+Alternatively, `ord` can be supplied with a username and password on the
+command line:
+
+```
+ord --groestlcoin-rpc-user foo --groestlcoin-rpc-pass bar server
+```
+
+Using environment variables:
+
+```
+export ORD_GROESTLCOIN_RPC_USER=foo
+export ORD_GROESTLCOIN_RPC_PASS=bar
+ord server
+```
+
+Or in the config file:
+
+```yaml
+groestlcoin_rpc_user: foo
+groestlcoin_rpc_pass: bar
+```
 
 Logging
 --------

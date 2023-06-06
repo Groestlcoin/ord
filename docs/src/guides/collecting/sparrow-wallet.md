@@ -48,7 +48,7 @@ You now have a wallet which is compatible with `ord`, and can be imported into `
 
 Each time you want to receive you should use a brand-new address, and not re-use existing addresses.
 
-Note that groestlcoin is different to some other blockchain wallets, in that this wallet can generate an unlimited number of new addreses. You can generate a new address by clicking on the `Get Next Address` button. You can see all of your addresses in the `Addresses` tab of the app.
+Note that groestlcoin is different to some other blockchain wallets, in that this wallet can generate an unlimited number of new addresses. You can generate a new address by clicking on the `Get Next Address` button. You can see all of your addresses in the `Addresses` tab of the app.
 
 You can add a label to each address, so you can keep track of what it was used for.
 
@@ -89,7 +89,7 @@ You can then check your wallet's inscriptions using `ord wallet inscriptions`
 
 Note that if you have previously created a wallet with `ord`, then you will already have a wallet with the default name, and will need to give your imported wallet a different name. You can use the `--wallet` parameter in all `ord` commands to reference a different wallet, eg:
 
-`ord --wallet ord_from_sparrow restore "BIP39 SEED PHRASE"`
+`ord --wallet ord_from_sparrow wallet restore "BIP39 SEED PHRASE"`
 
 `ord --wallet ord_from_sparrow wallet inscriptions`
 

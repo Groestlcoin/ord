@@ -39,4 +39,4 @@ Links
 - [BIP](https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki)
 - [Discord](https://discord.gg/vCKxQBz)
 - [Mainnet Block Explorer](https://ordinals.groestlcoin.org)
-- [Signet Block Explorer](https://ordinales-signet.groestlcoin.org)
+- [Signet Block Explorer](https://ordinals-signet.groestlcoin.org)

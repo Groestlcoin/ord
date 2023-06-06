@@ -7,11 +7,12 @@ use {super::*, groestlcoincore_rpc::Auth};
     .args(&["chain-argument", "signet", "regtest", "testnet"]),
 ))]
 pub(crate) struct Options {
-  #[clap(
-    long,
-    help = "Load Groestlcoin Core data dir from <GROESTLCOIN_DATA_DIR>."
-  )]
+  #[clap(long, help = "Load Groestlcoin Core data dir from <GROESTLCOIN_DATA_DIR>.")]
   pub(crate) groestlcoin_data_dir: Option<PathBuf>,
+  #[clap(long, help = "Authenticate to Groestlcoin Core RPC with <RPC_PASS>.")]
+  pub(crate) groestlcoin_rpc_pass: Option<String>,
+  #[clap(long, help = "Authenticate to Groestlcoin Core RPC as <RPC_USER>.")]
+  pub(crate) groestlcoin_rpc_user: Option<String>,
   #[clap(
     long = "chain",
     arg_enum,
@@ -97,11 +98,11 @@ impl Options {
       groestlcoin_data_dir.clone()
     } else if cfg!(target_os = "linux") {
       dirs::home_dir()
-        .ok_or_else(|| anyhow!("failed to retrieve home dir"))?
+        .ok_or_else(|| anyhow!("failed to get cookie file path: could not get home dir"))?
         .join(".groestlcoin")
     } else {
       dirs::data_dir()
-        .ok_or_else(|| anyhow!("failed to retrieve data dir"))?
+        .ok_or_else(|| anyhow!("failed to get cookie file path: could not get data dir"))?
         .join("Groestlcoin")
     };
 
@@ -133,7 +134,7 @@ impl Options {
     }
   }
 
-  fn format_bitcoin_core_version(version: usize) -> String {
+  fn format_groestlcoin_core_version(version: usize) -> String {
     format!(
       "{}.{}.{}",
       version / 10000,
@@ -142,25 +143,71 @@ impl Options {
     )
   }
 
-  pub(crate) fn bitcoin_rpc_client(&self) -> Result<Client> {
-    let cookie_file = self
-      .cookie_file()
-      .map_err(|err| anyhow!("failed to get cookie file path: {err}"))?;
+  fn derive_var(
+    arg_value: Option<&str>,
+    env_key: Option<&str>,
+    config_value: Option<&str>,
+    default_value: Option<&str>,
+  ) -> Result<Option<String>> {
+    let env_value = match env_key {
+      Some(env_key) => match env::var(format!("ORD_{env_key}")) {
+        Ok(env_value) => Some(env_value),
+        Err(err @ env::VarError::NotUnicode(_)) => return Err(err.into()),
+        Err(env::VarError::NotPresent) => None,
+      },
+      None => None,
+    };
 
+    Ok(
+      arg_value
+        .or(env_value.as_deref())
+        .or(config_value)
+        .or(default_value)
+        .map(str::to_string),
+    )
+  }
+
+  pub(crate) fn auth(&self) -> Result<Auth> {
+    let config = self.load_config()?;
+
+    let rpc_user = Options::derive_var(
+      self.groestlcoin_rpc_user.as_deref(),
+      Some("GROESTLCOIN_RPC_USER"),
+      config.groestlcoin_rpc_user.as_deref(),
+      None,
+    )?;
+
+    let rpc_pass = Options::derive_var(
+      self.groestlcoin_rpc_pass.as_deref(),
+      Some("GROESTLCOIN_RPC_PASS"),
+      config.groestlcoin_rpc_pass.as_deref(),
+      None,
+    )?;
+
+    match (rpc_user, rpc_pass) {
+      (Some(rpc_user), Some(rpc_pass)) => Ok(Auth::UserPass(rpc_user, rpc_pass)),
+      (None, Some(_rpc_pass)) => Err(anyhow!("no groestlcoind rpc user specified")),
+      (Some(_rpc_user), None) => Err(anyhow!("no groestlcoind rpc password specified")),
+      _ => Ok(Auth::CookieFile(self.cookie_file()?)),
+    }
+  }
+
+  pub(crate) fn groestlcoin_rpc_client(&self) -> Result<Client> {
     let rpc_url = self.rpc_url();
 
-    log::info!(
-      "Connecting to Groestlcoin Core RPC server at {rpc_url} using credentials from `{}`",
-      cookie_file.display()
-    );
+    let auth = self.auth()?;
 
-    let client =
-      Client::new(&rpc_url, Auth::CookieFile(cookie_file.clone())).with_context(|| {
-        format!(
-          "failed to connect to Groestlcoin Core RPC at {rpc_url} using cookie file {}",
-          cookie_file.display()
-        )
-      })?;
+    log::info!("Connecting to Groestlcoin Core at {}", self.rpc_url());
+
+    if let Auth::CookieFile(cookie_file) = &auth {
+      log::info!(
+        "Using credentials from cookie file at `{}`",
+        cookie_file.display()
+      );
+    }
+
+    let client = Client::new(&rpc_url, auth)
+      .with_context(|| format!("failed to connect to Groestlcoin Core RPC at {rpc_url}"))?;
 
     let rpc_chain = match client.get_blockchain_info()?.chain.as_str() {
       "main" => Chain::Mainnet,
@@ -179,17 +226,17 @@ impl Options {
     Ok(client)
   }
 
-  pub(crate) fn bitcoin_rpc_client_for_wallet_command(&self, create: bool) -> Result<Client> {
-    let client = self.bitcoin_rpc_client()?;
+  pub(crate) fn groestlcoin_rpc_client_for_wallet_command(&self, create: bool) -> Result<Client> {
+    let client = self.groestlcoin_rpc_client()?;
 
     const MIN_VERSION: usize = 240000;
 
-    let bitcoin_version = client.version()?;
-    if bitcoin_version < MIN_VERSION {
+    let groestlcoin_version = client.version()?;
+    if groestlcoin_version < MIN_VERSION {
       bail!(
         "Groestlcoin Core {} or newer required, current version is {}",
-        Self::format_bitcoin_core_version(MIN_VERSION),
-        Self::format_bitcoin_core_version(bitcoin_version),
+        Self::format_groestlcoin_core_version(MIN_VERSION),
+        Self::format_groestlcoin_core_version(groestlcoin_version),
       );
     }
 
@@ -466,7 +513,7 @@ mod tests {
     .unwrap();
 
     assert_eq!(
-      options.bitcoin_rpc_client().unwrap_err().to_string(),
+      options.groestlcoin_rpc_client().unwrap_err().to_string(),
       "Groestlcoin RPC server is on testnet but ord is on mainnet"
     );
   }
@@ -571,6 +618,31 @@ mod tests {
         .unwrap(),
       Config {
         hidden: iter::once(id).collect(),
+        ..Default::default()
+      }
+    );
+  }
+
+  #[test]
+  fn config_with_rpc_user_pass() {
+    let tempdir = TempDir::new().unwrap();
+    let path = tempdir.path().join("ord.yaml");
+    fs::write(
+      &path,
+      "hidden:\ngroestlcoin_rpc_user: foo\ngroestlcoin_rpc_pass: bar",
+    )
+    .unwrap();
+
+    assert_eq!(
+      Arguments::try_parse_from(["ord", "--config", path.to_str().unwrap(), "index",])
+        .unwrap()
+        .options
+        .load_config()
+        .unwrap(),
+      Config {
+        groestlcoin_rpc_user: Some("foo".into()),
+        groestlcoin_rpc_pass: Some("bar".into()),
+        ..Default::default()
       }
     );
   }
@@ -602,7 +674,82 @@ mod tests {
       .unwrap(),
       Config {
         hidden: iter::once(id).collect(),
+        ..Default::default()
       }
+    );
+  }
+
+  #[test]
+  fn test_derive_var() {
+    assert_eq!(Options::derive_var(None, None, None, None).unwrap(), None);
+
+    assert_eq!(
+      Options::derive_var(None, None, None, Some("foo")).unwrap(),
+      Some("foo".into())
+    );
+
+    assert_eq!(
+      Options::derive_var(None, None, Some("bar"), Some("foo")).unwrap(),
+      Some("bar".into())
+    );
+
+    assert_eq!(
+      Options::derive_var(Some("qux"), None, Some("bar"), Some("foo")).unwrap(),
+      Some("qux".into())
+    );
+
+    assert_eq!(
+      Options::derive_var(Some("qux"), None, None, Some("foo")).unwrap(),
+      Some("qux".into()),
+    );
+  }
+
+  #[test]
+  fn auth_missing_rpc_pass_is_an_error() {
+    let options = Options {
+      groestlcoin_rpc_user: Some("foo".into()),
+      ..Default::default()
+    };
+    assert_eq!(
+      options.auth().unwrap_err().to_string(),
+      "no groestlcoind rpc password specified"
+    );
+  }
+
+  #[test]
+  fn auth_missing_rpc_user_is_an_error() {
+    let options = Options {
+      groestlcoin_rpc_pass: Some("bar".into()),
+      ..Default::default()
+    };
+    assert_eq!(
+      options.auth().unwrap_err().to_string(),
+      "no groestlcoind rpc user specified"
+    );
+  }
+
+  #[test]
+  fn auth_with_user_and_pass() {
+    let options = Options {
+      groestlcoin_rpc_user: Some("foo".into()),
+      groestlcoin_rpc_pass: Some("bar".into()),
+      ..Default::default()
+    };
+    assert_eq!(
+      options.auth().unwrap(),
+      Auth::UserPass("foo".into(), "bar".into())
+    );
+  }
+
+  #[test]
+  fn auth_with_cookie_file() {
+    let options = Options {
+      cookie_file: Some("/var/lib/Groestlcoin/.cookie".into()),
+      ..Default::default()
+    };
+    assert_eq!(
+      options.auth().unwrap(),
+      Auth::CookieFile("/var/lib/Groestlcoin/.cookie".into())
     );
   }
 }
