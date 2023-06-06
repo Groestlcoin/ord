@@ -50,7 +50,7 @@ impl Preview {
     };
 
     for attempt in 0.. {
-      if options.bitcoin_rpc_client().is_ok() {
+      if options.groestlcoin_rpc_client().is_ok() {
         break;
       }
 
@@ -66,7 +66,7 @@ impl Preview {
     })
     .run(options.clone())?;
 
-    let rpc_client = options.bitcoin_rpc_client_for_wallet_command(false)?;
+    let rpc_client = options.groestlcoin_rpc_client_for_wallet_command(false)?;
 
     let address =
       rpc_client.get_new_address(None, Some(groestlcoincore_rpc::json::AddressType::Bech32m))?;

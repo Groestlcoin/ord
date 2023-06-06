@@ -39,7 +39,7 @@ fn inscribe_works_with_huge_expensive_inscriptions() {
 }
 
 #[test]
-fn inscribe_fails_if_bitcoin_core_is_too_old() {
+fn inscribe_fails_if_groestlcoin_core_is_too_old() {
   let rpc_server = test_groestlcoincore_rpc::builder().version(230000).build();
 
   CommandBuilder::new("wallet inscribe hello.txt --fee-rate 1")

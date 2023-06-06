@@ -179,9 +179,9 @@ impl Handle {
   }
 
   pub fn mine_blocks_with_subsidy(&self, n: u64, subsidy: u64) -> Vec<Block> {
-    let mut bitcoin_rpc_data = self.state();
+    let mut groestlcoin_rpc_data = self.state();
     (0..n)
-      .map(|_| bitcoin_rpc_data.push_block(subsidy))
+      .map(|_| groestlcoin_rpc_data.push_block(subsidy))
       .collect()
   }
 

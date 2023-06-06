@@ -914,7 +914,7 @@ mod tests {
   use {super::*, reqwest::Url, std::net::TcpListener};
 
   struct TestServer {
-    bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
+    groestlcoin_rpc_server: test_groestlcoincore_rpc::Handle,
     index: Arc<Index>,
     ord_server_handle: Handle,
     url: Url,
@@ -942,8 +942,8 @@ mod tests {
 
     fn new_with_regtest() -> Self {
       Self::new_server(
-        test_bitcoincore_rpc::builder()
-          .network(bitcoin::Network::Regtest)
+        test_groestlcoincore_rpc::builder()
+          .network(groestlcoin::Network::Regtest)
           .build(),
         None,
         &["--chain", "regtest"],
@@ -953,8 +953,8 @@ mod tests {
 
     fn new_with_regtest_with_index_sats() -> Self {
       Self::new_server(
-        test_bitcoincore_rpc::builder()
-          .network(bitcoin::Network::Regtest)
+        test_groestlcoincore_rpc::builder()
+          .network(groestlcoin::Network::Regtest)
           .build(),
         None,
         &["--chain", "regtest", "--index-sats"],
@@ -962,15 +962,15 @@ mod tests {
       )
     }
 
-    fn new_with_bitcoin_rpc_server_and_config(
-      bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
+    fn new_with_groestlcoin_rpc_server_and_config(
+      groestlcoin_rpc_server: test_groestlcoincore_rpc::Handle,
       config: String,
     ) -> Self {
-      Self::new_server(bitcoin_rpc_server, Some(config), &[], &[])
+      Self::new_server(groestlcoin_rpc_server, Some(config), &[], &[])
     }
 
     fn new_server(
-      bitcoin_rpc_server: test_groestlcoincore_rpc::Handle,
+      groestlcoin_rpc_server: test_groestlcoincore_rpc::Handle,
       config: Option<String>,
       ord_args: &[&str],
       server_args: &[&str],
@@ -1000,7 +1000,7 @@ mod tests {
 
       let (options, server) = parse_server_args(&format!(
         "ord --rpc-url {} --cookie-file {} --data-dir {} {config_args} {} server --http-port {} --address 127.0.0.1 {}",
-        bitcoin_rpc_server.url(),
+        groestlcoin_rpc_server.url(),
         cookiefile.to_str().unwrap(),
         tempdir.path().to_str().unwrap(),
         ord_args.join(" "),
@@ -1040,7 +1040,7 @@ mod tests {
       }
 
       Self {
-        bitcoin_rpc_server,
+        groestlcoin_rpc_server,
         index,
         ord_server_handle,
         tempdir,
@@ -1109,13 +1109,15 @@ mod tests {
     }
 
     fn mine_blocks(&self, n: u64) -> Vec<groestlcoin::Block> {
-      let blocks = self.bitcoin_rpc_server.mine_blocks(n);
+      let blocks = self.groestlcoin_rpc_server.mine_blocks(n);
       self.index.update().unwrap();
       blocks
     }
 
     fn mine_blocks_with_subsidy(&self, n: u64, subsidy: u64) -> Vec<Block> {
-      let blocks = self.bitcoin_rpc_server.mine_blocks_with_subsidy(n, subsidy);
+      let blocks = self
+        .groestlcoin_rpc_server
+        .mine_blocks_with_subsidy(n, subsidy);
       self.index.update().unwrap();
       blocks
     }
@@ -1614,19 +1616,23 @@ mod tests {
 
     server.mine_blocks(1);
 
-    server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      fee: 50 * 100_000_000,
-      ..Default::default()
-    });
+    server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        fee: 50 * 100_000_000,
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(2, 1, 0)],
-      witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(2, 1, 0)],
+        witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -1764,7 +1770,7 @@ mod tests {
       fee: 0,
       ..Default::default()
     };
-    test_server.bitcoin_rpc_server.broadcast_tx(transaction);
+    test_server.groestlcoin_rpc_server.broadcast_tx(transaction);
     let block_hash = test_server.mine_blocks(1)[0].block_hash();
 
     test_server.assert_response_regex(
@@ -1821,8 +1827,8 @@ mod tests {
 
     test_server.assert_response("/status", StatusCode::OK, "OK");
 
-    test_server.bitcoin_rpc_server.invalidate_tip();
-    test_server.bitcoin_rpc_server.mine_blocks(2);
+    test_server.groestlcoin_rpc_server.invalidate_tip();
+    test_server.groestlcoin_rpc_server.mine_blocks(2);
 
     test_server.assert_response_regex("/status", StatusCode::OK, "reorg detected.*");
   }
@@ -1997,12 +2003,14 @@ mod tests {
     );
 
     server.mine_blocks(1);
-    server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      outputs: 2,
-      fee: 0,
-      ..Default::default()
-    });
+    server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        outputs: 2,
+        fee: 0,
+        ..Default::default()
+      });
     server.mine_blocks(1);
 
     assert_eq!(
@@ -2021,12 +2029,14 @@ mod tests {
     );
 
     server.mine_blocks(1);
-    server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      outputs: 2,
-      fee: 2,
-      ..Default::default()
-    });
+    server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        outputs: 2,
+        fee: 2,
+        ..Default::default()
+      });
     server.mine_blocks(1);
 
     assert_eq!(
@@ -2072,11 +2082,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2093,11 +2105,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/plain;charset=utf-8", b"\xc3\x28").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/plain;charset=utf-8", b"\xc3\x28").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2113,15 +2127,17 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription(
-        "text/plain;charset=utf-8",
-        "<script>alert('hello');</script>",
-      )
-      .to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription(
+          "text/plain;charset=utf-8",
+          "<script>alert('hello');</script>",
+        )
+        .to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2138,11 +2154,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("audio/flac", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("audio/flac", "hello").to_witness(),
+        ..Default::default()
+      });
     let inscription_id = InscriptionId::from(txid);
 
     server.mine_blocks(1);
@@ -2159,11 +2177,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("application/pdf", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("application/pdf", "hello").to_witness(),
+        ..Default::default()
+      });
     let inscription_id = InscriptionId::from(txid);
 
     server.mine_blocks(1);
@@ -2180,11 +2200,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("image/png", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("image/png", "hello").to_witness(),
+        ..Default::default()
+      });
     let inscription_id = InscriptionId::from(txid);
 
     server.mine_blocks(1);
@@ -2202,11 +2224,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/html;charset=utf-8", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/html;charset=utf-8", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2223,11 +2247,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2244,11 +2270,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("video/webm", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("video/webm", "hello").to_witness(),
+        ..Default::default()
+      });
     let inscription_id = InscriptionId::from(txid);
 
     server.mine_blocks(1);
@@ -2265,11 +2293,13 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2285,11 +2315,13 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2305,11 +2337,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2337,11 +2371,13 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2357,11 +2393,13 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: Inscription::new(Some("foo/bar".as_bytes().to_vec()), None).to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: Inscription::new(Some("foo/bar".as_bytes().to_vec()), None).to_witness(),
+        ..Default::default()
+      });
 
     let inscription_id = InscriptionId::from(txid);
 
@@ -2379,11 +2417,13 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: Inscription::new(Some("image/png".as_bytes().to_vec()), None).to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: Inscription::new(Some("image/png".as_bytes().to_vec()), None).to_witness(),
+        ..Default::default()
+      });
 
     let inscription_id = InscriptionId::from(txid);
 
@@ -2401,11 +2441,13 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/foo", "hello").to_witness(),
-      ..Default::default()
-    });
+    let txid = server
+      .groestlcoin_rpc_server
+      .broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0)],
+        witness: inscription("text/foo", "hello").to_witness(),
+        ..Default::default()
+      });
 
     server.mine_blocks(1);
 
@@ -2433,11 +2475,13 @@ mod tests {
 
     for i in 0..101 {
       server.mine_blocks(1);
-      server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-        inputs: &[(i + 1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+      server
+        .groestlcoin_rpc_server
+        .broadcast_tx(TransactionTemplate {
+          inputs: &[(i + 1, 0, 0)],
+          witness: inscription("text/foo", "hello").to_witness(),
+          ..Default::default()
+        });
     }
 
     server.mine_blocks(1);
@@ -2455,11 +2499,13 @@ mod tests {
 
     for i in 0..101 {
       server.mine_blocks(1);
-      server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
-        inputs: &[(i + 1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+      server
+        .groestlcoin_rpc_server
+        .broadcast_tx(TransactionTemplate {
+          inputs: &[(i + 1, 0, 0)],
+          witness: inscription("text/foo", "hello").to_witness(),
+          ..Default::default()
+        });
     }
 
     server.mine_blocks(1);
@@ -2517,18 +2563,18 @@ mod tests {
 
   #[test]
   fn inscriptions_can_be_hidden_with_config() {
-    let bitcoin_rpc_server = test_groestlcoincore_rpc::spawn();
-    bitcoin_rpc_server.mine_blocks(1);
-    let txid = bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let groestlcoin_rpc_server = test_groestlcoincore_rpc::spawn();
+    groestlcoin_rpc_server.mine_blocks(1);
+    let txid = groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0)],
       witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
       ..Default::default()
     });
     let inscription = InscriptionId::from(txid);
-    bitcoin_rpc_server.mine_blocks(1);
+    groestlcoin_rpc_server.mine_blocks(1);
 
-    let server = TestServer::new_with_bitcoin_rpc_server_and_config(
-      bitcoin_rpc_server,
+    let server = TestServer::new_with_groestlcoin_rpc_server_and_config(
+      groestlcoin_rpc_server,
       format!("\"hidden\":\n - {inscription}"),
     );
 

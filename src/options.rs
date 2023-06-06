@@ -7,7 +7,10 @@ use {super::*, groestlcoincore_rpc::Auth};
     .args(&["chain-argument", "signet", "regtest", "testnet"]),
 ))]
 pub(crate) struct Options {
-  #[clap(long, help = "Load Groestlcoin Core data dir from <GROESTLCOIN_DATA_DIR>.")]
+  #[clap(
+    long,
+    help = "Load Groestlcoin Core data dir from <GROESTLCOIN_DATA_DIR>."
+  )]
   pub(crate) groestlcoin_data_dir: Option<PathBuf>,
   #[clap(long, help = "Authenticate to Groestlcoin Core RPC with <RPC_PASS>.")]
   pub(crate) groestlcoin_rpc_pass: Option<String>,

@@ -184,7 +184,7 @@ impl Updater {
 
     let height_limit = index.height_limit;
 
-    let client = index.options.bitcoin_rpc_client()?;
+    let client = index.options.groestlcoin_rpc_client()?;
 
     let first_inscription_height = index.first_inscription_height;
 
