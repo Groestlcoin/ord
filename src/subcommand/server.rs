@@ -1495,7 +1495,7 @@ mod tests {
     assert_eq!(response.status(), StatusCode::OK);
     assert_eq!(
       response.text().unwrap(),
-      "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+      "00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023"
     );
   }
 
@@ -1508,7 +1508,7 @@ mod tests {
     assert_eq!(response.status(), StatusCode::OK);
     assert_eq!(
       response.text().unwrap(),
-      "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+      "00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023"
     );
   }
 
@@ -1519,7 +1519,7 @@ mod tests {
     let response = test_server.get("/blocktime");
 
     assert_eq!(response.status(), StatusCode::OK);
-    assert_eq!(response.text().unwrap(), "1231006505");
+    assert_eq!(response.text().unwrap(), "1395342829");
   }
 
   #[test]
