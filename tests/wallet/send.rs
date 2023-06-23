@@ -217,10 +217,11 @@ fn send_btc() {
 
   rpc_server.mine_blocks(1);
 
-  let output =
-    CommandBuilder::new("wallet send --fee-rate 1 grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5 1grs")
-      .rpc_server(&rpc_server)
-      .run_and_check_output::<Output>();
+  let output = CommandBuilder::new(
+    "wallet send --fee-rate 1 grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5 1grs",
+  )
+  .rpc_server(&rpc_server)
+  .run_and_check_output::<Output>();
 
   assert_eq!(
     output.transaction,
@@ -250,10 +251,11 @@ fn send_btc_locks_inscriptions() {
 
   let Inscribe { reveal, .. } = inscribe(&rpc_server);
 
-  let output =
-    CommandBuilder::new("wallet send --fee-rate 1 grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5 1grs")
-      .rpc_server(&rpc_server)
-      .run_and_check_output::<Output>();
+  let output = CommandBuilder::new(
+    "wallet send --fee-rate 1 grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5 1grs",
+  )
+  .rpc_server(&rpc_server)
+  .run_and_check_output::<Output>();
 
   assert_eq!(
     output.transaction,
