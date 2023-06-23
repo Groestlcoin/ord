@@ -276,10 +276,16 @@ mod tests {
   #[test]
   fn rpc_url_overrides_network() {
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--rpc-url=127.0.0.1:1234", "--chain=signet", "index"])
-        .unwrap()
-        .options
-        .rpc_url(),
+      Arguments::try_parse_from([
+        "ord",
+        "--rpc-url=127.0.0.1:1234",
+        "--chain=signet",
+        "index",
+        "run"
+      ])
+      .unwrap()
+      .options
+      .rpc_url(),
       "127.0.0.1:1234"
     );
   }
@@ -287,18 +293,24 @@ mod tests {
   #[test]
   fn cookie_file_overrides_network() {
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--cookie-file=/foo/bar", "--chain=signet", "index"])
-        .unwrap()
-        .options
-        .cookie_file()
-        .unwrap(),
+      Arguments::try_parse_from([
+        "ord",
+        "--cookie-file=/foo/bar",
+        "--chain=signet",
+        "index",
+        "run"
+      ])
+      .unwrap()
+      .options
+      .cookie_file()
+      .unwrap(),
       Path::new("/foo/bar")
     );
   }
 
   #[test]
   fn use_default_network() {
-    let arguments = Arguments::try_parse_from(["ord", "index"]).unwrap();
+    let arguments = Arguments::try_parse_from(["ord", "index", "run"]).unwrap();
 
     assert_eq!(arguments.options.rpc_url(), "127.0.0.1:1441/wallet/ord");
 
@@ -311,7 +323,7 @@ mod tests {
 
   #[test]
   fn uses_network_defaults() {
-    let arguments = Arguments::try_parse_from(["ord", "--chain=signet", "index"]).unwrap();
+    let arguments = Arguments::try_parse_from(["ord", "--chain=signet", "index", "run"]).unwrap();
 
     assert_eq!(arguments.options.rpc_url(), "127.0.0.1:31441/wallet/ord");
 
@@ -330,7 +342,7 @@ mod tests {
 
   #[test]
   fn mainnet_cookie_file_path() {
-    let cookie_file = Arguments::try_parse_from(["ord", "index"])
+    let cookie_file = Arguments::try_parse_from(["ord", "index", "run"])
       .unwrap()
       .options
       .cookie_file()
@@ -349,7 +361,7 @@ mod tests {
 
   #[test]
   fn othernet_cookie_file_path() {
-    let arguments = Arguments::try_parse_from(["ord", "--chain=signet", "index"]).unwrap();
+    let arguments = Arguments::try_parse_from(["ord", "--chain=signet", "index", "run"]).unwrap();
 
     let cookie_file = arguments
       .options
@@ -374,6 +386,7 @@ mod tests {
       "--groestlcoin-data-dir=foo",
       "--chain=signet",
       "index",
+      "run",
     ])
     .unwrap();
 
@@ -393,7 +406,7 @@ mod tests {
 
   #[test]
   fn mainnet_data_dir() {
-    let data_dir = Arguments::try_parse_from(["ord", "index"])
+    let data_dir = Arguments::try_parse_from(["ord", "index", "run"])
       .unwrap()
       .options
       .data_dir()
@@ -408,7 +421,7 @@ mod tests {
 
   #[test]
   fn othernet_data_dir() {
-    let data_dir = Arguments::try_parse_from(["ord", "--chain=signet", "index"])
+    let data_dir = Arguments::try_parse_from(["ord", "--chain=signet", "index", "run"])
       .unwrap()
       .options
       .data_dir()
@@ -428,7 +441,7 @@ mod tests {
   #[test]
   fn network_is_joined_with_data_dir() {
     let data_dir =
-      Arguments::try_parse_from(["ord", "--chain=signet", "--data-dir", "foo", "index"])
+      Arguments::try_parse_from(["ord", "--chain=signet", "--data-dir", "foo", "index", "run"])
         .unwrap()
         .options
         .data_dir()
@@ -448,7 +461,7 @@ mod tests {
   #[test]
   fn network_accepts_aliases() {
     fn check_network_alias(alias: &str, suffix: &str) {
-      let data_dir = Arguments::try_parse_from(["ord", "--chain", alias, "index"])
+      let data_dir = Arguments::try_parse_from(["ord", "--chain", alias, "index", "run"])
         .unwrap()
         .options
         .data_dir()
@@ -523,48 +536,51 @@ mod tests {
 
   #[test]
   fn chain_flags() {
-    Arguments::try_parse_from(["ord", "--signet", "--chain", "signet", "index"]).unwrap_err();
+    Arguments::try_parse_from(["ord", "--signet", "--chain", "signet", "index", "run"])
+      .unwrap_err();
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--signet", "index"])
+      Arguments::try_parse_from(["ord", "--signet", "index", "run"])
         .unwrap()
         .options
         .chain(),
       Chain::Signet
     );
     assert_eq!(
-      Arguments::try_parse_from(["ord", "-s", "index"])
+      Arguments::try_parse_from(["ord", "-s", "index", "run"])
         .unwrap()
         .options
         .chain(),
       Chain::Signet
     );
 
-    Arguments::try_parse_from(["ord", "--regtest", "--chain", "signet", "index"]).unwrap_err();
+    Arguments::try_parse_from(["ord", "--regtest", "--chain", "signet", "index", "run"])
+      .unwrap_err();
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--regtest", "index"])
+      Arguments::try_parse_from(["ord", "--regtest", "index", "run"])
         .unwrap()
         .options
         .chain(),
       Chain::Regtest
     );
     assert_eq!(
-      Arguments::try_parse_from(["ord", "-r", "index"])
+      Arguments::try_parse_from(["ord", "-r", "index", "run"])
         .unwrap()
         .options
         .chain(),
       Chain::Regtest
     );
 
-    Arguments::try_parse_from(["ord", "--testnet", "--chain", "signet", "index"]).unwrap_err();
+    Arguments::try_parse_from(["ord", "--testnet", "--chain", "signet", "index", "run"])
+      .unwrap_err();
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--testnet", "index"])
+      Arguments::try_parse_from(["ord", "--testnet", "index", "run"])
         .unwrap()
         .options
         .chain(),
       Chain::Testnet
     );
     assert_eq!(
-      Arguments::try_parse_from(["ord", "-t", "index"])
+      Arguments::try_parse_from(["ord", "-t", "index", "run"])
         .unwrap()
         .options
         .chain(),
@@ -594,7 +610,7 @@ mod tests {
   #[test]
   fn default_config_is_returned_if_config_option_is_not_passed() {
     assert_eq!(
-      Arguments::try_parse_from(["ord", "index"])
+      Arguments::try_parse_from(["ord", "index", "run"])
         .unwrap()
         .options
         .load_config()
@@ -614,7 +630,7 @@ mod tests {
     fs::write(&path, format!("hidden:\n- \"{id}\"")).unwrap();
 
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--config", path.to_str().unwrap(), "index",])
+      Arguments::try_parse_from(["ord", "--config", path.to_str().unwrap(), "index", "run"])
         .unwrap()
         .options
         .load_config()
@@ -637,7 +653,7 @@ mod tests {
     .unwrap();
 
     assert_eq!(
-      Arguments::try_parse_from(["ord", "--config", path.to_str().unwrap(), "index",])
+      Arguments::try_parse_from(["ord", "--config", path.to_str().unwrap(), "index", "run"])
         .unwrap()
         .options
         .load_config()
@@ -670,6 +686,7 @@ mod tests {
         "--config-dir",
         tempdir.path().to_str().unwrap(),
         "index",
+        "run"
       ])
       .unwrap()
       .options

@@ -7,7 +7,7 @@ fn output_found() {
     "--index-sats list 3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0",
   )
   .rpc_server(&rpc_server)
-  .output::<Vec<Output>>();
+  .run_and_check_output::<Vec<Output>>();
 
   assert_eq!(
     output,
@@ -32,7 +32,7 @@ fn output_not_found() {
   .rpc_server(&rpc_server)
   .expected_exit_code(1)
   .expected_stderr("error: output not found\n")
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -42,5 +42,5 @@ fn no_satoshi_index() {
     .rpc_server(&rpc_server)
     .expected_stderr("error: list requires index created with `--index-sats` flag\n")
     .expected_exit_code(1)
-    .run();
+    .run_and_extract_stdout();
 }
