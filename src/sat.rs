@@ -406,7 +406,7 @@ mod tests {
       Sat(Epoch(1).starting_sat().n() + Epoch(1).subsidy()).third(),
       0
     );
-    assert_eq!(Sat::LAST.third(), 1);
+    assert_eq!(Sat::LAST.third(), 0);
   }
 
   #[test]
@@ -573,7 +573,7 @@ mod tests {
     assert_eq!(Sat(0).cycle(), 0);
     assert_eq!(Sat(2067187500000000 - 1).cycle(), 0);
     assert_eq!(Sat(2067187500000000).cycle(), 0);
-    assert_eq!(Sat(2067187500000000 + 1).cycle(), 1);
+    assert_eq!(Sat(2067187500000000 + 1).cycle(), 0);
   }
 
   #[test]

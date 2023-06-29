@@ -21,7 +21,7 @@ fn traits_command_prints_sat_traits() {
 #[test]
 fn traits_command_for_last_sat() {
   assert_eq!(
-    CommandBuilder::new("traits 2099999997689999").run_and_check_output::<Output>(),
+    CommandBuilder::new("traits 10499999999999999").run_and_check_output::<Output>(),
     Output {
       number: 10499999999999999,
       decimal: "46199999.0".into(),

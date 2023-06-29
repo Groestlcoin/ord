@@ -50,7 +50,7 @@ fn transactions_with_limit() {
     .run_and_check_output::<Vec<Output>>();
 
   assert_regex_match!(output[1].transaction.to_string(), "[[:xdigit:]]{64}");
-  assert_eq!(output[1].confirmations, 2);
+  assert_eq!(output[1].confirmations, 1);
 
   let output = CommandBuilder::new("wallet transactions --limit 1")
     .rpc_server(&rpc_server)

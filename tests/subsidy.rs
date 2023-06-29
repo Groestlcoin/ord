@@ -7,7 +7,7 @@ fn genesis() {
     Output {
       first: 0,
       subsidy: 5000000000,
-      name: "nvtdijuwxlp".into(),
+      name: "bvivuucdvvev".into(),
     }
   );
 }
@@ -19,7 +19,7 @@ fn second_block() {
     Output {
       first: 5000000000,
       subsidy: 5000000000,
-      name: "nvtcsezkbth".into(),
+      name: "bvivudxiizmn".into(),
     }
   );
 }

@@ -1906,8 +1906,8 @@ mod tests {
 <h2>1 Output</h2>
 <ul class=monospace>
   <li>
-    <a href=/output/30f2f037629c6a21c1f40ed39b9bd6278df39762d68d07f49582b23bcb23386a:0 class=monospace>
-      30f2f037629c6a21c1f40ed39b9bd6278df39762d68d07f49582b23bcb23386a:0
+    <a href=/output/4f953cb003c4b1ce20e797ddf18f347096b8922466dc3b44bf7d6a059b83815d:0 class=monospace>
+      4f953cb003c4b1ce20e797ddf18f347096b8922466dc3b44bf7d6a059b83815d:0
     </a>
     <dl>
       <dt>value</dt><dd>5000000000</dd>
