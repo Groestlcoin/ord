@@ -89,11 +89,33 @@
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -813,8 +835,8 @@ transaction:</p>
 <p><a href="https://ordinals.groestlcoin.org/search/cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662">cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662</a></p>
 <h3 id="outputs"><a class="header" href="#outputs">Outputs</a></h3>
 <p>Transaction outputs can searched by outpoint, for example, the only output of
-the block 1 coinbase transaction:</p>
-<p><a href="https://ordinals.groestlcoin.org/output/cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662:0">cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662:0</a></p>
+the genesis block coinbase transaction:</p>
+<p><a href="https://ordinals.groestlcoin.org/output/3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0">3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0</a></p>
 <h3 id="gros"><a class="header" href="#gros">Gros</a></h3>
 <p>Gros can be searched by integer, their position within the entire groestlcoin
 supply:</p>
