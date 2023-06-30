@@ -26,9 +26,9 @@ transaction:
 ### Outputs
 
 Transaction outputs can searched by outpoint, for example, the only output of
-the block 1 coinbase transaction:
+the genesis block coinbase transaction:
 
-[cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662:0](https://ordinals.groestlcoin.org/output/cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662:0)
+[3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0](https://ordinals.groestlcoin.org/output/3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0)
 
 ### Gros
 
