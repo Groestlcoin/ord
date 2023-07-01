@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-# This script deploys whatever is currently 
+# This script deploys whatever is currently
 # in working directory to our dev server
-DOMAIN="ordinals-dev.com"
+DOMAIN="ordinals-dev.groestlcoin.org"
 
-# Current local working state 
+# Current local working state
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 COMMIT=$(git rev-parse --short HEAD)
 DIR="ord-${BRANCH}-${COMMIT}"
