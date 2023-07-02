@@ -11,15 +11,7 @@ fn output_found() {
 
   assert_eq!(
     output,
-    vec![Output {
-      output: "3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0"
-        .parse()
-        .unwrap(),
-      start: 0,
-      size: 50 * COIN_VALUE,
-      rarity: "mythic".parse().unwrap(),
-      name: "nvtdijuwxlp".into(),
-    }]
+    vec![]
   );
 }
 

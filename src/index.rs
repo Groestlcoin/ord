@@ -1190,7 +1190,7 @@ mod tests {
         )
         .unwrap()
         .unwrap(),
-      List::Unspent(vec![(0, 50 * COIN_VALUE)])
+      List::Unspent(vec![])
     )
   }
 

@@ -13,7 +13,7 @@ fn sats() {
     .rpc_server(&rpc_server)
     .run_and_check_output::<Vec<OutputRare>>();
 
-  assert_eq!(output[0].sat, 50 * COIN_VALUE);
+  assert_eq!(output[0].sat, 0);
   assert_eq!(output[0].output.to_string(), format!("{second_coinbase}:0"));
 }
 

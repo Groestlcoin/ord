@@ -57,5 +57,5 @@ fn transactions_with_limit() {
     .run_and_check_output::<Vec<Output>>();
 
   assert_regex_match!(output[0].transaction.to_string(), "[[:xdigit:]]{64}");
-  assert_eq!(output[0].confirmations, 1);
+  assert_eq!(output[0].confirmations, 2);
 }

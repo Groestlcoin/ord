@@ -8,7 +8,7 @@ fn genesis() {
       supply: 10500000000000000,
       first: 0,
       last: 10499999999999999,
-      last_mined_in_block: 34649999
+      last_mined_in_block: 9078423
     }
   );
 }

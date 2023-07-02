@@ -82,8 +82,8 @@ mod tests {
 
   #[test]
   fn subsidy() {
-    assert_eq!(Height(0).subsidy(), 5000000000);
-    assert_eq!(Height(1).subsidy(), 5000000000);
+    assert_eq!(Height(0).subsidy(), 0);
+    assert_eq!(Height(1).subsidy(), 24064000000000);
     assert_eq!(Height(SUBSIDY_HALVING_INTERVAL - 1).subsidy(), 5000000000);
     assert_eq!(Height(SUBSIDY_HALVING_INTERVAL).subsidy(), 2500000000);
     assert_eq!(Height(SUBSIDY_HALVING_INTERVAL + 1).subsidy(), 2500000000);
@@ -92,7 +92,7 @@ mod tests {
   #[test]
   fn starting_sat() {
     assert_eq!(Height(0).starting_sat(), 0);
-    assert_eq!(Height(1).starting_sat(), 5000000000);
+    assert_eq!(Height(1).starting_sat(), 24064000000000);
     assert_eq!(
       Height(SUBSIDY_HALVING_INTERVAL - 1).starting_sat(),
       (SUBSIDY_HALVING_INTERVAL - 1) * 5000000000

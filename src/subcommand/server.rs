@@ -1677,7 +1677,7 @@ mod tests {
       format!(
         ".*<title>Output {txid}:4294967295</title>.*<h1>Output <span class=monospace>{txid}:4294967295</span></h1>
 <dl>
-  <dt>value</dt><dd>5000000000</dd>
+  <dt>value</dt><dd>0</dd>
   <dt>script pubkey</dt><dd class=monospace></dd>
   <dt>transaction</dt><dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
 </dl>
@@ -1914,7 +1914,7 @@ mod tests {
       4f953cb003c4b1ce20e797ddf18f347096b8922466dc3b44bf7d6a059b83815d:0
     </a>
     <dl>
-      <dt>value</dt><dd>5000000000</dd>
+      <dt>value</dt><dd>0</dd>
       <dt>script pubkey</dt><dd class=monospace></dd>
     </dl>
   </li>
@@ -2454,7 +2454,7 @@ mod tests {
     server.assert_response_regex(
       format!("/inscription/{}", InscriptionId::from(txid)),
       StatusCode::OK,
-      r".*<dt>output value</dt>\s*<dd>5000000000</dd>\s*<dt>preview</dt>.*",
+      r".*<dt>output value</dt>\s*<dd>0</dd>\s*<dt>preview</dt>.*",
     );
   }
 

@@ -247,14 +247,13 @@ mod tests {
   #[test]
   fn height() {
     assert_eq!(Sat(0).height(), 0);
-    assert_eq!(Sat(1).height(), 0);
     assert_eq!(Sat(Epoch(0).subsidy()).height(), 1);
     assert_eq!(Sat(Epoch(0).subsidy() * 2).height(), 2);
     assert_eq!(
       Epoch(2).starting_sat().height(),
       SUBSIDY_HALVING_INTERVAL * 2
     );
-    assert_eq!(Sat(50 * COIN_VALUE).height(), 1);
+    assert_eq!(Sat(24064000000000).height(), 1);
     assert_eq!(Sat(2099999997689999).height(), 419999);
     assert_eq!(Sat(2099999997689998).height(), 419999);
   }

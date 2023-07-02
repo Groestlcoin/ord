@@ -62,24 +62,24 @@ mod tests {
   #[test]
   fn final_subsidy_height() {
     pretty_assert_eq!(
-      ClockSvg::new(Height(34649999)).second,
+      ClockSvg::new(Height(9078423)).second,
       1007.0 / 2016.0 * 360.0
     );
     pretty_assert_eq!(
-      ClockSvg::new(Height(34649999)).minute,
+      ClockSvg::new(Height(9078423)).minute,
       209_999.8 / 210_000.0 * 360.0
     );
     pretty_assert_eq!(
-      ClockSvg::new(Height(34649999)).hour,
-      46199999.0 / 46200000.0 * 360.0
+      ClockSvg::new(Height(9078423)).hour,
+      9078423.0 / 9078424.0 * 360.0
     );
   }
 
   #[test]
   fn first_post_subsidy_height() {
-    pretty_assert_eq!(ClockSvg::new(Height(46200000)).second, 240.0);
-    pretty_assert_eq!(ClockSvg::new(Height(46200000)).minute, 0.0);
-    pretty_assert_eq!(ClockSvg::new(Height(46200000)).hour, 0.0);
+    pretty_assert_eq!(ClockSvg::new(Height(34650000)).second, 240.0);
+    pretty_assert_eq!(ClockSvg::new(Height(34650000)).minute, 0.0);
+    pretty_assert_eq!(ClockSvg::new(Height(34650000)).hour, 0.0);
   }
 
   #[test]
