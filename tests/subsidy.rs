@@ -3,7 +3,7 @@ use {super::*, ord::subcommand::subsidy::Output};
 #[test]
 fn genesis() {
   assert_eq!(
-    CommandBuilder::new("subsidy 0").run_and_check_output::<Output>(),
+    CommandBuilder::new("subsidy 0").run_and_deserialize_output::<Output>(),
     Output {
       first: 0,
       subsidy: 0,
@@ -15,7 +15,7 @@ fn genesis() {
 #[test]
 fn second_block() {
   assert_eq!(
-    CommandBuilder::new("subsidy 1").run_and_check_output::<Output>(),
+    CommandBuilder::new("subsidy 1").run_and_deserialize_output::<Output>(),
     Output {
       first: 0,
       subsidy: 24064000000000,
@@ -27,7 +27,7 @@ fn second_block() {
 #[test]
 fn second_to_last_block_with_subsidy() {
   assert_eq!(
-    CommandBuilder::new("subsidy 9078422").run_and_check_output::<Output>(),
+    CommandBuilder::new("subsidy 9078422").run_and_deserialize_output::<Output>(),
     Output {
       first: 10499999999999998,
       subsidy: 1,
@@ -39,7 +39,7 @@ fn second_to_last_block_with_subsidy() {
 #[test]
 fn last_block_with_subsidy() {
   assert_eq!(
-    CommandBuilder::new("subsidy 9078423").run_and_check_output::<Output>(),
+    CommandBuilder::new("subsidy 9078423").run_and_deserialize_output::<Output>(),
     Output {
       first: 10499999999999999,
       subsidy: 1,

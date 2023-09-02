@@ -2,7 +2,10 @@
 
 use {
   arbitrary::Arbitrary,
-  groestlcoin::{Amount, OutPoint},
+  groestlcoin::{
+    address::{Address, NetworkUnchecked},
+    Amount, OutPoint,
+  },
   libfuzzer_sys::fuzz_target,
   ord::{FeeRate, SatPoint, TransactionBuilder},
   std::collections::BTreeMap,
@@ -44,16 +47,19 @@ fuzz_target!(|input: Input| {
   }
 
   let recipient = "grs1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyswje5r7"
-    .parse()
-    .unwrap();
+    .parse::<Address<NetworkUnchecked>>()
+    .unwrap()
+    .assume_checked();
 
   let change = [
     "grs1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqfcjs2j"
-      .parse()
-      .unwrap(),
+      .parse::<Address<NetworkUnchecked>>()
+      .unwrap()
+      .assume_checked(),
     "grs1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqfcjs2j"
-      .parse()
-      .unwrap(),
+      .parse::<Address<NetworkUnchecked>>()
+      .unwrap()
+      .assume_checked(),
   ];
 
   let Ok(fee_rate) = FeeRate::try_from(input.fee_rate) else { return; };

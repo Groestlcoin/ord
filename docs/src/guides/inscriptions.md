@@ -150,7 +150,7 @@ content, the higher the fee that the inscription transaction must pay.
 
 Inscription content is included in transaction witnesses, which receive the
 witness discount. To calculate the approximate fee that an inscribe transaction
-will pay, divide the content size by four and muliply by the fee rate.
+will pay, divide the content size by four and multiply by the fee rate.
 
 Inscription transactions must be less than 400,000 weight units, or they will
 not be relayed by Groestlcoin Core. One byte of inscription content costs one
@@ -172,10 +172,10 @@ for the reveal transaction, and the inscription ID. Inscription IDs are of the
 form `TXIDiN`, where `TXID` is the transaction ID of the reveal transaction,
 and `N` is the index of the inscription in the reveal transaction.
 
-The commit transaction commits to a tapscript containing the contents of the
+The commit transaction commits to a tapscript containing the content of the
 inscription, and the reveal transaction spends from that tapscript, revealing
-the contents on chain and inscribing them on the first gro of the first output
-of the reveal transaction.
+the content on chain and inscribing it on the first gro of the input that
+contains the corresponding tapscript.
 
 Wait for the reveal transaction to be mined. You can check the status of the
 commit and reveal transactions using  [the esplora block

@@ -87,6 +87,53 @@ Once built, the `ord` binary can be found at `./target/release/ord`.
 
 `ord` requires `rustc` version 1.67.0 or later. Run `rustc --version` to ensure you have this version. Run `rustup update` to get the latest stable release.
 
+Contributing
+------------
+
+If you wish to contribute there are a couple things that are helpful to know. We
+put a lot of emphasis on proper testing in the code base, with three broad
+categories of tests: unit, integration and fuzz. Unit tests can usually be found at
+the bottom of a file in a mod block called `tests`. If you add or modify a
+function please also add a corresponding test. Integration tests try to test
+end-to-end functionality by executing a subcommand of the binary. Those can be
+found in the [tests](tests) directory. We don't have a lot of fuzzing but the
+basic structure of how we do it can be found in the [fuzz](fuzz) directory.
+
+We strongly recommend installing [just](https://github.com/casey/just) to make
+running the tests easier. To run our CI test suite you would do:
+
+```
+just ci
+```
+
+This corresponds to the commands:
+
+```
+cargo fmt -- --check
+cargo test --all
+cargo test --all -- --ignored
+```
+
+Have a look at the [justfile](justfile) to see some more helpful recipes
+(commands). Here are a couple more good ones:
+
+```
+just fmt
+just fuzz
+just doc
+just watch ltest --all
+```
+
+If the tests are failing or hanging, you might need to increase the maximum
+number of open files by running `ulimit -n 1024` in your shell before you run
+the tests, or in your shell configuration.
+
+We also try to follow a TDD (Test-Driven-Development) approach, which means we
+use tests as a way to get visibility into the code. Tests have to run fast for that
+reason so that the feedback loop between making a change, running the test and
+seeing the result is small. To facilitate that we created a mocked Groestlcoin Core
+instance in [test-groestlcoincore-rpc](./test-groestlcoincore-rpc).
+
 Syncing
 -------
 
@@ -104,7 +151,7 @@ See `ord --help` for details.
 `groestlcoind` RPC Authentication
 -----------------------------
 
-`ord` makes RPC calls to `groestlcoind`, which usually require a username and
+`ord` makes RPC calls to `groestlcoind`, which usually requires a username and
 password.
 
 By default, `ord` looks a username and password in the cookie file created by
@@ -162,3 +209,16 @@ Release x.y.z
 - Update dependencies
 - Update database schema version
 ```
+
+Translations
+------------
+
+To translate [the docs](https://docs.ordinals.com) we use this
+[mdBook i18n helper](https://github.com/google/mdbook-i18n-helpers).
+So read through their [usage guide](https://github.com/google/mdbook-i18n-helpers/blob/main/USAGE.md)
+to see the structure that translations should follow.
+
+There are some other things to watch out for but feel free to just start a
+translation and open a PR. Have a look at [this commit](https://github.com/ordinals/ord/commit/329f31bf6dac207dad001507dd6f18c87fdef355)
+for an idea of what to do. A maintainer will also help you integrate it into our
+build system.

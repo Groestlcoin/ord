@@ -7,7 +7,7 @@ fn output_found() {
     "--index-sats list 3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0",
   )
   .rpc_server(&rpc_server)
-  .run_and_check_output::<Vec<Output>>();
+  .run_and_deserialize_output::<Vec<Output>>();
 
   assert_eq!(
     output,

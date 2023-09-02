@@ -109,7 +109,7 @@ This gro is uncommon:
 ```
 1°1′1″0‴
 │ │ │ ╰─ First gro in block
-│ │ ╰─── Not first block in difficutly adjustment period
+│ │ ╰─── Not first block in difficulty adjustment period
 │ ╰───── Not first block in halving epoch
 ╰─────── Second cycle
 ```
@@ -159,7 +159,7 @@ from above:
 
 ```
 1°1′1″
-│ │ ╰─ Not first block in difficutly adjustment period
+│ │ ╰─ Not first block in difficulty adjustment period
 │ ╰─── Not first block in halving epoch
 ╰───── Second cycle
 ```
@@ -199,7 +199,7 @@ the unspendable genesis block.
 
 As an example, 1905530482684727°'s name is "iaiufjszmoba". The name of the last
 gro to be mined is "a". Every combination of 10 characters or less is out
-there, or will be out there, some day.
+there, or will be out there, someday.
 
 Exotics
 -------

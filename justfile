@@ -12,7 +12,7 @@ forbid:
   ./bin/forbid
 
 fmt:
-  cargo fmt
+  cargo fmt --all
 
 clippy:
   cargo clippy --all --all-targets -- -D warnings
@@ -36,12 +36,12 @@ deploy-signet branch="master": (deploy branch "signet" "ordinals-signet.groestlc
 
 deploy-testnet branch="master": (deploy branch "test" "ordinals-test.groestlcoin.org")
 
-ord-dev-save-state domain="ordinals-dev.groestlcoin.org":
+deploy-ord-dev branch="master" chain="main" domain="ordinals-dev.groestlcoin.org": (deploy branch chain domain)
+
+save-ord-dev-state domain="ordinals-dev.groestlcoin.org":
+  $EDITOR ./deploy/save-ord-dev-state
   scp ./deploy/save-ord-dev-state root@{{domain}}:~
   ssh root@{{domain}} "./save-ord-dev-state"
-
-ord-dev-deploy:
-  ./deploy/deploy-ord-dev
 
 log unit="ord" domain="ordinals.groestlcoin.org":
   ssh root@{{domain}} 'journalctl -fu {{unit}}'
@@ -80,7 +80,7 @@ prepare-release revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
   git checkout {{ revision }}
-  git pull upstream {{ revision }}
+  git pull origin {{ revision }}
   echo >> CHANGELOG.md
   git log --pretty='format:- %s' >> CHANGELOG.md
   $EDITOR CHANGELOG.md
@@ -157,11 +157,18 @@ build-snapshots:
     printf "$height_limit\t$((b - a))\n" >> time.txt
   done
 
-serve-docs:
-  mdbook serve docs --open
+serve-docs: build-docs
+  open http://127.0.0.1:8080
+  python3 -m http.server --directory docs/build/html --bind 127.0.0.1 8080
 
 build-docs:
-  mdbook build docs
+  #!/usr/bin/env bash
+  mdbook build docs -d build
+  for lang in "zh" ; do
+    MDBOOK_BOOK__LANGUAGE=$lang \
+      mdbook build docs -d build/$lang
+    mv docs/build/$lang/html docs/build/html/$lang
+  done
 
 update-changelog:
   echo >> CHANGELOG.md
