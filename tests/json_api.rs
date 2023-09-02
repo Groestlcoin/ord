@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn get_sat_without_sat_index() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   let response = TestServer::spawn_with_args(&rpc_server, &["--enable-json-api"])
     .json_request("/sat/2099999997689999");
@@ -37,7 +37,7 @@ fn get_sat_without_sat_index() {
 
 #[test]
 fn get_sat_with_inscription_and_sat_index() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
 
@@ -77,7 +77,7 @@ fn get_sat_with_inscription_and_sat_index() {
 
 #[test]
 fn get_sat_with_inscription_on_common_sat_and_more_inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
 
@@ -129,7 +129,7 @@ fn get_sat_with_inscription_on_common_sat_and_more_inscriptions() {
 
 #[test]
 fn get_inscription() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
 
@@ -170,7 +170,7 @@ fn get_inscription() {
 }
 
 fn create_210_inscriptions(
-  rpc_server: &test_bitcoincore_rpc::Handle,
+  rpc_server: &test_groestlcoincore_rpc::Handle,
 ) -> (Vec<InscriptionId>, Vec<InscriptionId>) {
   let witness = envelope(&[b"ord", &[1], b"text/plain;charset=utf-8", &[], b"bar"]);
 
@@ -216,7 +216,7 @@ fn create_210_inscriptions(
 
 #[test]
 fn get_inscriptions() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
   let (blessed_inscriptions, cursed_inscriptions) = create_210_inscriptions(&rpc_server);
@@ -311,7 +311,7 @@ fn get_inscriptions() {
 
 #[test]
 fn get_inscriptions_in_block() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(10);
@@ -357,7 +357,7 @@ fn get_inscriptions_in_block() {
 
 #[test]
 fn get_output() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(3);
@@ -399,7 +399,7 @@ fn get_output() {
 
 #[test]
 fn json_request_fails_when_not_enabled() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   let response =
     TestServer::spawn_with_args(&rpc_server, &[]).json_request("/sat/2099999997689999");

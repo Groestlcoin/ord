@@ -84,7 +84,7 @@ fn inscriptions_includes_locked_utxos() {
 
 #[test]
 fn inscriptions_with_postage() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 

@@ -81,4 +81,4 @@ path = "tests/lib.rs"
 pulldown-cmark = "0.9.2"
 
 [patch.crates-io]
-groestlcoin = { git = "https://github.com/Groestlcoin/rust-groestlcoin", branch = "ord" }
+groestlcoin = { git = "https://github.com/Groestlcoin/rust-groestlcoin", branch = "ord2" }

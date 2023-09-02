@@ -1,8 +1,7 @@
 Testing
 =======
 
-Ord can be tested using the following flags to specify the test network. For more
-information on running Bitcoin Core for testing, see [Bitcoin's developer documentation](https://developer.bitcoin.org/examples/testing.html).
+Ord can be tested using the following flags to specify the test network.
 
 Most `ord` commands in [inscriptions](inscriptions.md) and [explorer](explorer.md)
 can be run with the following network flags:
@@ -18,9 +17,9 @@ Regtest doesn't require downloading the blockchain or indexing ord.
 Example
 -------
 
-Run bitcoind in regtest with:
+Run groestlcoind in regtest with:
 ```
-bitcoind -regtest -txindex
+groestlcoind -regtest -txindex
 ```
 Create a wallet in regtest with:
 ```
@@ -32,7 +31,7 @@ ord -r wallet receive
 ```
 Mine 101 blocks (to unlock the coinbase) with:
 ```
-bitcoin-cli generatetoaddress 101 <receive address>
+groestlcoin-cli generatetoaddress 101 <receive address>
 ```
 Inscribe in regtest with:
 ```
@@ -40,7 +39,7 @@ ord -r wallet inscribe --fee-rate 1 <file>
 ```
 Mine the inscription with:
 ```
-bitcoin-cli generatetoaddress 1 <receive address>
+groestlcoin-cli generatetoaddress 1 <receive address>
 ```
 View the inscription in the regtest explorer:
 ```
@@ -68,6 +67,6 @@ ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
 ```
 Finally you will have to mine some blocks and start the server:
 ```
-bitcoin-cli generatetoaddress 6 <receive address>
+groestlcoin-cli generatetoaddress 6 <receive address>
 ord -r server
 ```

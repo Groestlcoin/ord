@@ -1,6 +1,6 @@
 use {
   super::*,
-  bitcoin::{
+  groestlcoin::{
     absolute::LockTime, consensus::Encodable, opcodes, script, ScriptBuf, Sequence, Transaction,
     TxIn, Witness,
   },
