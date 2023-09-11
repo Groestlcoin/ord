@@ -30,7 +30,7 @@ dirs = "5.0.0"
 env_logger = "0.10.0"
 futures = "0.3.21"
 groestlcoin = { version = "0.30.0", features = ["rand"] }
-groestlcoincore-rpc = { git = "https://github.com/Groestlcoin/rust-groestlcoincore-rpc", branch = "0.17.1-ord" }
+groestlcoincore-rpc = { git = "https://github.com/Groestlcoin/rust-groestlcoincore-rpc", branch = "0.17.0-ord" }
 hex = "0.4.3"
 html-escaper = "0.2.0"
 http = "0.2.6"

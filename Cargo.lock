@@ -1361,7 +1361,7 @@ dependencies = [
 [[package]]
 name = "groestlcoincore-rpc"
 version = "0.17.0"
-source = "git+https://github.com/Groestlcoin/rust-groestlcoincore-rpc?branch=0.17.0-ord#10b84548c631401d9768e3c96afef22d90970bc5"
+source = "git+https://github.com/Groestlcoin/rust-groestlcoincore-rpc?branch=0.17.0-ord#9f5fb4a7c2ac4908ce61c327035115a4f0a1e5a7"
 dependencies = [
  "groestlcoin-private 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "groestlcoincore-rpc-json",
@@ -1374,7 +1374,7 @@ dependencies = [
 [[package]]
 name = "groestlcoincore-rpc-json"
 version = "0.17.0"
-source = "git+https://github.com/Groestlcoin/rust-groestlcoincore-rpc?branch=0.17.0-ord#10b84548c631401d9768e3c96afef22d90970bc5"
+source = "git+https://github.com/Groestlcoin/rust-groestlcoincore-rpc?branch=0.17.0-ord#9f5fb4a7c2ac4908ce61c327035115a4f0a1e5a7"
 dependencies = [
  "groestlcoin",
  "groestlcoin-private 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
