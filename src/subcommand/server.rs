@@ -5,7 +5,6 @@ use {
     error::{OptionExt, ServerError, ServerResult},
   },
   super::*,
-  crate::index::block_index::BlockIndex,
   crate::page_config::PageConfig,
   crate::templates::{
     BlockHtml, ClockSvg, HomeHtml, InputHtml, InscriptionHtml, InscriptionJson,
@@ -31,7 +30,7 @@ use {
     caches::DirCache,
     AcmeConfig,
   },
-  std::{cmp::Ordering, str, sync::Arc, sync::RwLock},
+  std::{cmp::Ordering, str, sync::Arc},
   tokio_stream::StreamExt,
   tower_http::{
     compression::CompressionLayer,
@@ -46,10 +45,6 @@ mod error;
 #[derive(Clone)]
 pub struct ServerConfig {
   pub is_json_api_enabled: bool,
-}
-
-struct BlockIndexState {
-  block_index: RwLock<BlockIndex>,
 }
 
 enum BlockQuery {
@@ -140,14 +135,7 @@ pub(crate) struct Server {
 impl Server {
   pub(crate) fn run(self, options: Options, index: Arc<Index>, handle: Handle) -> SubcommandResult {
     Runtime::new()?.block_on(async {
-      let block_index_state = BlockIndexState {
-        block_index: RwLock::new(BlockIndex::new(&index)?),
-      };
-
-      let block_index_state = Arc::new(block_index_state);
-
       let index_clone = index.clone();
-      let block_index_clone = block_index_state.clone();
 
       let index_thread = thread::spawn(move || loop {
         if SHUTTING_DOWN.load(atomic::Ordering::Relaxed) {
@@ -155,14 +143,6 @@ impl Server {
         }
         if let Err(error) = index_clone.update() {
           log::warn!("Updating index: {error}");
-        }
-        if let Err(error) = block_index_clone
-          .block_index
-          .write()
-          .unwrap()
-          .update(&index_clone)
-        {
-          log::warn!("Updating block index: {error}");
         }
         thread::sleep(Duration::from_millis(5000));
       });
@@ -222,7 +202,6 @@ impl Server {
         .layer(Extension(index))
         .layer(Extension(page_config))
         .layer(Extension(Arc::new(config)))
-        .layer(Extension(block_index_state))
         .layer(SetResponseHeaderLayer::if_not_present(
           header::CONTENT_SECURITY_POLICY,
           HeaderValue::from_static("default-src 'self'"),
@@ -560,16 +539,13 @@ impl Server {
   async fn home(
     Extension(page_config): Extension<Arc<PageConfig>>,
     Extension(index): Extension<Arc<Index>>,
-    Extension(block_index_state): Extension<Arc<BlockIndexState>>,
   ) -> ServerResult<PageHtml<HomeHtml>> {
     let blocks = index.blocks(100)?;
     let mut featured_blocks = BTreeMap::new();
     for (height, hash) in blocks.iter().take(5) {
-      let (inscriptions, _total_num) = block_index_state
-        .block_index
-        .read()
-        .map_err(|err| anyhow!("block index RwLock poisoned: {}", err))?
-        .get_highest_paying_inscriptions_in_block(&index, *height, 8)?;
+      let (inscriptions, _total_num) =
+        index.get_highest_paying_inscriptions_in_block(*height, 8)?;
+
       featured_blocks.insert(*hash, inscriptions);
     }
 
@@ -583,7 +559,6 @@ impl Server {
   async fn block(
     Extension(page_config): Extension<Arc<PageConfig>>,
     Extension(index): Extension<Arc<Index>>,
-    Extension(block_index_state): Extension<Arc<BlockIndexState>>,
     Path(DeserializeFromStr(query)): Path<DeserializeFromStr<BlockQuery>>,
   ) -> ServerResult<PageHtml<BlockHtml>> {
     let (block, height) = match query {
@@ -607,11 +582,8 @@ impl Server {
       }
     };
 
-    let (featured_inscriptions, total_num) = block_index_state
-      .block_index
-      .read()
-      .map_err(|err| anyhow!("block index RwLock poisoned: {}", err))?
-      .get_highest_paying_inscriptions_in_block(&index, height, 8)?;
+    let (featured_inscriptions, total_num) =
+      index.get_highest_paying_inscriptions_in_block(height, 8)?;
 
     Ok(
       BlockHtml::new(
@@ -1016,13 +988,17 @@ impl Server {
 
     let next = index.get_inscription_id_by_inscription_number(entry.number + 1)?;
 
+    let children = index.get_children_by_inscription_id(inscription_id)?;
+
     Ok(if accept_json.0 {
       Json(InscriptionJson::new(
         page_config.chain,
+        children,
         entry.fee,
         entry.height,
         inscription,
         inscription_id,
+        entry.parent,
         next,
         entry.number,
         output,
@@ -1037,11 +1013,13 @@ impl Server {
         chain: page_config.chain,
         genesis_fee: entry.fee,
         genesis_height: entry.height,
+        children,
         inscription,
         inscription_id,
         next,
         number: entry.number,
         output,
+        parent: entry.parent,
         previous,
         sat: entry.sat,
         satpoint,
@@ -1063,14 +1041,12 @@ impl Server {
   async fn inscriptions_in_block(
     Extension(page_config): Extension<Arc<PageConfig>>,
     Extension(index): Extension<Arc<Index>>,
-    Extension(block_index_state): Extension<Arc<BlockIndexState>>,
     Path(block_height): Path<u64>,
     accept_json: AcceptJson,
   ) -> ServerResult<Response> {
     Self::inscriptions_in_block_from_page(
       Extension(page_config),
       Extension(index),
-      Extension(block_index_state),
       Path((block_height, 0)),
       accept_json,
     )
@@ -1080,18 +1056,10 @@ impl Server {
   async fn inscriptions_in_block_from_page(
     Extension(page_config): Extension<Arc<PageConfig>>,
     Extension(index): Extension<Arc<Index>>,
-    Extension(block_index_state): Extension<Arc<BlockIndexState>>,
     Path((block_height, page_index)): Path<(u64, usize)>,
     accept_json: AcceptJson,
   ) -> ServerResult<Response> {
-    let block_index = block_index_state
-      .block_index
-      .read()
-      .map_err(|err| anyhow!("block index RwLock poisoned: {}", err))?;
-
-    let inscriptions = index
-      .get_inscriptions_in_block(&block_index, block_height)
-      .map_err(|e| ServerError::NotFound(format!("Failed to get inscriptions in block: {}", e)))?;
+    let inscriptions = index.get_inscriptions_in_block(block_height)?;
 
     Ok(if accept_json.0 {
       Json(InscriptionsJson::new(inscriptions, None, None, None, None)).into_response()
@@ -1101,13 +1069,7 @@ impl Server {
         index.block_height()?.unwrap_or(Height(0)).n(),
         inscriptions,
         page_index,
-      )
-      .map_err(|e| {
-        ServerError::NotFound(format!(
-          "Failed to get inscriptions in inscriptions block page: {}",
-          e
-        ))
-      })?
+      )?
       .page(page_config, index.has_sat_index()?)
       .into_response()
     })
@@ -1174,7 +1136,7 @@ impl Server {
 
 #[cfg(test)]
 mod tests {
-  use {super::*, reqwest::Url, std::net::TcpListener};
+  use {super::*, reqwest::Url, serde::de::DeserializeOwned, std::net::TcpListener};
 
   struct TestServer {
     groestlcoin_rpc_server: test_groestlcoincore_rpc::Handle,
@@ -1210,6 +1172,17 @@ mod tests {
           .build(),
         None,
         &["--chain", "regtest"],
+        &[],
+      )
+    }
+
+    fn new_with_regtest_with_json_api() -> Self {
+      Self::new_server(
+        test_groestlcoincore_rpc::builder()
+          .network(groestlcoin::network::constants::Network::Regtest)
+          .build(),
+        None,
+        &["--chain", "regtest", "--enable-json-api"],
         &[],
       )
     }
@@ -1316,6 +1289,24 @@ mod tests {
         log::error!("{error}");
       }
       reqwest::blocking::get(self.join_url(path.as_ref())).unwrap()
+    }
+
+    pub(crate) fn get_json<T: DeserializeOwned>(&self, path: impl AsRef<str>) -> T {
+      if let Err(error) = self.index.update() {
+        log::error!("{error}");
+      }
+
+      let client = reqwest::blocking::Client::new();
+
+      let response = client
+        .get(self.join_url(path.as_ref()))
+        .header(reqwest::header::ACCEPT, "application/json")
+        .send()
+        .unwrap();
+
+      assert_eq!(response.status(), StatusCode::OK);
+
+      response.json().unwrap()
     }
 
     fn join_url(&self, url: &str) -> Url {
@@ -1934,23 +1925,23 @@ mod tests {
 
     server.mine_blocks(1);
 
-    server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        fee: 50 * 100_000_000,
-        ..Default::default()
-      });
+    server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Default::default())],
+      fee: 50 * 100_000_000,
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(2, 1, 0)],
-        witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        2,
+        1,
+        0,
+        inscription("text/plain;charset=utf-8", "hello").to_witness(),
+      )],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2090,7 +2081,7 @@ mod tests {
 
     test_server.mine_blocks(1);
     let transaction = TransactionTemplate {
-      inputs: &[(1, 0, 0)],
+      inputs: &[(1, 0, 0, Default::default())],
       fee: 0,
       ..Default::default()
     };
@@ -2331,14 +2322,12 @@ mod tests {
     );
 
     server.mine_blocks(1);
-    server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        outputs: 2,
-        fee: 0,
-        ..Default::default()
-      });
+    server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Default::default())],
+      outputs: 2,
+      fee: 0,
+      ..Default::default()
+    });
     server.mine_blocks(1);
 
     assert_eq!(
@@ -2357,14 +2346,12 @@ mod tests {
     );
 
     server.mine_blocks(1);
-    server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        outputs: 2,
-        fee: 2,
-        ..Default::default()
-      });
+    server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Default::default())],
+      outputs: 2,
+      fee: 2,
+      ..Default::default()
+    });
     server.mine_blocks(1);
 
     assert_eq!(
@@ -2422,13 +2409,15 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription("text/plain;charset=utf-8", "hello").to_witness(),
+      )],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2445,13 +2434,15 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/plain;charset=utf-8", b"\xc3\x28").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription("text/plain;charset=utf-8", b"\xc3\x28").to_witness(),
+      )],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2467,17 +2458,19 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription(
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription(
           "text/plain;charset=utf-8",
           "<script>alert('hello');</script>",
         )
         .to_witness(),
-        ..Default::default()
-      });
+      )],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2495,8 +2488,7 @@ mod tests {
     server.mine_blocks(1);
 
     let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("audio/flac", "hello").to_witness(),
+      inputs: &[(1, 0, 0, inscription("audio/flac", "hello").to_witness())],
       ..Default::default()
     });
     let inscription_id = InscriptionId { txid, index: 0 };
@@ -2516,8 +2508,12 @@ mod tests {
     server.mine_blocks(1);
 
     let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("application/pdf", "hello").to_witness(),
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription("application/pdf", "hello").to_witness(),
+      )],
       ..Default::default()
     });
     let inscription_id = InscriptionId { txid, index: 0 };
@@ -2537,8 +2533,7 @@ mod tests {
     server.mine_blocks(1);
 
     let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("image/png", "hello").to_witness(),
+      inputs: &[(1, 0, 0, inscription("image/png", "hello").to_witness())],
       ..Default::default()
     });
     let inscription_id = InscriptionId { txid, index: 0 };
@@ -2558,13 +2553,15 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/html;charset=utf-8", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription("text/html;charset=utf-8", "hello").to_witness(),
+      )],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2581,13 +2578,10 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2605,8 +2599,7 @@ mod tests {
     server.mine_blocks(1);
 
     let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("video/webm", "hello").to_witness(),
+      inputs: &[(1, 0, 0, inscription("video/webm", "hello").to_witness())],
       ..Default::default()
     });
     let inscription_id = InscriptionId { txid, index: 0 };
@@ -2625,13 +2618,10 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2647,13 +2637,10 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2669,13 +2656,10 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2703,13 +2687,10 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2725,13 +2706,15 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: Inscription::new(Some("foo/bar".as_bytes().to_vec()), None).to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        Inscription::new(Some("foo/bar".as_bytes().to_vec()), None).to_witness(),
+      )],
+      ..Default::default()
+    });
 
     let inscription_id = InscriptionId { txid, index: 0 };
 
@@ -2749,13 +2732,15 @@ mod tests {
     let server = TestServer::new_with_regtest_with_index_sats();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: Inscription::new(Some("image/png".as_bytes().to_vec()), None).to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        1,
+        0,
+        0,
+        Inscription::new(Some("image/png".as_bytes().to_vec()), None).to_witness(),
+      )],
+      ..Default::default()
+    });
 
     let inscription_id = InscriptionId { txid, index: 0 };
 
@@ -2773,13 +2758,10 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server
-      .groestlcoin_rpc_server
-      .broadcast_tx(TransactionTemplate {
-        inputs: &[(1, 0, 0)],
-        witness: inscription("text/foo", "hello").to_witness(),
-        ..Default::default()
-      });
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/foo", "hello").to_witness())],
+      ..Default::default()
+    });
 
     server.mine_blocks(1);
 
@@ -2807,13 +2789,10 @@ mod tests {
 
     for i in 0..101 {
       server.mine_blocks(1);
-      server
-        .groestlcoin_rpc_server
-        .broadcast_tx(TransactionTemplate {
-          inputs: &[(i + 1, 0, 0)],
-          witness: inscription("text/foo", "hello").to_witness(),
-          ..Default::default()
-        });
+      server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+        inputs: &[(i + 1, 0, 0, inscription("text/foo", "hello").to_witness())],
+        ..Default::default()
+      });
     }
 
     server.mine_blocks(1);
@@ -2831,13 +2810,10 @@ mod tests {
 
     for i in 0..101 {
       server.mine_blocks(1);
-      server
-        .groestlcoin_rpc_server
-        .broadcast_tx(TransactionTemplate {
-          inputs: &[(i + 1, 0, 0)],
-          witness: inscription("text/foo", "hello").to_witness(),
-          ..Default::default()
-        });
+      server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+        inputs: &[(i + 1, 0, 0, inscription("text/foo", "hello").to_witness())],
+        ..Default::default()
+      });
     }
 
     server.mine_blocks(1);
@@ -2898,8 +2874,12 @@ mod tests {
     let groestlcoin_rpc_server = test_groestlcoincore_rpc::spawn();
     groestlcoin_rpc_server.mine_blocks(1);
     let txid = groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
-      inputs: &[(1, 0, 0)],
-      witness: inscription("text/plain;charset=utf-8", "hello").to_witness(),
+      inputs: &[(
+        1,
+        0,
+        0,
+        inscription("text/plain;charset=utf-8", "hello").to_witness(),
+      )],
       ..Default::default()
     });
     let inscription = InscriptionId { txid, index: 0 };
@@ -2920,6 +2900,73 @@ mod tests {
       format!("/content/{inscription}"),
       StatusCode::OK,
       &fs::read_to_string("templates/preview-unknown.html").unwrap(),
+    );
+  }
+
+  #[test]
+  fn inscription_links_to_parent() {
+    let server = TestServer::new_with_regtest_with_json_api();
+    server.mine_blocks(1);
+
+    let parent_txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
+      ..Default::default()
+    });
+
+    server.mine_blocks(1);
+
+    let parent_inscription_id = InscriptionId {
+      txid: parent_txid,
+      index: 0,
+    };
+
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[
+        (
+          2,
+          0,
+          0,
+          Inscription {
+            content_type: Some("text/plain".into()),
+            body: Some("hello".into()),
+            parent: Some(parent_inscription_id.parent_value()),
+            unrecognized_even_field: false,
+          }
+          .to_witness(),
+        ),
+        (2, 1, 0, Default::default()),
+      ],
+      ..Default::default()
+    });
+
+    server.mine_blocks(1);
+
+    let inscription_id = InscriptionId { txid, index: 0 };
+
+    server.assert_response_regex(
+      format!("/inscription/{inscription_id}"),
+      StatusCode::OK,
+      format!(".*<title>Inscription 1</title>.*<dt>parent</dt>.*<dd><a class=monospace href=/inscription/{parent_inscription_id}>{parent_inscription_id}</a></dd>.*"),
+    );
+
+    server.assert_response_regex(
+      format!("/inscription/{parent_inscription_id}"),
+      StatusCode::OK,
+      format!(".*<title>Inscription 0</title>.*<dt>children</dt>.*<a href=/inscription/{inscription_id}>.*</a>.*"),
+    );
+
+    assert_eq!(
+      server
+        .get_json::<InscriptionJson>(format!("/inscription/{inscription_id}"))
+        .parent,
+      Some(parent_inscription_id),
+    );
+
+    assert_eq!(
+      server
+        .get_json::<InscriptionJson>(format!("/inscription/{parent_inscription_id}"))
+        .children,
+      [inscription_id],
     );
   }
 }
