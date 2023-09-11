@@ -85,9 +85,9 @@ pub(crate) fn recipient() -> Address {
 
 pub(crate) fn change(n: u64) -> Address {
   match n {
-    0 => "tb1qjsv26lap3ffssj6hfy8mzn0lg5vte6a42j75ww",
-    1 => "tb1qakxxzv9n7706kc3xdcycrtfv8cqv62hnwexc0l",
-    2 => "tb1qxz9yk0td0yye009gt6ayn7jthz5p07a75luryg",
+    0 => "tgrs1qjsv26lap3ffssj6hfy8mzn0lg5vte6a42h60lk",
+    1 => "tgrs1qakxxzv9n7706kc3xdcycrtfv8cqv62hnwuzr78",
+    2 => "tgrs1qxz9yk0td0yye009gt6ayn7jthz5p07a756cc4s",
     3 => "tgrs1qe62s57n77pfhlw2vtqlhm87dwj75l6fgucgfrc",
     _ => panic!(),
   }
