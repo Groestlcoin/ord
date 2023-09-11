@@ -450,7 +450,7 @@ fn inscribe_works_with_postage() {
 
 #[test]
 fn inscribe_with_non_existent_parent_inscription() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -468,7 +468,7 @@ fn inscribe_with_non_existent_parent_inscription() {
 
 #[test]
 fn inscribe_with_parent_inscription_and_fee_rate() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -537,7 +537,7 @@ fn inscribe_with_parent_inscription_and_fee_rate() {
 
 #[test]
 fn reinscribe_with_flag() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
@@ -582,7 +582,7 @@ fn reinscribe_with_flag() {
 
 #[test]
 fn with_reinscribe_flag_but_not_actually_a_reinscription() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
@@ -608,7 +608,7 @@ fn with_reinscribe_flag_but_not_actually_a_reinscription() {
 
 #[test]
 fn try_reinscribe_without_flag() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);

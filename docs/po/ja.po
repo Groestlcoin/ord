@@ -104,8 +104,8 @@ msgstr "このマニュアルは序数理論の（Ordinals Theory）ガイドで
 
 #: src/introduction.md:8
 msgid ""
-"Satoshis, not bitcoin, are the atomic, native currency of the Bitcoin "
-"network. One bitcoin can be sub-divided into 100,000,000 satoshis, but no "
+"Satoshis, not groestlcoin, are the atomic, native currency of the Groestlcoin "
+"network. One groestlcoin can be sub-divided into 100,000,000 satoshis, but no "
 "further."
 msgstr ""
 "聡は（Satoshi），ビットコインではなく、ビットコインのインタネットのネイティブ貨幣と最小の単位です。"
@@ -113,8 +113,8 @@ msgstr ""
 
 #: src/introduction.md:11
 msgid ""
-"Ordinal theory does not require a sidechain or token aside from Bitcoin, and "
-"can be used without any changes to the Bitcoin network. It works right now."
+"Ordinal theory does not require a sidechain or token aside from Groestlcoin, and "
+"can be used without any changes to the Groestlcoin network. It works right now."
 msgstr ""
 "序数理論はビットコインブロックチェーン以外のサイドチェーンまたはトークンが必要ではなく、ビットコインインターネットに何も変更しない場合にも使うことができます。"
 "すぐに使うことができます。"
@@ -128,9 +128,9 @@ msgstr "序数理論は聡にコレックション価値に与えられ、骨董
 #: src/introduction.md:17
 msgid ""
 "Individual satoshis can be inscribed with arbitrary content, creating unique "
-"Bitcoin-native digital artifacts that can be held in Bitcoin wallets and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Groestlcoin-native digital artifacts that can be held in Groestlcoin wallets and "
+"transferred using Groestlcoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Groestlcoin itself."
 msgstr ""
 "一つの聡はどんな内容でも刻むことができます。独特なビットコインネイティブ数字文物（Digital Artifact）を作り上げ、"
 "ビットコインウォレットの中に保存して、ビットコインの取引で送信することができます。"
@@ -202,7 +202,7 @@ msgstr "動画"
 
 #: src/introduction.md:49
 msgid ""
-"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Bitcoin]"
+"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Groestlcoin]"
 "(https://www.youtube.com/watch?v=rSS0O2KQpsI)"
 msgstr ""
 "[序数理論を解釈して: 聡のシリアル番号とビットコインでのNFT]"
@@ -218,7 +218,7 @@ msgstr ""
 
 #: src/introduction.md:51
 msgid ""
-"[Ordinal Art: Mint Your own NFTs on Bitcoin w/ @rodarmor](https://www."
+"[Ordinal Art: Mint Your own NFTs on Groestlcoin w/ @rodarmor](https://www."
 "youtube.com/watch?v=j5V33kV3iqo)"
 msgstr ""
 "[序数の芸術：ビットコインの上で自分のNFTを鋳造します。 w/ @rodarmor](https://www."
@@ -254,7 +254,7 @@ msgstr ""
 #: src/overview.md:16
 msgid ""
 "Ordinal theory does not require a separate token, another blockchain, or any "
-"changes to Bitcoin. It works right now."
+"changes to Groestlcoin. It works right now."
 msgstr ""
 "序数理論は独特なトークン、独特なブロックチェーン、またはビットコインにどんな変更でも必要ではなくて、すぐに有効的に運行することができません。"
 
@@ -296,7 +296,7 @@ msgstr ""
 #: src/overview.md:35
 msgid ""
 "_Percentile notation_: [`99.99971949060254%`](https://ordinals.com/"
-"sat/99.99971949060254%25) . The satoshi's position in Bitcoin's supply, "
+"sat/99.99971949060254%25) . The satoshi's position in Groestlcoin's supply, "
 "expressed as a percentage."
 msgstr ""
 "_パーセント_: [`99.99971949060254%`](https://ordinals.com/"
@@ -322,7 +322,7 @@ msgstr ""
 msgid ""
 "Ordinals is an open-source project, developed [on GitHub](https://github.com/"
 "ordinals/ord). The project consists of a BIP describing the ordinal scheme, "
-"an index that communicates with a Bitcoin Core node to track the location of "
+"an index that communicates with a Groestlcoin Core node to track the location of "
 "all satoshis, a wallet that allows making ordinal-aware transactions, a "
 "block explorer for interactive exploration of the blockchain, functionality "
 "for inscribing satoshis with digital artifacts, and this manual."
@@ -350,7 +350,7 @@ msgstr ""
 
 #: src/overview.md:59
 msgid ""
-"Bitcoin has periodic events, some frequent, some more uncommon, and these "
+"Groestlcoin has periodic events, some frequent, some more uncommon, and these "
 "naturally lend themselves to a system of rarity. These periodic events are:"
 msgstr ""
 "ビットコインは周期的な事件があり、頻繫的なのはあるし、一般的なのはあります。これらの事件は自然にレア度システムが形成されます。"
@@ -366,7 +366,7 @@ msgstr ""
 #: src/overview.md:65
 msgid ""
 "_Difficulty adjustments_: Every 2016 blocks, or approximately every two "
-"weeks, the Bitcoin network responds to changes in hashrate by adjusting the "
+"weeks, the Groestlcoin network responds to changes in hashrate by adjusting the "
 "difficulty target which blocks must meet in order to be accepted."
 msgstr ""
 "_難易度調整_: 2016個ごとのブロック、または約二週間ごとです "
@@ -666,7 +666,7 @@ msgstr "`伝奇`: 0"
 #: src/overview.md:192
 msgid ""
 "At the moment, even uncommon satoshis are quite rare. As of this writing, "
-"745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in "
+"745,855 uncommon satoshis have been mined - one per 25.6 groestlcoin in "
 "circulation."
 msgstr ""
 "今は普通ではないの聡にもとても珍しいです。 この文を書くまで， "
@@ -725,7 +725,7 @@ msgstr ""
 
 #: src/overview.md:224
 msgid ""
-"Satoshis can be inscribed with arbitrary content, creating Bitcoin-native "
+"Satoshis can be inscribed with arbitrary content, creating Groestlcoin-native "
 "digital artifacts. Inscribing is done by sending the satoshi to be inscribed "
 "in a transaction that reveals the inscription content on-chain. This content "
 "is then inextricably linked to that satoshi, turning it into an immutable "
@@ -776,7 +776,7 @@ msgstr ""
 #: src/overview.md:247
 msgid ""
 "In another sense though, ordinals were in fact created by Satoshi Nakamoto "
-"in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, "
+"in 2009 when he mined the Groestlcoin genesis block. In this sense, ordinals, "
 "and especially early ordinals, are certainly of historical interest."
 msgstr ""
 "そういう意味では歴史的な意味がありません"
@@ -795,11 +795,11 @@ msgstr ""
 #: src/overview.md:255
 msgid ""
 "On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake "
-"to Bitcoin to the Bitcoin Talk forum](https://bitcointalk.org/index.php?"
+"to Groestlcoin to the Groestlcoin Talk forum](https://bitcointalk.org/index.php?"
 "topic=102355.0). This wasn't an asset scheme, but did use the ordinal "
 "algorithm, and was implemented but never deployed."
 msgstr ""
-"2012年8月21日、Charlie LeeでCharlie Lee[Bitcoin Talkフォーラムに投稿する」"
+"2012年8月21日、Charlie LeeでCharlie Lee[Groestlcoin Talkフォーラムに投稿する」"
 "ビットコイン権益証明Pro of-of-stake追加の提案](https://bitcointalk.org/index.php?"
 "topic=102355.0）.これは資産シナリオではありませんが、序数アルゴリズムが使用されており、実装されていますが、導入されたことはありません。"
 
@@ -818,7 +818,7 @@ msgstr ""
 msgid ""
 "These independent inventions of ordinals indicate in some way that ordinals "
 "were discovered, or rediscovered, and not invented. The ordinals are an "
-"inevitability of the mathematics of Bitcoin, stemming not from their modern "
+"inevitability of the mathematics of Groestlcoin, stemming not from their modern "
 "documentation, but from their ancient genesis. They are the culmination of a "
 "sequence of events set in motion with the mining of the first block, so many "
 "years ago."
@@ -925,7 +925,7 @@ msgstr ""
 
 #: src/inscriptions.md:4
 msgid ""
-"Inscriptions inscribe sats with arbitrary content, creating bitcoin-native "
+"Inscriptions inscribe sats with arbitrary content, creating groestlcoin-native "
 "digital artifacts, more commonly known as NFTs. Inscriptions do not require "
 "a sidechain or separate token."
 msgstr ""
@@ -934,9 +934,9 @@ msgstr ""
 
 #: src/inscriptions.md:8
 msgid ""
-"These inscribed sats can then be transferred using bitcoin transactions, "
-"sent to bitcoin addresses, and held in bitcoin UTXOs. These transactions, "
-"addresses, and UTXOs are normal bitcoin transactions, addresses, and UTXOS "
+"These inscribed sats can then be transferred using groestlcoin transactions, "
+"sent to groestlcoin addresses, and held in groestlcoin UTXOs. These transactions, "
+"addresses, and UTXOs are normal groestlcoin transactions, addresses, and UTXOS "
 "in all respects, with the exception that in order to send individual sats, "
 "transactions must control the order and value of inputs and outputs "
 "according to ordinal theory."
@@ -1282,7 +1282,7 @@ msgstr "序数理論はなんですか"
 #: src/faq.md:7
 msgid ""
 "Ordinal theory is a protocol for assigning serial numbers to satoshis, the "
-"smallest subdivision of a bitcoin, and tracking those satoshis as they are "
+"smallest subdivision of a groestlcoin, and tracking those satoshis as they are "
 "spent by transactions."
 msgstr ""
 "序数理論は、聡（satoshi、以下は「聡」と書きます。ビットコインの最小単位）シリアル番号を割り当てるプロトコル、"
@@ -1291,7 +1291,7 @@ msgstr ""
 #: src/faq.md:11
 msgid ""
 "These serial numbers are large numbers, like this 804766073970493. Every "
-"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a bitcoin, has an ordinal number."
+"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a groestlcoin, has an ordinal number."
 msgstr ""
 "これらの番号はすべて大きな数字で、例えば、804766073970493.すべての聡satoshi、"
 "もビットコインの¹⁄₁₀₀₀₀₀₀₀₀はすべて序数番号を持っています"
@@ -1299,14 +1299,14 @@ msgstr ""
 #: src/faq.md:14
 msgid ""
 "Does ordinal theory require a side chain, a separate token, or changes to "
-"Bitcoin?"
+"Groestlcoin?"
 msgstr ""
 "序数理論はサイドチェーン、個別のトークン、またはビットコインに変更を加える必要がありますか?"
 
 #: src/faq.md:17
 msgid ""
 "Nope! Ordinal theory works right now, without a side chain, and the only "
-"token needed is bitcoin itself."
+"token needed is groestlcoin itself."
 msgstr ""
 "全然いりません！序数理論は現在有効に利用可能で、サイドチェーンがなく、唯一必要なトークンはビットコイン自体であります。"
 
@@ -1326,7 +1326,7 @@ msgstr ""
 #: src/faq.md:27
 msgid ""
 "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary "
-"content to individual satoshis, turning them into bitcoin-native digital "
+"content to individual satoshis, turning them into groestlcoin-native digital "
 "artifacts."
 msgstr ""
 "序数理論はまた、任意の内容を単一のコングに付加し、ビットコインのネイティブデジタルアーティファクトにするプロトコルである銘文を与えます。"
@@ -1623,7 +1623,7 @@ msgstr ""
 
 #: src/faq.md:153
 msgid ""
-"Inscriptions, on the other hand, depend on the Bitcoin blockchain, which is "
+"Inscriptions, on the other hand, depend on the Groestlcoin blockchain, which is "
 "relatively simple and conservative, and which introduces changes via "
 "backwards-compatible soft forks."
 msgstr ""
@@ -1635,7 +1635,7 @@ msgstr "_銘文はより安全です_"
 
 #: src/faq.md:159
 msgid ""
-"Inscriptions inherit Bitcoin's transaction model, which allow a user to see "
+"Inscriptions inherit Groestlcoin's transaction model, which allow a user to see "
 "exactly which inscriptions are being transferred by a transaction before "
 "they sign it. Inscriptions can be offered for sale using partially signed "
 "transactions, which don't require allowing a third party, such as an "
@@ -1663,7 +1663,7 @@ msgstr "_銘文はより珍しいです_"
 
 #: src/faq.md:173
 msgid ""
-"Inscriptions require bitcoin to mint, transfer, and store. This seems like a "
+"Inscriptions require groestlcoin to mint, transfer, and store. This seems like a "
 "downside on the surface, but the raison d'etre of digital artifacts is to be "
 "scarce and thus valuable."
 msgstr ""
@@ -1712,9 +1712,9 @@ msgstr "_銘文は新たな市場を開きました_"
 
 #: src/faq.md:196
 msgid ""
-"Bitcoin's market capitalization and liquidity are greater than Ethereum's by "
+"Groestlcoin's market capitalization and liquidity are greater than Ethereum's by "
 "a large margin. Much of this liquidity is not available to Ethereum NFTs, "
-"since many Bitcoiners prefer not to interact with the Ethereum ecosystem due "
+"since many Groestlcoiners prefer not to interact with the Ethereum ecosystem due "
 "to concerns related to simplicity, security, and decentralization."
 msgstr ""
 "ビットコインの市場価格と流動性はイーサリアムを大きく上回っている。イーサリアムNFTはこのような流動性の大部分を得ることができません。"
@@ -1722,7 +1722,7 @@ msgstr ""
 
 #: src/faq.md:201
 msgid ""
-"Such Bitcoiners may be more interested in inscriptions than Ethereum NFTs, "
+"Such Groestlcoiners may be more interested in inscriptions than Ethereum NFTs, "
 "unlocking new classes of collector."
 msgstr ""
 "イーサリアムNFTと比較して、そのようなビットコインの支持者は、新しいカテゴリのコレクターをロッ"
@@ -1749,7 +1749,7 @@ msgstr "RGB 和 Taro 資産？"
 
 #: src/faq.md:214
 msgid ""
-"RGB and Taro are both second-layer asset protocols built on Bitcoin. "
+"RGB and Taro are both second-layer asset protocols built on Groestlcoin. "
 "Compared to inscriptions, they are much more complicated, but much more "
 "featureful."
 msgstr ""
@@ -1792,8 +1792,8 @@ msgstr "Counterparty资产"
 #: src/faq.md:233
 msgid ""
 "Counterparty has its own token, XCP, which is required for some "
-"functionality, which makes most bitcoiners regard it as an altcoin, and not "
-"an extension or second layer for bitcoin."
+"functionality, which makes most groestlcoiners regard it as an altcoin, and not "
+"an extension or second layer for groestlcoin."
 msgstr ""
 "Counterpartyは独自のトークンXCPを持っています。これはいくつかの機能に必要で、ほとんどのビットコイン保有者はそれをパクリ通貨と見なしています。"
 "ビットコインの拡張や第二層ではありません"
@@ -1815,7 +1815,7 @@ msgstr "芸術家になれます"
 
 #: src/faq.md:245
 msgid ""
-"_Inscriptions are on Bitcoin._ Bitcoin is the digital currency with the "
+"_Inscriptions are on Groestlcoin._ Groestlcoin is the digital currency with the "
 "highest status and greatest chance of long-term survival. If you want to "
 "guarantee that your art survives into the future, there is no better way to "
 "publish it than as inscriptions."
@@ -1851,7 +1851,7 @@ msgstr ""
 #: src/faq.md:261
 msgid ""
 "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and "
-"appealing to bitcoin holders, unlocking an entirely new class of collector."
+"appealing to groestlcoin holders, unlocking an entirely new class of collector."
 msgstr ""
 "_銘文ロック解除新しい流動性_ビットコインの所有者にとって、銘文はより簡単に入手でき、より魅力的で、新しいコレクションをもたらします。"
 
@@ -1896,22 +1896,22 @@ msgstr ""
 
 #: src/faq.md:284
 msgid ""
-"_Inscriptions are on Bitcoin._ You can verify the location and properties of "
-"inscriptions easily with Bitcoin full node that you control."
+"_Inscriptions are on Groestlcoin._ You can verify the location and properties of "
+"inscriptions easily with Groestlcoin full node that you control."
 msgstr ""
 "_ビットコイン上の銘文_あなたが制御するビットコインのフルノードを使用して、銘文の位置と属性を簡単に検証できます。"
 
 #: src/faq.md:287
-msgid "Bitcoiners"
+msgid "Groestlcoiners"
 msgstr "ビットコインの信仰者"
 
 #: src/faq.md:289
 msgid ""
 "Let me begin this section by saying: the most important thing that the "
-"Bitcoin network does is decentralize money. All other use-cases are "
+"Groestlcoin network does is decentralize money. All other use-cases are "
 "secondary, including ordinal theory. The developers of ordinal theory "
 "understand and acknowledge this, and believe that ordinal theory helps, at "
-"least in a small way, Bitcoin's primary mission."
+"least in a small way, Groestlcoin's primary mission."
 msgstr ""
 "冒頭で説明しましょう。ビットコインネットワークが行っている最も重要なことは、通貨の中心化です。"
 "の他のすべてのユースケースは、序数理論を含む副次的なものです。序数理論の開発者はこれを理解し、認めています。"
@@ -1932,7 +1932,7 @@ msgstr ""
 
 #: src/faq.md:302
 msgid ""
-"Bitcoin provides an amazing platform for creating and collecting digital "
+"Groestlcoin provides an amazing platform for creating and collecting digital "
 "artifacts in a secure, decentralized way, that protects users and artists in "
 "the same way that it provides an amazing platform for sending and receiving "
 "value, and for all the same reasons."
@@ -1942,9 +1942,9 @@ msgstr ""
 
 #: src/faq.md:307
 msgid ""
-"Ordinals and inscriptions increase demand for Bitcoin block space, which "
-"increase Bitcoin's security budget, which is vital for safeguarding "
-"Bitcoin's transition to a fee-dependent security model, as the block subsidy "
+"Ordinals and inscriptions increase demand for Groestlcoin block space, which "
+"increase Groestlcoin's security budget, which is vital for safeguarding "
+"Groestlcoin's transition to a fee-dependent security model, as the block subsidy "
 "is halved into insignificance."
 msgstr ""
 "序数と銘文はビットコインのブロックスペースの必要性を高め、ビットコインのセキュリティ予算を増加させた。"
@@ -1954,8 +1954,8 @@ msgstr ""
 msgid ""
 "Inscription content is stored on-chain, and thus the demand for block space "
 "for use in inscriptions is unlimited. This creates a buyer of last resort "
-"for _all_ Bitcoin block space. This will help support a robust fee market, "
-"which ensures that Bitcoin remains secure."
+"for _all_ Groestlcoin block space. This will help support a robust fee market, "
+"which ensures that Groestlcoin remains secure."
 msgstr ""
 "銘文の内容はチェーンに保存されているので、銘文のためのブロック空間の需要は無限であります。"
 "これにより、すべてのビットコインのブロックスペースに最後の買い手が生まれます。"
@@ -1963,7 +1963,7 @@ msgstr ""
 
 #: src/faq.md:317
 msgid ""
-"Inscriptions also counter the narrative that Bitcoin cannot be extended or "
+"Inscriptions also counter the narrative that Groestlcoin cannot be extended or "
 "used for new use-cases. If you follow projects like DLCs, Fedimint, "
 "Lightning, Taro, and RGB, you know that this narrative is false, but "
 "inscriptions provide a counter argument which is easy to understand, and "
@@ -1978,7 +1978,7 @@ msgstr ""
 msgid ""
 "If inscriptions prove, as the authors hope, to be highly sought after "
 "digital artifacts with a rich history, they will serve as a powerful hook "
-"for Bitcoin adoption: come for the fun, rich art, stay for the decentralized "
+"for Groestlcoin adoption: come for the fun, rich art, stay for the decentralized "
 "digital money."
 msgstr ""
 "作者が望むように、銘文が豊富な歴史を持つデジタル文化財であることが証明され、高く支持されていれば"
@@ -1989,10 +1989,10 @@ msgstr ""
 msgid ""
 "Inscriptions are an extremely benign source of demand for block space. "
 "Unlike, for example, stablecoins, which potentially give large stablecoin "
-"issuers influence over the future of Bitcoin development, or DeFi, which "
+"issuers influence over the future of Groestlcoin development, or DeFi, which "
 "might centralize mining by introducing opportunities for MEV, digital art "
-"and collectables on Bitcoin, are unlikely to produce individual entities "
-"with enough power to corrupt Bitcoin. Art is decentralized."
+"and collectables on Groestlcoin, are unlikely to produce individual entities "
+"with enough power to corrupt Groestlcoin. Art is decentralized."
 msgstr ""
 "銘文はブロック空間需要の極めて健全な源であり、安定通貨とは異なり、大手発行者がビットコインの未来をする可能性があります"
 "発展に影響を与えて；DeFiとは異なり、ビットコインにMEV、デジタルアート、コレクションを導入する機会を通じて、マイニングを集中化することができます。"
@@ -2000,7 +2000,7 @@ msgstr ""
 
 #: src/faq.md:334
 msgid ""
-"Inscription users and service providers are incentivized to run Bitcoin full "
+"Inscription users and service providers are incentivized to run Groestlcoin full "
 "nodes, to publish and track inscriptions, and thus throw their economic "
 "weight behind the honest chain."
 msgstr ""
@@ -2008,14 +2008,14 @@ msgstr ""
 
 #: src/faq.md:338
 msgid ""
-"Ordinal theory and inscriptions do not meaningfully affect Bitcoin's "
-"fungibility. Bitcoin users can ignore both and be unaffected."
+"Ordinal theory and inscriptions do not meaningfully affect Groestlcoin's "
+"fungibility. Groestlcoin users can ignore both and be unaffected."
 msgstr ""
 "序数理論と銘文はビットコインの代替可能性に大きな影響を与えない。ビットコインユーザーはこの2つを無視しても影響を受けません。"
 
 #: src/faq.md:341
 msgid ""
-"We hope that ordinal theory strengthens and enriches bitcoin, and gives it "
+"We hope that ordinal theory strengthens and enriches groestlcoin, and gives it "
 "another dimension of appeal and functionality, enabling it more effectively "
 "serve its primary use case as humanity's decentralized store of value."
 msgstr ""
@@ -2221,7 +2221,7 @@ msgstr ""
 
 #: src/donate.md:8
 msgid ""
-"The donation address for Bitcoin is "
+"The donation address for Groestlcoin is "
 "[bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt](https://"
 "mempool.space/address/"
 "bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt). The "
@@ -2379,7 +2379,7 @@ msgstr "聡"
 
 #: src/guides/explorer.md:48
 msgid ""
-"Sats can be searched by integer, their position within the entire bitcoin "
+"Sats can be searched by integer, their position within the entire groestlcoin "
 "supply:"
 msgstr ""
 "聡は整数で検索することができ、ビットコインの供給全体の中のそれらの位置："
@@ -2417,7 +2417,7 @@ msgstr ""
 
 #: src/guides/explorer.md:66
 msgid ""
-"Or by percentile, the percentage of bitcoin's supply that has been or will "
+"Or by percentile, the percentage of groestlcoin's supply that has been or will "
 "have been issued when they are mined:"
 msgstr "または百分率で、採掘時にすでに発行された、または発行される予定のビットコインの供給量のパーセント："
 
@@ -2431,10 +2431,10 @@ msgstr "銘文のガイド"
 
 #: src/guides/inscriptions.md:4
 msgid ""
-"Individual sats can be inscribed with arbitrary content, creating Bitcoin-"
-"native digital artifacts that can be held in a Bitcoin wallet and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Individual sats can be inscribed with arbitrary content, creating Groestlcoin-"
+"native digital artifacts that can be held in a Groestlcoin wallet and "
+"transferred using Groestlcoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Groestlcoin itself."
 msgstr ""
 "単一のコングは、ビットコインウォレットに保存され、ビットコイントランザクションを使用して転送"
 "されるビットコインネイティブデジタルアーティファクトを作成するために、任意のコンテンツを刻印することができます。"
@@ -2442,8 +2442,8 @@ msgstr ""
 
 #: src/guides/inscriptions.md:9
 msgid ""
-"Working with inscriptions requires a Bitcoin full node, to give you a view "
-"of the current state of the Bitcoin blockchain, and a wallet that can create "
+"Working with inscriptions requires a Groestlcoin full node, to give you a view "
+"of the current state of the Groestlcoin blockchain, and a wallet that can create "
 "inscriptions and perform sat control when constructing transactions to send "
 "inscriptions to another wallet."
 msgstr ""
@@ -2453,37 +2453,37 @@ msgstr ""
 
 #: src/guides/inscriptions.md:14
 msgid ""
-"Bitcoin Core provides both a Bitcoin full node and wallet. However, the "
-"Bitcoin Core wallet cannot create inscriptions and does not perform sat "
+"Groestlcoin Core provides both a Groestlcoin full node and wallet. However, the "
+"Groestlcoin Core wallet cannot create inscriptions and does not perform sat "
 "control."
 msgstr ""
-"Bitcoin Core ビットコインのフルノードとウォレットを提供します。しかし，Bitcoin Coreウォ"
+"Groestlcoin Core ビットコインのフルノードとウォレットを提供します。しかし，Groestlcoin Coreウォ"
 "レットは碑文を作成できず、スマートコントロールを実行しません。"
 
 #: src/guides/inscriptions.md:17
 msgid ""
 "This requires [`ord`](https://github.com/ordinals/ord), the ordinal utility. "
 "`ord` doesn't implement its own wallet, so `ord wallet` subcommands interact "
-"with Bitcoin Core wallets."
+"with Groestlcoin Core wallets."
 msgstr ""
 "これには['ord'](https://github.com/ordinals/ord),序数ユーティリティ。"
-"'ord'は自分のウォレットを持っていないので、'ord wallet'サブコマンドはBitcoin Coreウォレットと対話します。"
+"'ord'は自分のウォレットを持っていないので、'ord wallet'サブコマンドはGroestlcoin Coreウォレットと対話します。"
 
 #: src/guides/inscriptions.md:21
 msgid "This guide covers:"
 msgstr "このガイドの含まれ："
 
 #: src/guides/inscriptions.md:23 src/guides/inscriptions.md:39
-msgid "Installing Bitcoin Core"
-msgstr " Bitcoin Coreを取り付けます。"
+msgid "Installing Groestlcoin Core"
+msgstr " Groestlcoin Coreを取り付けます。"
 
 #: src/guides/inscriptions.md:24
-msgid "Syncing the Bitcoin blockchain"
+msgid "Syncing the Groestlcoin blockchain"
 msgstr "ビットコインのブロックを同期します。"
 
 #: src/guides/inscriptions.md:25
-msgid "Creating a Bitcoin Core wallet"
-msgstr "Bitcoin Core ウォレットを作り上げます。"
+msgid "Creating a Groestlcoin Core wallet"
+msgstr "Groestlcoin Core ウォレットを作り上げます。"
 
 #: src/guides/inscriptions.md:26
 msgid "Using `ord wallet receive` to receive sats"
@@ -2518,39 +2518,39 @@ msgstr ""
 
 #: src/guides/inscriptions.md:42
 msgid ""
-"Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) "
+"Groestlcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) "
 "on the [download page](https://bitcoincore.org/en/download/)."
 msgstr ""
 "[bitcoincore.org](https://bitcoincore.org/)で」"
 "の[ダウンロードページ](https://bitcoincore.org/en/download/)"
 
 #: src/guides/inscriptions.md:45
-msgid "Making inscriptions requires Bitcoin Core 24 or newer."
-msgstr "銘文を作成するにはBitcoin Core 24以降が必要です。"
+msgid "Making inscriptions requires Groestlcoin Core 24 or newer."
+msgstr "銘文を作成するにはGroestlcoin Core 24以降が必要です。"
 
 #: src/guides/inscriptions.md:47
 msgid ""
-"This guide does not cover installing Bitcoin Core in detail. Once Bitcoin "
-"Core is installed, you should be able to run `bitcoind -version` "
+"This guide does not cover installing Groestlcoin Core in detail. Once Groestlcoin "
+"Core is installed, you should be able to run `groestlcoind -version` "
 "successfully from the command line."
 msgstr ""
-"このガイドには、Bitcoin Coreの詳細なインストール方法は含まれていません。Bitcoin Coreのインストールに成功した後、"
-"コマンドラインで'bitcoind-version'コマンドを使うことができます。"
+"このガイドには、Groestlcoin Coreの詳細なインストール方法は含まれていません。Groestlcoin Coreのインストールに成功した後、"
+"コマンドラインで'groestlcoind-version'コマンドを使うことができます。"
 
 #: src/guides/inscriptions.md:51
-msgid "Configuring Bitcoin Core"
-msgstr " Bitcoin Coreを配置します。"
+msgid "Configuring Groestlcoin Core"
+msgstr " Groestlcoin Coreを配置します。"
 
 #: src/guides/inscriptions.md:54
-msgid "`ord` requires Bitcoin Core's transaction index."
-msgstr "`ord` Bitcoin Core の取引索引が必要です。"
+msgid "`ord` requires Groestlcoin Core's transaction index."
+msgstr "`ord` Groestlcoin Core の取引索引が必要です。"
 
 #: src/guides/inscriptions.md:56
 msgid ""
-"To configure your Bitcoin Core node to maintain a transaction index, add the "
-"following to your `bitcoin.conf`:"
+"To configure your Groestlcoin Core node to maintain a transaction index, add the "
+"following to your `groestlcoin.conf`:"
 msgstr ""
-"トランザクションインデックスを配置するためにBitcoin Coreフェーズを設定します,'bitcoin.conf'に追加する必要があります::"
+"トランザクションインデックスを配置するためにGroestlcoin Coreフェーズを設定します,'groestlcoin.conf'に追加する必要があります::"
 
 #: src/guides/inscriptions.md:59 src/guides/sat-hunting.md:30
 msgid ""
@@ -2560,18 +2560,18 @@ msgid ""
 msgstr ""
 
 #: src/guides/inscriptions.md:63
-msgid "Or, run `bitcoind` with `-txindex`:"
-msgstr "または,  `bitcoind` 和 `-txindex`を運行します:"
+msgid "Or, run `groestlcoind` with `-txindex`:"
+msgstr "または,  `groestlcoind` 和 `-txindex`を運行します:"
 
 #: src/guides/inscriptions.md:65 src/guides/inscriptions.md:74
 msgid ""
 "```\n"
-"bitcoind -txindex\n"
+"groestlcoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/inscriptions.md:69
-msgid "Syncing the Bitcoin Blockchain"
+msgid "Syncing the Groestlcoin Blockchain"
 msgstr "ビットコインのブロックを同期にします。"
 
 #: src/guides/inscriptions.md:72
@@ -2585,19 +2585,19 @@ msgstr "… `getblockcount運行するまで`:"
 #: src/guides/inscriptions.md:80
 msgid ""
 "```\n"
-"bitcoin-cli getblockcount\n"
+"groestlcoin-cli getblockcount\n"
 "```"
 msgstr ""
 
 #: src/guides/inscriptions.md:84
 msgid ""
 "agrees with the block count on a block explorer like [the mempool.space "
-"block explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so "
-"you should leave `bitcoind` running in the background when you're using "
+"block explorer](https://mempool.space/). `ord` interacts with `groestlcoind`, so "
+"you should leave `groestlcoind` running in the background when you're using "
 "`ord`."
 msgstr ""
 "ブロックチェーンブラウザのように[the mempool.space block explorer]（https://mempool.space/)のように"
-"ブロックを記述する...`ord`は'bitcoind'と相互作用するので、'ord'を使用するときは'bitcoind'をバックグラウンドで実行する必要があります。"
+"ブロックを記述する...`ord`は'groestlcoind'と相互作用するので、'ord'を使用するときは'groestlcoind'をバックグラウンドで実行する必要があります。"
 
 #: src/guides/inscriptions.md:88
 msgid "Installing `ord`"
@@ -2640,18 +2640,18 @@ msgid "Which prints out `ord`'s version number."
 msgstr "これにより、「ord」のバージョン番号が出力されます。"
 
 #: src/guides/inscriptions.md:109
-msgid "Creating a Bitcoin Core Wallet"
-msgstr "『ord』という名前のBitcoin Coreウォレットを作成します。"
+msgid "Creating a Groestlcoin Core Wallet"
+msgstr "『ord』という名前のGroestlcoin Coreウォレットを作成します。"
 
 #: src/guides/inscriptions.md:112
 msgid ""
-"`ord` uses Bitcoin Core to manage private keys, sign transactions, and "
-"broadcast transactions to the Bitcoin network."
-msgstr "`ord` Bitcoin Coreを使用して秘密鍵を管理し、トランザクションに署名し、ビットコインネットワークにトランザクションをブロードキャストします。。"
+"`ord` uses Groestlcoin Core to manage private keys, sign transactions, and "
+"broadcast transactions to the Groestlcoin network."
+msgstr "`ord` Groestlcoin Coreを使用して秘密鍵を管理し、トランザクションに署名し、ビットコインネットワークにトランザクションをブロードキャストします。。"
 
 #: src/guides/inscriptions.md:115
-msgid "To create a Bitcoin Core wallet named `ord` for use with `ord`, run:"
-msgstr "『ord』という名前のBitcoin Coreウォレットを作成し、運行します:"
+msgid "To create a Groestlcoin Core wallet named `ord` for use with `ord`, run:"
+msgstr "『ord』という名前のGroestlcoin Coreウォレットを作成し、運行します:"
 
 #: src/guides/inscriptions.md:117
 msgid ""
@@ -2666,7 +2666,7 @@ msgstr "聡を取り受けます。"
 
 #: src/guides/inscriptions.md:124
 msgid ""
-"Inscriptions are made on individual sats, using normal Bitcoin transactions "
+"Inscriptions are made on individual sats, using normal Groestlcoin transactions "
 "that pay fees in sats, so your wallet will need some sats."
 msgstr "銘文は、単一のコングに作成され、通常のビットコイン取引のためにコングを使用して料金を支払うので、あなたの財布はいくつかのコング（ビットコイン）を必要とします。"
 
@@ -2733,12 +2733,12 @@ msgstr ""
 #: src/guides/inscriptions.md:157
 msgid ""
 "Inscription transactions must be less than 400,000 weight units, or they "
-"will not be relayed by Bitcoin Core. One byte of inscription content costs "
+"will not be relayed by Groestlcoin Core. One byte of inscription content costs "
 "one weight unit. Since an inscription transaction includes not just the "
 "inscription content, limit inscription content to less than 400,000 weight "
 "units. 390,000 weight units should be safe."
 msgstr ""
-"銘文取引は400,000重量測定単位未満でなければならない。そうでなければ、Bitcoin Coreに中継されない"
+"銘文取引は400,000重量測定単位未満でなければならない。そうでなければ、Groestlcoin Coreに中継されない"
 "の1バイトの銘文内容には重み測定単位が必要です。銘文取引は銘文の内容だけではないので、"
 "銘文の内容は400、000重量計量単位以内に制限されている。390、000の重み測定単位は安全でなければならなりません。"
 
@@ -2868,7 +2868,7 @@ msgstr "取引が確認されると、受信者は次のコマンドを使用し
 msgid ""
 "_This guide is out of date. Since it was written, the `ord` binary was "
 "changed to only build the full satoshi index when the `--index-sats` flag is "
-"supplied. Additionally, `ord` now has a built-in wallet that wraps a Bitcoin "
+"supplied. Additionally, `ord` now has a built-in wallet that wraps a Groestlcoin "
 "Core wallet. See `ord wallet --help`._"
 msgstr ""
 "_このガイドは時代遅れです。書かれて以来、'ord'インストールファイルが変更されました。"
@@ -2898,21 +2898,21 @@ msgstr ""
 
 #: src/guides/sat-hunting.md:20
 msgid ""
-"First, you'll need a synced Bitcoin Core node with a transaction index. To "
+"First, you'll need a synced Groestlcoin Core node with a transaction index. To "
 "turn on transaction indexing, pass `-txindex` on the command-line:"
 msgstr ""
 
 #: src/guides/sat-hunting.md:23
 msgid ""
 "```sh\n"
-"bitcoind -txindex\n"
+"groestlcoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/sat-hunting.md:27
 msgid ""
-"Or put the following in your [Bitcoin configuration file](https://github.com/"
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+"Or put the following in your [Groestlcoin configuration file](https://github.com/"
+"groestlcoin/groestlcoin/blob/master/doc/groestlcoin-conf.md#configuration-file-path):"
 msgstr ""
 
 #: src/guides/sat-hunting.md:34
@@ -2924,7 +2924,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:37
 msgid ""
 "```sh\n"
-"bitcoin-cli getblockcount\n"
+"groestlcoin-cli getblockcount\n"
 "```"
 msgstr ""
 
@@ -2938,7 +2938,7 @@ msgstr ""
 
 #: src/guides/sat-hunting.md:45
 msgid ""
-"Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node "
+"Run `RUST_LOG=info ord index`. It should connect to your groestlcoin core node "
 "and start indexing."
 msgstr ""
 
@@ -2955,13 +2955,13 @@ msgid "Searching for Rare Ordinals"
 msgstr ""
 
 #: src/guides/sat-hunting.md:55
-msgid "Searching for Rare Ordinals in a Bitcoin Core Wallet"
+msgid "Searching for Rare Ordinals in a Groestlcoin Core Wallet"
 msgstr ""
 
 #: src/guides/sat-hunting.md:57
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your "
+"The `ord wallet` command is just a wrapper around Groestlcoin Core's RPC API, so "
+"searching for rare ordinals in a Groestlcoin Core wallet is Easy. Assuming your "
 "wallet is named `foo`:"
 msgstr ""
 
@@ -2972,7 +2972,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:63
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo\n"
+"groestlcoin-cli loadwallet foo\n"
 "```"
 msgstr ""
 
@@ -2989,25 +2989,25 @@ msgid ""
 msgstr ""
 
 #: src/guides/sat-hunting.md:73
-msgid "Searching for Rare Ordinals in a Non-Bitcoin Core Wallet"
+msgid "Searching for Rare Ordinals in a Non-Groestlcoin Core Wallet"
 msgstr ""
 
 #: src/guides/sat-hunting.md:75
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to "
-"import your wallet's descriptors into Bitcoin Core."
+"The `ord wallet` command is just a wrapper around Groestlcoin Core's RPC API, so "
+"to search for rare ordinals in a non-Groestlcoin Core wallet, you'll need to "
+"import your wallet's descriptors into Groestlcoin Core."
 msgstr ""
 
 #: src/guides/sat-hunting.md:79
 msgid ""
-"[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors."
+"[Descriptors](https://github.com/groestlcoin/groestlcoin/blob/master/doc/descriptors."
 "md) describe the ways that wallets generate private keys and public keys."
 msgstr ""
 
 #: src/guides/sat-hunting.md:82
 msgid ""
-"You should only import descriptors into Bitcoin Core for your wallet's "
+"You should only import descriptors into Groestlcoin Core for your wallet's "
 "public keys, not its private keys."
 msgstr ""
 
@@ -3044,7 +3044,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:100
 msgid ""
 "```sh\n"
-"bitcoin-cli createwallet foo-watch-only true true\n"
+"groestlcoin-cli createwallet foo-watch-only true true\n"
 "```"
 msgstr ""
 
@@ -3059,7 +3059,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:108 src/guides/sat-hunting.md:199
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo-watch-only\n"
+"groestlcoin-cli loadwallet foo-watch-only\n"
 "```"
 msgstr ""
 
@@ -3070,7 +3070,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:114
 msgid ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"groestlcoin-cli importdescriptors \\\n"
 "  '[{ \"desc\": "
 "\"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)#tpnxnxax\", \"timestamp\":0 }]'\n"
@@ -3081,7 +3081,7 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of `\"timestamp\"` instead of "
-"`0`. This will reduce the time it takes for Bitcoin Core to search for your "
+"`0`. This will reduce the time it takes for Groestlcoin Core to search for your "
 "wallet's UTXOs."
 msgstr ""
 
@@ -3092,7 +3092,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:126 src/guides/sat-hunting.md:227
 msgid ""
 "```sh\n"
-"bitcoin-cli getwalletinfo\n"
+"groestlcoin-cli getwalletinfo\n"
 "```"
 msgstr ""
 
@@ -3109,8 +3109,8 @@ msgstr ""
 msgid ""
 "Some descriptors describe multiple paths in one descriptor using angle "
 "brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by "
-"Bitcoin Core, so you'll first need to convert them into multiple "
-"descriptors, and then import those multiple descriptors into Bitcoin Core."
+"Groestlcoin Core, so you'll first need to convert them into multiple "
+"descriptors, and then import those multiple descriptors into Groestlcoin Core."
 msgstr ""
 
 #: src/guides/sat-hunting.md:143
@@ -3160,7 +3160,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:165
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"groestlcoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)'\n"
 "```"
@@ -3188,7 +3188,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:182
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"groestlcoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/"
 "*)'\n"
 "```"
@@ -3215,13 +3215,13 @@ msgstr ""
 
 #: src/guides/sat-hunting.md:203
 msgid ""
-"Now import the descriptors, with the correct checksums, into Bitcoin Core."
+"Now import the descriptors, with the correct checksums, into Groestlcoin Core."
 msgstr ""
 
 #: src/guides/sat-hunting.md:205
 msgid ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"groestlcoin-cli \\\n"
 " importdescriptors \\\n"
 " '[\n"
 "   {\n"
@@ -3244,7 +3244,7 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of the `\"timestamp\"` fields "
-"instead of `0`. This will reduce the time it takes for Bitcoin Core to "
+"instead of `0`. This will reduce the time it takes for Groestlcoin Core to "
 "search for your wallet's UTXOs."
 msgstr ""
 
@@ -3265,7 +3265,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:246
 msgid ""
 "The `ord` wallet supports transferring specific satoshis. You can also use "
-"`bitcoin-cli` commands `createrawtransaction`, "
+"`groestlcoin-cli` commands `createrawtransaction`, "
 "`signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is "
 "complex and outside the scope of this guide."
 msgstr ""
@@ -3291,9 +3291,9 @@ msgstr ""
 #: src/guides/collecting.md:12
 msgid ""
 "As a general note, receiving ordinals in an unsupported wallet is not "
-"dangerous. Ordinals can be sent to any bitcoin address, and are safe as long "
+"dangerous. Ordinals can be sent to any groestlcoin address, and are safe as long "
 "as the UTXO that contains them is not spent. However, if that wallet is then "
-"used to send bitcoin, it may select the UTXO containing the ordinal as an "
+"used to send groestlcoin, it may select the UTXO containing the ordinal as an "
 "input, and send the inscription or spend it to fees."
 msgstr ""
 "一般的な説明として、サポートされていないウォレットでシーケンス番号を受信することは危険ではありません。シリアル番号は任意のビットコインアドレスに送信できます。"
@@ -3325,7 +3325,7 @@ msgstr "スズメのSparrow財布を使って銘文をコレクションしま�
 msgid ""
 "Users who cannot or have not yet set up the [ord](https://github.com/"
 "ordinals/ord) wallet can receive inscriptions and ordinals with alternative "
-"bitcoin wallets, as long as they are _very_ careful about how they spend "
+"groestlcoin wallets, as long as they are _very_ careful about how they spend "
 "from that wallet."
 msgstr ""
 "それらの生きていられないまだ設定されていない[ord](https://github.com/ordinals/ord)"
@@ -3463,7 +3463,7 @@ msgstr "受信するたびに、既存のアドレスを再利用するのでは
 
 #: src/guides/collecting/sparrow-wallet.md:51
 msgid ""
-"Note that bitcoin is different to some other blockchain wallets, in that "
+"Note that groestlcoin is different to some other blockchain wallets, in that "
 "this wallet can generate an unlimited number of new addresses. You can "
 "generate a new address by clicking on the `Get Next Address` button. You can "
 "see all of your addresses in the `Addresses` tab of the app."
@@ -3496,7 +3496,7 @@ msgstr ""
 #: src/guides/collecting/sparrow-wallet.md:61
 msgid ""
 "Initially this transaction may have an \"Unconfirmed\" status, and you will "
-"need to wait for it to be mined into a bitcoin block before it is fully "
+"need to wait for it to be mined into a groestlcoin block before it is fully "
 "received."
 msgstr ""
 "最初は、この取引には\"未確認\"の状態があるかもしれません。実際に受け取ったのはビットコインブロックに採掘されるのを待つ必要があります。"
@@ -3564,7 +3564,7 @@ msgstr " `ord` ウォレットを導入します。"
 
 #: src/guides/collecting/sparrow-wallet.md:81
 msgid ""
-"For details on setting up Bitcoin Core and the `ord` wallet check out the "
+"For details on setting up Groestlcoin Core and the `ord` wallet check out the "
 "[Inscriptions Guide](../inscriptions.md)"
 msgstr ""
 "ビットコインコアと'ord'ウォレットの設定の詳細については、[銘文ガイド](../inscriptions.md)をご覧ください。"
@@ -3585,12 +3585,12 @@ msgid ""
 "There is currently a [bug](https://github.com/ordinals/ord/issues/1589) "
 "which causes an imported wallet to not be automatically rescanned against "
 "the blockchain. To work around this you will need to manually trigger a "
-"rescan using the bitcoin core cli: `bitcoin-cli -rpcwallet=ord "
+"rescan using the groestlcoin core cli: `groestlcoin-cli -rpcwallet=ord "
 "rescanblockchain 767430`"
 msgstr ""
 "現在、[プログラムエラー]が存在します(https://github.com/ordinals/ord/issues/1589)インポートの原因"
 "のウォレットはブロックチェーンを自動的に再スキャンできません。この問題を解決するには、手動で再スキャンをトリガーする必要があります。"
-"Bitcoinコアコマンドラインインターフェイスを使います："
+"Groestlcoinコアコマンドラインインターフェイスを使います："
 
 #: src/guides/collecting/sparrow-wallet.md:88
 msgid ""
@@ -3617,7 +3617,7 @@ msgid "`ord --wallet ord_from_sparrow wallet inscriptions`"
 msgstr ""
 
 #: src/guides/collecting/sparrow-wallet.md:96
-msgid "`bitcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430`"
+msgid "`groestlcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430`"
 msgstr ""
 
 #: src/guides/collecting/sparrow-wallet.md:98
@@ -3630,7 +3630,7 @@ msgstr "⚠️⚠️ 警告 ⚠️⚠️"
 
 #: src/guides/collecting/sparrow-wallet.md:101
 msgid ""
-"While it is highly recommended that you set up a bitcoin core node and run "
+"While it is highly recommended that you set up a groestlcoin core node and run "
 "the `ord` software, there are certain limited ways you can send inscriptions "
 "out of Sparrow Wallet in a safe way. Please note that this is not "
 "recommended, and you should only do this if you fully understand what you "
@@ -3654,25 +3654,25 @@ msgstr "⚠️⚠️ 特別警告 ⚠️⚠️"
 #: src/guides/collecting/sparrow-wallet.md:106
 msgid ""
 "Don't use your sparrow inscriptions wallet to do general sends of non-"
-"inscription bitcoin. You can setup a separate wallet in sparrow if you need "
-"to do normal bitcoin transactions, and keep your inscriptions wallet "
+"inscription groestlcoin. You can setup a separate wallet in sparrow if you need "
+"to do normal groestlcoin transactions, and keep your inscriptions wallet "
 "separate."
 msgstr ""
 "sparrowスズメの銘文財布を使って非銘文ビットコインを送らないでください。通常のビットコイン取引が必要な場合は、"
 "はスズメの中に別の財布を設置して、銘文財布を独立させることができます。"
 
 #: src/guides/collecting/sparrow-wallet.md:108
-msgid "Bitcoin's UTXO model"
+msgid "Groestlcoin's UTXO model"
 msgstr "ビットコインのUTXO模型"
 
 #: src/guides/collecting/sparrow-wallet.md:109
 msgid ""
 "Before sending any transaction it's important that you have a good mental "
-"model for bitcoin's Unspent Transaction Output (UTXO) system. The way "
-"Bitcoin works is fundamentally different to many other blockchains such as "
+"model for groestlcoin's Unspent Transaction Output (UTXO) system. The way "
+"Groestlcoin works is fundamentally different to many other blockchains such as "
 "Ethereum. In Ethereum generally you have a single address in which you store "
 "ETH, and you cannot differentiate between any of the ETH -  it is just all a "
-"single value of the total amount in that address. Bitcoin works very "
+"single value of the total amount in that address. Groestlcoin works very "
 "differently in that we generate a new address in the wallet for each "
 "receive, and every time you receive sats to an address in your wallet you "
 "are creating a new UTXO. Each UTXO can be seen and managed individually. You "
@@ -3688,8 +3688,8 @@ msgstr ""
 
 #: src/guides/collecting/sparrow-wallet.md:111
 msgid ""
-"Some Bitcoin wallets do not expose this level of detail, and they just show "
-"you a single summed up value of all the bitcoin in your wallet. However, "
+"Some Groestlcoin wallets do not expose this level of detail, and they just show "
+"you a single summed up value of all the groestlcoin in your wallet. However, "
 "when sending inscriptions it is important that you use a wallet like Sparrow "
 "which allows for UTXO control."
 msgstr ""
@@ -3773,7 +3773,7 @@ msgstr ""
 msgid ""
 "⚠️⚠️ Be very careful sending your inscription particularly if the `offset` "
 "value is not `0`. It is not recommended to use this method if that is the "
-"case, as doing so you could accidentally send your inscription to a bitcoin "
+"case, as doing so you could accidentally send your inscription to a groestlcoin "
 "miner unless you know what you are doing."
 msgstr ""
 "⚠️⚠️ 銘文を送るときは、特に'off set'値が'0'でない場合は細心の注意を払ってください。この場合は、"
@@ -3893,7 +3893,7 @@ msgstr ""
 msgid ""
 "And then actually you get very very last chance to check everything before "
 "hitting `Broadcast Transaction`. Once you broadcast the transaction it is "
-"sent to the bitcoin network, and starts being propagated into the mempool."
+"sent to the groestlcoin network, and starts being propagated into the mempool."
 msgstr ""
 "そして、実際には『Broadcast Transaction』をクリックする前に、すべてをチェックする最後の機会があります。"
 "は取引を放送すると、ビットコインネットワークに送られ、mempoolで広がり始めます。"
@@ -3933,7 +3933,7 @@ msgstr "Sparrowウォレットは取引/UTXOを表示していませんが、mem
 
 #: src/guides/collecting/sparrow-wallet.md:177
 msgid ""
-"Make sure that your wallet is connected to a bitcoin node. To validate this, "
+"Make sure that your wallet is connected to a groestlcoin node. To validate this, "
 "head into the `Preferences`\\-> `Server` settings, and click `Edit Existing "
 "Connection`."
 msgstr ""
@@ -3957,7 +3957,7 @@ msgstr ""
 #: src/guides/testing.md:4
 msgid ""
 "Ord can be tested using the following flags to specify the test network. For "
-"more information on running Bitcoin Core for testing, see [Bitcoin's "
+"more information on running Groestlcoin Core for testing, see [Groestlcoin's "
 "developer documentation](https://developer.bitcoin.org/examples/testing."
 "html)."
 msgstr ""
@@ -4012,13 +4012,13 @@ msgid "Example"
 msgstr "サンプル"
 
 #: src/guides/testing.md:21
-msgid "Run bitcoind in regtest with:"
-msgstr "regtestの中でbitcoindを運行し、使います："
+msgid "Run groestlcoind in regtest with:"
+msgstr "regtestの中でgroestlcoindを運行し、使います："
 
 #: src/guides/testing.md:22
 msgid ""
 "```\n"
-"bitcoind -regtest -txindex\n"
+"groestlcoind -regtest -txindex\n"
 "```"
 msgstr ""
 
@@ -4051,7 +4051,7 @@ msgstr "101個のブロックを掘る（ロック解除coinbase）に使いま�
 #: src/guides/testing.md:34
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 101 <receive address>\n"
+"groestlcoin-cli generatetoaddress 101 <receive address>\n"
 "```"
 msgstr ""
 
@@ -4073,7 +4073,7 @@ msgstr "銘文を発掘します。"
 #: src/guides/testing.md:42
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 1 <receive address>\n"
+"groestlcoin-cli generatetoaddress 1 <receive address>\n"
 "```"
 msgstr ""
 
@@ -4139,7 +4139,7 @@ msgstr "最終的には、サーバーを開始するためにいくつかのブ
 #: src/guides/testing.md:70
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 6 <receive address>\n"
+"groestlcoin-cli generatetoaddress 6 <receive address>\n"
 "ord -r server\n"
 "```"
 msgstr ""
