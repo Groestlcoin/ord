@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Preguntas Frecuentes - Ordinal Theory Handbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="language-picker.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introducción</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Descripción General</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Artefactos Digitales</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscripciones</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.1.</strong> Procedencia</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.2.</strong> Recursión</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">4.</strong> Preguntas Frecuentes</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Contribuir</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Donaciones</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Guías</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorador</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscripciones</a></li><li class="chapter-item expanded "><a href="guides/gro-hunting.html"><strong aria-hidden="true">7.3.</strong> Gro Hunting</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.4.</strong> Coleccionar</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.4.1.</strong> Monedero Sparrow</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.5.</strong> Pruebas</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.6.</strong> Moderación</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.7.</strong> Reindexación</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Recompensas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400,000 gros</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("es");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "faq.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/Groestlcoin/ord-groestlcoin" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="preguntas-frecuentes-sobre-la-teoría-ordinal"><a class="header" href="#preguntas-frecuentes-sobre-la-teoría-ordinal">Preguntas frecuentes sobre la teoría Ordinal</a></h1>
+<h2 id="qué-es-la-teoría-ordinal"><a class="header" href="#qué-es-la-teoría-ordinal">¿Qué es la teoría ordinal?</a></h2>
+<p>Ordinal theory is a protocol for assigning serial numbers to gros, the smallest subdivision of a groestlcoin, and tracking those gros as they are spent by transactions.</p>
+<p>These serial numbers are large numbers, like this 804766073970493. Every gro, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a groestlcoin, has an ordinal number.</p>
+<h2 id="la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-groestlcoin"><a class="header" href="#la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-groestlcoin">¿La teoría ordinal requiere una cadena lateral, un token separado o cambios en Groestlcoin?</a></h2>
+<p>¡No! La teoría ordinal funciona en este momento, sin una cadena lateral, y el único token necesario es simplemente bitcoin.</p>
+<h2 id="para-qué-sirve-la-teoría-ordinals"><a class="header" href="#para-qué-sirve-la-teoría-ordinals">¿Para qué sirve la teoría Ordinals?</a></h2>
+<p>Collecting, trading, and scheming. Ordinal theory assigns identities to individual gros, allowing them to be individually tracked and traded, as curios and for numismatic value.</p>
+<p>Ordinal theory also enables inscriptions, a protocol for attaching arbitrary content to individual gros, turning them into groestlcoin-native digital artifacts.</p>
+<h2 id="cómo-funciona-la-teoría-ordinal"><a class="header" href="#cómo-funciona-la-teoría-ordinal">¿Cómo funciona la teoría ordinal?</a></h2>
+<p>Ordinal numbers are assigned to gros in the order in which they are mined. The first gro in the first block has ordinal number 0, the second has ordinal number 1, and the last gro of the first block has ordinal number 4,999,999,999.</p>
+<p>Gros live in outputs, but transactions destroy outputs and create new ones, so ordinal theory uses an algorithm to determine how gros hop from the inputs of a transaction to its outputs.</p>
+<p>Afortunadamente, ese algoritmo es bastante sencillo.</p>
+<p>Gros transfer in first-in-first-out order. Think of the inputs to a transaction as being a list of gros, and the outputs as a list of slots, waiting to receive a gro. To assign input gros to slots, go through each gro in the inputs in order, and assign each to the first available slot in the outputs.</p>
+<p>Imaginemos una transacción con tres entradas y dos salidas. Las entradas están a la izquierda de la flecha y las salidas a la derecha, todas con sus respectivos valores:</p>
+<pre><code>[2] [1] [3] → [4] [2]
+</code></pre>
+<p>Now let's label the same transaction with the ordinal numbers of the gros that each input contains, and question marks for each output slot. Ordinal numbers are large, so let's use letters to represent them:</p>
+<pre><code>[a b] [c] [d e f] → [? ? ? ?] [? ?]
+</code></pre>
+<p>To figure out which gro goes to which output, go through the input gros in order and assign each to a question mark:</p>
+<pre><code>[a b] [c] [d e f] → [a b c d] [e f]
+</code></pre>
+<p>What about fees, you might ask? Good question! Let's imagine the same transaction, this time with a two gro fee. Transactions with fees send more gros in the inputs than are received by the outputs, so to make our transaction into one that pays fees, we'll remove the second output:</p>
+<pre><code>[2] [1] [3] → [4]
+</code></pre>
+<p>The gros <var>e</var>y<var>f</var>ahora no tienen donde ir en las salidas```
+[a b] [c] [d e f] → [a b c d]</p>
+<pre><code>
+So they go to the miner who mined the block as fees. [The BIP](https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki) has the details, but in short, fees paid by transactions are treated as extra inputs to the coinbase transaction, and are ordered how their corresponding transactions are ordered in the block. The coinbase transaction of the block might look like this:
+
+</code></pre>
+<p>[SUBSIDY] [e f] → [SUBSIDY e f]</p>
+<pre><code>
+## ¿Dónde puedo encontrar los detalles técnicos?
+
+[The BIP!](https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki)
+
+## Why are gro inscriptions called &quot;digital artifacts&quot; instead of &quot;NFTs&quot;?
+
+Una inscripción es un NFT, pero se utiliza el término &quot;artefacto digital&quot;, porque es fácil, sugerente y familiar.
+
+La frase &quot;artefacto digital&quot; es muy sugerente, incluso para alguien que nunca ha oído el término. En comparación, NFT es un acrónimo y no proporciona ninguna indicación de lo que significa si no has escuchado el término.
+
+Además, la palabra, &quot;NFT&quot; suena como terminología financiera, y tanto la palabra &quot;fungible&quot; como el sentido de la palabra &quot;token&quot; como se usa en los &quot;NFT&quot; no son comunes fuera de los contextos financieros.
+
+## How do gro inscriptions compare to…
+
+### ¿Los NFT de Ethereum?
+
+_Las inscripciones siempre son inmutables._
+
+No hay forma de que el creador de una inscripción, o el propietario de una inscripción, la modifique después de haber sido creada.
+
+Los NFTs en Ethereum _pueden_ ser inmutables, pero muchos no lo son y pueden ser cambiados o eliminados por el propietario del contrato del NFT.
+
+Para asegurarse de que un NFT de Ethereum sea inmutable, se debe analizar el código del contrato, lo cual requiere un conocimiento a profundidad de la EVM y la semántica de Solidity.
+
+Para un usuario que no tiene habilidades técnicas es bastante difícil determinar si un NFT de Ethereum es mutable o inmutable, y las plataformas Ethereum NFT no se esfuerzan para ayudar a distinguir si un NFT es mutable o inmutable y si el código fuente del contrato está disponible y ha sido auditado.
+
+_El contenido de la inscripción siempre está en la cadena de Groestlcoin._
+
+No hay forma de que una inscripción haga referencia a contenido que esta por fuera de la cadena de Groestlcoin. Debido a esto las inscripciones son más duraderas porque el contenido no puede perderse y también las hace más escasas porque los creadores de inscripciones deben pagar comisiones proporcionales al tamaño del contenido.
+
+Hay algunos NFTs en Ethereum que están en la cadena, pero muchos no lo están y se almacenan en plataformas como IPFS o Arweave, o en servidores web centralizados. No se garantiza que el contenido que esta almacenado en IPFS continue estando disponible, de hecho, ya se ha perdido contenido de NFTs que fueron almacenado en IPFS. Plataformas como Arweave dependen de suposiciones económicas y probablemente fallarán catastróficamente cuando estas suposiciones ya no se cumplan. Los servidores web centralizados pueden desaparecer en cualquier momento.
+
+Es difícil para un usuario que no tienes habilidades técnicas determinar donde el contenido de un NFT de Ethereum esta alojado 
+
+_Las inscripciones son mucho más sencillas._
+
+Los NFT de Ethereum dependen de la red y la máquina virtual de Ethereum, las cuales son altamente complejas, cambian constantemente e introducen cambios mediante bifurcaciones incompatibles con versiones anteriores.
+
+Por otro lado, las inscripciones dependen de la blockchain de Groestlcoin que es relativamente simple y conservadora, e introduce cambios mediante bifurcaciones suaves compatibles con versiones anteriores.
+
+_Las inscripciones son más seguras._
+
+Las inscripciones heredan el modelo de transacción de Groestlcoin, lo que permite al usuario ver exactamente qué inscripciones se están transfiriendo en una transacción antes de firmarla. Las inscripciones pueden ofrecerse a la venta mediante transacciones parcialmente firmadas, lo que no requiere el permiso un tercero, como un mercado o plataforma para la transferencia.
+
+En comparación, los NFT de Ethereum están plagados de vulnerabilidades de seguridad para el usuario final. Es común firmar transacciones a ciegas, otorgar permisos ilimitados a aplicaciones de terceros sobre los NFTs e interactuar con contratos inteligentes complejos e impredecibles. Estos problemas que tienen los NFTs de Ethereum simplemente no son una preocupación para los teóricos de Ordinals.
+
+_Las inscripciones son más escasas._
+
+Para mintear, transferir y almacenar inscripciones, se requiere bitcoin. Superficialmente esto parece un inconveniente, pero la razón de ser de los artefactos digitales es ser escasos y, por lo tanto, valiosos.
+
+Los NFT de Ethereum, por otro lado, pueden ser minteados en cantidades prácticamente ilimitadas con una sola transacción, lo que los hace intrínsecamente menos escasos y, por lo tanto, potencialmente menos valiosos.
+
+_Las inscripciones no pretenden respaldar regalías en la cadena._
+
+En teoría, la implementación de regalías dentro de la blockchain suena bien, pero su puesta en práctica presenta problemas significativos. El pago de regalías no puede ser aplicado en la cadena sin restricciones complejas e invasivas. En este momento, el ecosistema de NFT en Ethereum está enfrentando problemas debido a la confusión generada por las regalías, y colectivamente se está llegando a la conclusión de que las regalías en la cadena las cuales fueron una ventaja que se planteó a favor de los NFTs para los artistas, no son posibles. Algunas plataformas ya están eliminando el soporte de regalías.
+
+Las inscripciones evitan completamente esta situación al no hacer falsas promesas de respaldar regalías en la cadena, evitando así la confusión, el caos y la negatividad de la situación que ocurre con los NFT en Ethereum.
+
+_Las inscripciones abren las puertas a nuevos mercados._
+
+La valoración de mercado y el flujo de capital en Groestlcoin exceden considerablemente a los de Ethereum. Gran parte de esta liquidez no está disponible para los NFT en Ethereum, ya que muchos bitcoiners prefieren no interactuar con el ecosistema de Ethereum debido a las preocupaciones relacionadas con la simplicidad, seguridad y descentralización.
+
+Estos bitcoiners podrían estar más interesados en las inscripciones que en los NFT de Ethereum, abriendo la puerta a otros tipos de coleccionistas.
+
+_Las inscripciones tienen un modelo de datos más robusto._
+
+Una inscripción está conformada por el tipo de contenido, conocido como el tipo MIME, y una cadena (string) de bytes que sería el contenido. Este es el mismo modelo de datos utilizado por la web, este permite que el contenido de la inscripción evolucione con la web, y llegue a admitir cualquier tipo de contenido soportado por los navegadores web, sin requerir cambios en el protocolo subyacente.
+
+## Inscripciones para...
+
+### Artistas
+
+_Las inscripciones están en Groestlcoin_. Groestlcoin es la moneda digital con el mayor prestigio y la mayor probabilidad de supervivencia a largo plazo. Si deseas garantizar que tu arte perdure en el futuro, no hay mejor forma de publicarlo que mediante inscripciones.
+
+_Cheaper on-chain storage._ At $0,40 per GRS and the minimum relay fee of 1 gro per vbyte, publishing inscription content costs $0.0025 per 1 million bytes.
+
+_¡Las inscripciones están en sus inicios!_ Las inscripciones todavía están en desarrollo y aún no se han lanzado en la red principal. Esto te brinda la oportunidad de ser un pionero y explorar el medio a medida que evoluciona.
+
+_Las inscripciones son simples_. No es necesario escribir ni comprender contratos inteligentes.
+
+_Las inscripciones abren las puertas a nuevas fuentes de liquidez_. Las inscripciones resultan más accesibles y atractivas para los poseedores de bitcoin, dando paso a una clase completamente nueva de coleccionistas.
+
+_Las inscripciones están diseñadas para los artefactos digitales_. Se diseñan desde cero enfocándose en los NFTs y ofrecen un modelo de datos superior, con características como símbolos globalmente únicos y una procedencia mejorada.
+
+_Las inscripciones no admiten regalías en cadena_. Esto puede verse como algo negativo, pero realmente depende de la perspectiva de cada uno. Si bien las regalías en cadena han beneficiado enormemente a los creadores, también han generado una gran cantidad de confusión en el ecosistema NFT de Ethereum. En este momento, el ecosistema está lidiando con este problema, encaminándose hacia un futuro donde las regalías serán opcionales. Las inscripciones no admiten regalías en cadena debido a que técnica y prácticamente no son viables. Sin embargo, si decides crear inscripciones, existen varias estrategias para superar esta restricción: puedes retener una porción de tus inscripciones para futuras ventas, aprovechando así la valorización que puedan tener con el tiempo; o incluso ofrecer incentivos a los usuarios que opten por respetar las regalías opcionales.
+
+### Coleccionistas 
+
+_Las inscripciones son sencillas, claras y sin sorpresas inesperadas_. Son siempre inmutables y residen en la cadena de Groestlcoin, lo que elimina la necesidad de gestiones adicionales.
+
+_Las inscripciones están en Groestlcoin_. Puedes verificar fácilmente la ubicación y propiedades de las inscripciones con un nodo de Groestlcoin que tu controlas.
+
+### Groestlcoiners
+
+Permíteme iniciar esta sección señalando que: la principal función de la red de Groestlcoin es la descentralización del dinero. Todos los otros usos que se le pueden dar son secundarios, y eso incluye a la teoría ordinal. Los desarrolladores detrás de esta teoría comprenden muy bien este aspecto y consideran que su trabajo contribuye, aunque sea mínimamente, a la misión principal de Groestlcoin.
+
+Digital artifacts have merit. There are, of course, a great deal of NFTs that are ugly, stupid, and fraudulent. However, there are many that are fantastically creative, and creating and collecting art has been a part of the human story since its inception, and predates even trade and money, which are also ancient technologies.
+
+Groestlcoin ofrece una plataforma increíble para la creación y colección de artefactos digitales de manera segura y descentralizada, protegiendo tanto a usuarios como a artistas, al igual que facilita una plataforma confiable para transmitir y recibir valor.
+
+Los Ordinals y las inscripciones aumentan la demanda de espacio en los bloques de Groestlcoin, lo que aumenta el presupuesto de seguridad de Groestlcoin esto es vital para salvaguardar la transición de Groestlcoin a un modelo de seguridad dependiente de comisiones, a medida que el subsidio de bloque se reduce a una cantidad insignificante.
+
+El contenido de la inscripción se guarda en la cadena de bloques de Groestlcoin y, debido a esto, la necesidad de espacio en los bloques para alojar inscripciones es ilimitada. Esta dinámica establece una demanda constante por el espacio disponible en los bloques de Groestlcoin, favoreciendo la sustentación de un mercado de comisiones saludable, lo que a su vez contribuye a preservar la seguridad de Groestlcoin.
+
+Inscriptions also counter the narrative that Groestlcoin cannot be extended or used for new use-cases. Inscriptions provide a counter argument which is easy to understand, and which targets a popular and proven use case, NFTs, which makes it highly legible.
+
+Si las inscripciones se demuestran, como esperan los autores, ser artefactos digitales muy buscados con una historia rica, servirán como un poderoso gancho para la adopción de Groestlcoin: ven por el arte divertido, quédate por el dinero digital descentralizado.
+
+Las inscripciones son una fuente extremadamente benigna de demanda de espacioen el bloque. A diferencia de, por ejemplo, las stablecoins, que potencialmente dan a los emisores de stablecoins grandes influencia sobre el futuro desarrollo de Groestlcoin, o DeFi, que podría centralizar la minería introduciendo oportunidades para MEV, el arte digital y coleccionables en Groestlcoin, es poco probable que produzcan entidades individuales con suficiente poder para corromper Groestlcoin. El arte es descentralizado.
+
+Se les incentiva a los usuarios de inscripciones y a los proveedores de servicios ejecutar nodos de Groestlcoin, para publicar y rastrear inscripciones, y así apoyar respaldar la cadena.
+
+La teoría ordinal y las inscripciones no afectan en alguna escala significante la fungibilidad de Groestlcoin. Los usuarios de Groestlcoin pueden ignorar ambos y no verse afectados.
+
+We hope that ordinal theory strengthens and enriches groestlcoin, and gives it another dimension of appeal and functionality, enabling it more effectively serve its primary use case as humanity's decentralized store of value.</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="inscriptions/recursion.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="contributing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="inscriptions/recursion.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="contributing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
