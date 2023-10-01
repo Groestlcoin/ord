@@ -1,6 +1,6 @@
 use {
   super::*,
-  bitcoin::blockdata::{
+  groestlcoin::blockdata::{
     opcodes,
     script::{self, Instruction, Instructions},
   },
@@ -162,7 +162,7 @@ impl RawEnvelope {
 
 #[cfg(test)]
 mod tests {
-  use {super::*, bitcoin::absolute::LockTime};
+  use {super::*, groestlcoin::absolute::LockTime};
 
   fn parse(witnesses: &[Witness]) -> Vec<ParsedEnvelope> {
     ParsedEnvelope::from_transaction(&Transaction {
@@ -189,11 +189,11 @@ mod tests {
   #[test]
   fn ignore_key_path_spends() {
     assert_eq!(
-      parse(&[Witness::from_slice(&[bitcoin::script::Builder::new()
-        .push_opcode(bitcoin::opcodes::OP_FALSE)
-        .push_opcode(bitcoin::opcodes::all::OP_IF)
+      parse(&[Witness::from_slice(&[groestlcoin::script::Builder::new()
+        .push_opcode(groestlcoin::opcodes::OP_FALSE)
+        .push_opcode(groestlcoin::opcodes::all::OP_IF)
         .push_slice(b"ord")
-        .push_opcode(bitcoin::opcodes::all::OP_ENDIF)
+        .push_opcode(groestlcoin::opcodes::all::OP_ENDIF)
         .into_script()
         .into_bytes()])]),
       Vec::new()
@@ -204,11 +204,11 @@ mod tests {
   fn ignore_key_path_spends_with_annex() {
     assert_eq!(
       parse(&[Witness::from_slice(&[
-        bitcoin::script::Builder::new()
-          .push_opcode(bitcoin::opcodes::OP_FALSE)
-          .push_opcode(bitcoin::opcodes::all::OP_IF)
+        groestlcoin::script::Builder::new()
+          .push_opcode(groestlcoin::opcodes::OP_FALSE)
+          .push_opcode(groestlcoin::opcodes::all::OP_IF)
           .push_slice(b"ord")
-          .push_opcode(bitcoin::opcodes::all::OP_ENDIF)
+          .push_opcode(groestlcoin::opcodes::all::OP_ENDIF)
           .into_script()
           .into_bytes(),
         vec![0x50]
@@ -221,11 +221,11 @@ mod tests {
   fn parse_from_tapscript() {
     assert_eq!(
       parse(&[Witness::from_slice(&[
-        bitcoin::script::Builder::new()
-          .push_opcode(bitcoin::opcodes::OP_FALSE)
-          .push_opcode(bitcoin::opcodes::all::OP_IF)
+        groestlcoin::script::Builder::new()
+          .push_opcode(groestlcoin::opcodes::OP_FALSE)
+          .push_opcode(groestlcoin::opcodes::all::OP_IF)
           .push_slice(b"ord")
-          .push_opcode(bitcoin::opcodes::all::OP_ENDIF)
+          .push_opcode(groestlcoin::opcodes::all::OP_ENDIF)
           .into_script()
           .into_bytes(),
         Vec::new()
@@ -240,11 +240,11 @@ mod tests {
 
   #[test]
   fn ignore_unparsable_scripts() {
-    let mut script_bytes = bitcoin::script::Builder::new()
-      .push_opcode(bitcoin::opcodes::OP_FALSE)
-      .push_opcode(bitcoin::opcodes::all::OP_IF)
+    let mut script_bytes = groestlcoin::script::Builder::new()
+      .push_opcode(groestlcoin::opcodes::OP_FALSE)
+      .push_opcode(groestlcoin::opcodes::all::OP_IF)
       .push_slice(b"ord")
-      .push_opcode(bitcoin::opcodes::all::OP_ENDIF)
+      .push_opcode(groestlcoin::opcodes::all::OP_ENDIF)
       .into_script()
       .into_bytes();
     script_bytes.push(0x01);
