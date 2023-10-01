@@ -178,7 +178,7 @@ Rare Gro Supply
 
 ### Current Supply
 
-- `common`: 8.2 quadrillion
+- `common`: 8.3 quadrillion
 - `uncommon`: 745,855
 - `rare`: 369
 - `epic`: 3
