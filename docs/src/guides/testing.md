@@ -31,7 +31,7 @@ ord -r wallet receive
 ```
 Mine 101 blocks (to unlock the coinbase) with:
 ```
-groestlcoin-cli generatetoaddress 101 <receive address>
+groestlcoin-cli -regtest generatetoaddress 101 <receive address>
 ```
 Inscribe in regtest with:
 ```
@@ -39,7 +39,7 @@ ord -r wallet inscribe --fee-rate 1 <file>
 ```
 Mine the inscription with:
 ```
-groestlcoin-cli generatetoaddress 1 <receive address>
+groestlcoin-cli -regtest generatetoaddress 1 <receive address>
 ```
 View the inscription in the regtest explorer:
 ```
@@ -50,7 +50,7 @@ Testing Recursion
 -----------------
 
 When testing out [recursion](../inscriptions/recursion.md), inscribe the
-dependencies first (example with [p5.js](https://p5js.org):
+dependencies first (example with [p5.js](https://p5js.org)):
 ```
 ord -r wallet inscribe --fee-rate 1 p5.js
 ```
