@@ -20,7 +20,7 @@ fn find_command_returns_satpoint_for_sat() {
 
 #[test]
 fn find_range_command_returns_satpoints_and_ranges() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   rpc_server.mine_blocks(1);
 
@@ -49,7 +49,7 @@ fn find_range_command_returns_satpoints_and_ranges() {
 
 #[test]
 fn find_range_command_fails_for_unmined_sat_ranges() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   CommandBuilder::new(format!(
     "--index-sats find {} {}",

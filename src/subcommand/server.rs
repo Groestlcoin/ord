@@ -2436,7 +2436,7 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(
         1,
         0,
@@ -2605,7 +2605,7 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/markdown", "hello").to_witness())],
       ..Default::default()
     });
@@ -3068,7 +3068,7 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(2);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[
         (1, 0, 0, inscription("text/plain", "hello").to_witness()),
         (2, 0, 0, inscription("text/plain", "cursed").to_witness()),

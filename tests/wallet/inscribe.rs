@@ -662,7 +662,7 @@ fn try_reinscribe_without_flag() {
 
 #[test]
 fn no_metadata_appears_on_inscription_page_if_no_metadata_is_passed() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -685,7 +685,7 @@ fn no_metadata_appears_on_inscription_page_if_no_metadata_is_passed() {
 
 #[test]
 fn json_metadata_appears_on_inscription_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 
@@ -708,7 +708,7 @@ fn json_metadata_appears_on_inscription_page() {
 
 #[test]
 fn cbor_metadata_appears_on_inscription_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 

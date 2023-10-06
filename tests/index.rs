@@ -18,7 +18,7 @@ fn run_is_an_alias_for_update() {
 
 #[test]
 fn custom_index_path() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   let tempdir = TempDir::new().unwrap();
