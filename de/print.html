@@ -1,0 +1,1501 @@
+<!DOCTYPE HTML>
+<html lang="de" class="sidebar-visible no-js coal" dir="ltr">
+<script>
+  var lang = "de"; // Get the language from the configuration
+  if (lang === "ar") {
+    // Set the direction to right-to-left for Arabic
+    document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
+  }
+</script>
+<style>
+    .custom-list {
+        list-style-type: none; /* Remove default list item marker (hyphen) */
+    }
+</style>
+<html lang="de" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Ordinal Theory Handbook</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="language-picker.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Einführung</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Übersicht</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale Artefakte</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Rekursion</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Häufig gestellte Fragen</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Beitragen</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Spenden</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Anleitungen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscriptions</a></li><li class="chapter-item expanded "><a href="guides/gro-hunting.html"><strong aria-hidden="true">7.3.</strong> Gro Hunting</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.4.</strong> Sammeln</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.5.</strong> Testen</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.6.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.7.</strong> Erneutes Indizieren</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300,000 gros</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400,000 gros</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="de">Deutsch</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fr">Français</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="es">Español</a>
+                          </button></li>
+                           <li role="none"><button role="menuitem" class="theme">
+                              <a id="ru">Русский</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fil">Filipino</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ar">العربية</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("de");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "print.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/Groestlcoin/ord-groestlcoin" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="einführung"><a class="header" href="#einführung">Einführung</a></h1>
+<p>This handbook is a guide to ordinal theory. Ordinal theory concerns itself with gros, giving them individual identities and allowing them to be tracked, transferred, and imbued with meaning.</p>
+<p>Gros, not groestlcoin, are the atomic, native currency of the Groestlcoin network. One groestlcoin can be sub-divided into 100,000,000 gros, but no further.</p>
+<p>Ordinal theory does not require a sidechain or token aside from Groestlcoin, and can be used without any changes to the Groestlcoin network. It works right now.</p>
+<p>Ordinal theory imbues gros with numismatic value, allowing them to be collected and traded as curios.</p>
+<p>Individual gros can be inscribed with arbitrary content, creating unique Groestlcoin-native digital artifacts that can be held in Groestlcoin wallets and transferred using Groestlcoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Groestlcoin itself.</p>
+<p>Andere, ungewöhnlichere Anwendungsfälle sind möglich: Off-Chain-Farbmünzen, Public-Key-Infrastruktur mit Schlüsselrotation, ein dezentralisierter Ersatz für das DNS. Bisher sind solche Anwendungsfälle jedoch spekulativ und existieren nur in den Köpfen randständiger Ordinaltheoretiker.</p>
+<p>Für weitere details zur ordinal theory siehe die <a href="overview.html">Übersicht</a>.</p>
+<p>Für weitere details zu inscriptions siehe <a href="inscriptions.html">inscriptions</a>.</p>
+<p>Wenn Sie bereit sind, sich die Hände schmutzig zu machen, ist ein guter Ausgangspunkt <a href="guides/inscriptions.html">inscriptions</a>, eine eigenartige Art von digitaler Artefakten, die durch die ordinal theorie ermöglicht wird.</p>
+<h2 id="links"><a class="header" href="#links">Links</a></h2>
+<ul>
+<li><a href="https://github.com/Groestlcoin/ord-groestlcoin/">GitHub</a></li>
+<li><a href="https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki">BIP</a></li>
+<li><a href="https://discord.gg/vCKxQBz">Discord</a></li>
+<li><a href="https://ordinals.groestlcoin.org">Mainnet Block Explorer</a></li>
+<li><a href="https://ordinals-test.groestlcoin.org">Testnet Block Explorer</a></li>
+<li><a href="https://ordinals-signet.groestlcoin.org">Signet Block Explorer</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-theorie-Übersicht"><a class="header" href="#ordinal-theorie-Übersicht">Ordinal theorie Übersicht</a></h1>
+<p>Ordinals are a numbering scheme for gros that allows tracking and transferring individual gros. These numbers are called <a href="https://ordinals.groestlcoin.org">ordinal numbers</a>. Gros are numbered in the order in which they're mined, and transferred from transaction inputs to transaction outputs first-in-first-out. Both the numbering scheme and the transfer scheme rely on <em>order</em>, the numbering scheme on the <em>order</em> in which gros are mined, and the transfer scheme on the <em>order</em> of transaction inputs and outputs. Thus the name, <em>ordinals</em>.</p>
+<p>Technical details are available in <a href="https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki">the BIP</a>.</p>
+<p>Ordinal theory does not require a separate token, another blockchain, or any changes to Groestlcoin. It works right now.</p>
+<p>Ordinal zahlen haben einige verschiedene Darstellungen:</p>
+<ul>
+<li>
+<p><em>Integer notation</em>: <a href="https://ordinals.groestlcoin.org/sat/2099994106992659"><code>2099994106992659</code></a> The ordinal number, assigned according to the order in which the gro was mined.</p>
+</li>
+<li>
+<p><em>Decimal notation</em>: <a href="https://ordinals.groestlcoin.org/sat/3891094.16797"><code>3891094.16797</code></a> The first number is the block height in which the gro was mined, the second the offset of the gro within the block.</p>
+</li>
+<li>
+<p><em>Degree notation</em>: <a href="https://ordinals.groestlcoin.org/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4"><code>3°111094′214″16797‴</code></a>. We'll get to that in a moment.</p>
+</li>
+<li>
+<p><em>Percentile notation</em>: <a href="https://ordinals.groestlcoin.org/sat/99.99971949060254%25"><code>99.99971949060254%</code></a> . The gro's position in Groestlcoin's supply, expressed as a percentage.</p>
+</li>
+<li>
+<p><em>Name</em>: <a href="https://ordinals.groestlcoin.org/sat/satoshi"><code>satoshi</code></a>. An encoding of the ordinal number using the characters <code>a</code> through <code>z</code>.</p>
+</li>
+</ul>
+<p>Arbitrary assets, such as NFTs, security tokens, accounts, or stablecoins can be attached to gros using ordinal numbers as stable identifiers.</p>
+<p>Ordinals is an open-source project, developed <a href="https://github.com/Groestlcoin/ord-groestlcoin">on GitHub</a>. The project consists of a BIP describing the ordinal scheme, an index that communicates with a Groestlcoin Core node to track the location of all gros, a wallet that allows making ordinal-aware transactions, a block explorer for interactive exploration of the blockchain, functionality for inscribing gros with digital artifacts, and this manual.</p>
+<h2 id="seltenheit"><a class="header" href="#seltenheit">Seltenheit</a></h2>
+<p>Humans are collectors, and since gros can now be tracked and transferred, people will naturally want to collect them. Ordinal theorists can decide for themselves which gros are rare and desirable, but there are some hints…</p>
+<p>Groestlcoin has periodic events, some frequent, some more uncommon, and these naturally lend themselves to a system of rarity. These periodic events are:</p>
+<ul>
+<li>
+<p><em>Blocks</em>: A new block is mined approximately every 1 minute, from now until the end of time.</p>
+</li>
+<li>
+<p><em>Difficulty adjustments</em>: Every 2016 blocks, or approximately every 1.5 days, the Groestlcoin network responds to changes in hashrate by adjusting the difficulty target which blocks must meet in order to be accepted.</p>
+</li>
+<li>
+<p><em>Halvings</em>: Every 1,050,000 blocks.</p>
+</li>
+<li>
+<p><em>Cycles</em>: Every 6 * 1,050,000 blocks.</p>
+</li>
+</ul>
+<p>Dies ergibt die folgenden Seltenheitsstufen:</p>
+<ul>
+<li><code>common</code>: Any gro that is not the first gro of its block</li>
+<li><code>uncommon</code>: The first gro of each block</li>
+<li><code>rare</code>: The first gro of each difficulty adjustment period</li>
+<li><code>epic</code>: The first gro of each halving epoch</li>
+<li><code>legendary</code>: The first gro of each cycle</li>
+<li><code>mythic</code>: The first gro of the genesis block</li>
+</ul>
+<p>Which brings us to degree notation, which unambiguously represents an ordinal number in a way that makes the rarity of a gro easy to see at a glance:</p>
+<pre><code>A°B′C″D‴
+│ │ │ ╰─ Index of gro in the block
+│ │ ╰─── Index of block in difficulty adjustment period
+│ ╰───── Index of block in halving epoch
+╰─────── Cycle, numbered starting from 0
+</code></pre>
+<p>Ordinal-Theoretiker verwenden oft die Begriffe &quot;Stunde&quot;, &quot;Minute&quot;, &quot;Sekunde&quot; und &quot;Dritte&quot; für <em>A</em>, <em>B</em>, <em>C</em> und <em>D</em>.</p>
+<p>Now for some examples. This gro is common:</p>
+<pre><code>1°1′1″1‴
+│ │ │ ╰─ Not first gro in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── Not first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>This gro is uncommon:</p>
+<pre><code>1°1′1″0‴
+│ │ │ ╰─ First gro in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── Not first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>This gro is rare:</p>
+<pre><code>1°1′0″0‴
+│ │ │ ╰─ First gro in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── Not the first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>This gro is epic:</p>
+<pre><code>1°0′1″0‴
+│ │ │ ╰─ First gro in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>This gro is legendary:</p>
+<pre><code>1°0′0″0‴
+│ │ │ ╰─ First gro in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>And this gro is mythic:</p>
+<pre><code>0°0′0″0‴
+│ │ │ ╰─ First gro in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── First cycle
+</code></pre>
+<p>If the block offset is zero, it may be omitted. This is the uncommon gro from above:</p>
+<pre><code>1°1′1″
+│ │ ╰─ Not first block in difficulty adjustment period
+│ ╰─── Not first block in halving epoch
+╰───── Second cycle
+</code></pre>
+<h2 id="rare-gro-supply"><a class="header" href="#rare-gro-supply">Rare Gro Supply</a></h2>
+<h3 id="gesamtversorgung"><a class="header" href="#gesamtversorgung">Gesamtversorgung</a></h3>
+<ul>
+<li><code>common</code>: 10.4 quadrillion</li>
+<li><code>ungewöhnlich</code>: 6,929,999</li>
+<li><code>selten</code>: 3437</li>
+<li><code>episch</code>: 32</li>
+<li><code>legendär</code>: 5</li>
+<li><code>mythisch</code>: 1</li>
+</ul>
+<h3 id="aktuelle-versorgung"><a class="header" href="#aktuelle-versorgung">Aktuelle Versorgung</a></h3>
+<ul>
+<li><code>common</code>: 8.3 quadrillion</li>
+<li><code>ungewöhnlich</code>: 745,855</li>
+<li><code>rare</code>: 369</li>
+<li><code>episch</code>: 3</li>
+<li><code>legendary</code>: 0</li>
+<li><code>mythisch</code>: 1</li>
+</ul>
+<p>At the moment, even uncommon gros are quite rare. As of this writing, 745,855 uncommon gros have been mined - one per 25.6 groestlcoin in circulation.</p>
+<h2 id="namen"><a class="header" href="#namen">Namen</a></h2>
+<p>Each gro has a name, consisting of the letters <em>A</em> through <em>Z</em>, that get shorter the further into the future the gro was mined. They could start short and get longer, but then all the good, short names would be trapped in the unspendable genesis block.</p>
+<p>As an example, 1905530482684727°'s name is &quot;iaiufjszmoba&quot;. The name of the last gro to be mined is &quot;a&quot;. Every combination of 10 characters or less is out there, or will be out there, someday.</p>
+<h2 id="exoten"><a class="header" href="#exoten">Exoten</a></h2>
+<p>Gros may be prized for reasons other than their name or rarity. This might be due to a quality of the number itself, like having an integer square or cube root. Or it might be due to a connection to a historical event, such as gros from block 1,439,424, the block in which SegWit activated, or 10499999999999999°, the last gro that will ever be mined.</p>
+<p>Such gros are termed &quot;exotic&quot;. Which gros are exotic and what makes them so is subjective. Ordinal theorists are encouraged to seek out exotics based on criteria of their own devising.</p>
+<h2 id="inscriptions"><a class="header" href="#inscriptions">Inscriptions</a></h2>
+<p>Gros can be inscribed with arbitrary content, creating Groestlcoin-native digital artifacts. Inscribing is done by sending the gro to be inscribed in a transaction that reveals the inscription content on-chain. This content is then inextricably linked to that gro, turning it into an immutable digital artifact that can be tracked, transferred, hoarded, bought, sold, lost, and rediscovered.</p>
+<h2 id="archäologie"><a class="header" href="#archäologie">Archäologie</a></h2>
+<p>Whether or not ordinals are of interest to NFT archaeologists is an open question! Ordinals were in fact created by Gruve-P in 2014 when he mined the Groestlcoin genesis block. In this sense, ordinals, and especially early ordinals, are certainly of historical interest.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="digitale-artefakte"><a class="header" href="#digitale-artefakte">Digitale Artefakte</a></h1>
+<p>Stellen Sie sich ein physisches Artefakt vor. Eine seltene Münze zum Beispiel, die unzählige Jahre lang sicher im dunklen, geheimen Schatz eines Wikingerschatzes aufbewahrt wurde, der jetzt von Ihren griffigen Händen aus der Erde gegraben wurde. Es…</p>
+<p>…hat einen Besitzer. Du. Solange Sie es sicher aufbewahren, kann es Ihnen niemand wegnehmen.</p>
+<p>…ist komplett. Es fehlen keine Teile.</p>
+<p>…kann nur von Ihnen geändert werden. Wenn Sie ein Händler waren und sich auf den Weg ins China des 18. Jahrhunderts machten, konnte niemand außer Ihnen Ihr Stempelzeichen aufbringen.</p>
+<p>…kann nur von Ihnen selbst entsorgt werden. Der Verkauf, Tausch oder die Schenkung liegt bei Ihnen, an wen auch immer Sie möchten.</p>
+<p>Was sind digitale Artefakte? Einfach ausgedrückt sind sie das digitale Äquivalent physischer Artefakte.</p>
+<p>Damit ein digitales Ding ein digitales Artefakt ist, muss es wie Ihre Münze sein:</p>
+<ul>
+<li>
+<p>Digitale Artefakte können Besitzer haben. Eine Nummer ist kein digitales Artefakt, denn niemand kann sie besitzen.</p>
+</li>
+<li>
+<p>Die digitalen Artefakte sind vollständig. Ein NFT, der auf Off-Chain-Inhalte auf IPFS oder Arweave verweist, ist unvollständig und daher kein digitales Artefakt.</p>
+</li>
+<li>
+<p>Digitale Artefakte sind erlaubnisfrei. Ein NFT, der nicht ohne Zahlung einer Lizenzgebühr verkauft werden kann, ist nicht erlaubnislos und daher kein digitales Artefakt.</p>
+</li>
+<li>
+<p>Digitale Artefakte sind unzensierbar. Vielleicht können Sie heute einen Datenbankeintrag in einem zentralen Hauptbuch ändern, aber vielleicht nicht morgen, und daher kann es sich nicht um ein digitales Artefakt handeln.</p>
+</li>
+<li>
+<p>Digitale Artefakte sind unveränderlich. Ein NFT mit einem Upgrade-Schlüssel ist kein digitales Artefakt.</p>
+</li>
+</ul>
+<p>Die Definition eines digitalen Artefakts soll widerspiegeln, was NFTs sein <em>sollten</em>, manchmal sind und was inscriptions ihrer Natur nach <em>immer</em> sind.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inscriptions-1"><a class="header" href="#inscriptions-1">Inscriptions</a></h1>
+<p>Inscriptions inscribe gros with arbitrary content, creating groestlcoin-native digital artifacts, more commonly known as NFTs. Inscriptions do not require a sidechain or separate token.</p>
+<p>These inscribed gros can then be transferred using groestlcoin transactions, sent to groestlcoin addresses, and held in groestlcoin UTXOs. These transactions, addresses, and UTXOs are normal groestlcoin transactions, addresses, and UTXOS in all respects, with the exception that in order to send individual gros, transactions must control the order and value of inputs and outputs according to ordinal theory.</p>
+<p>Das Inhaltsmodell der inscription ist das des Webs. Eine inscription besteht aus einem Inhaltstyp, auch MIME-Typ genannt, und dem Inhalt selbst, bei dem es sich um eine Bytefolge handelt. Dies ermöglicht die Rückgabe von inscriptions von einem Webserver und die Erstellung von HTML-inscriptions , die den Inhalt anderer inscription verwenden und neu mischen.</p>
+<p>Der Inhalt der Inscription ist vollständig in der Kette und wird in Taproot-Skriptpfad-Ausgabeskripten gespeichert. Für Taproot-Skripte gelten nur sehr wenige Einschränkungen hinsichtlich ihres Inhalts und sie erhalten zusätzlich den Witness-Rabatt, was die Speicherung von Inscription-Inhalten relativ kostengünstig macht.</p>
+<p>Da Ausgaben für Taproot-Skripts nur aus vorhandenen Taproot-Ausgaben getätigt werden können, werden inscriptions mithilfe eines zweiphasigen Commit/Reveal-Verfahrens vorgenommen. Zunächst wird in der Commit-Transaktion eine Taproot-Ausgabe erstellt, die ein Commit für ein Skript mit dem Inhalt der Inschrift durchführt. Zweitens wird bei der Offenlegungstransaktion die durch die Festschreibungstransaktion erzeugte Ausgabe ausgegeben, um den Inhalt der Inschrift in der chain preiszugeben.</p>
+<p>Der Inhalt der Inscription wird mithilfe von Daten-Pushs innerhalb nicht ausgeführter Bedingungen, sogenannter „Umschläge“, serialisiert. Umschläge bestehen aus einem <code>OP_FALSE OP_IF … OP_ENDIF </code>, das eine beliebige Anzahl von Daten-Pushs umschließt. Da Umschläge praktisch No-Ops sind, ändern sie nicht die Semantik des Skripts, in dem sie enthalten sind, und können mit jedem anderen Sperrskript kombiniert werden.</p>
+<p>Eine inscription mit der Zeichenfolge &quot;Hello, world!&quot; wird wie folgt serialisiert:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>Zuerst wird die Zeichenfolge <code>ord</code> gedrückt, um inscriptions von anderen Verwendungszwecken von Umschlägen zu unterscheiden.</p>
+<p><code>OP_PUSH 1</code> indicates that the next push contains the content type, and <code>OP_PUSH 0</code>indicates that subsequent data pushes contain the content itself. Multiple data pushes must be used for large inscriptions, as one of taproot's few restrictions is that individual data pushes may not be larger than 520 bytes.</p>
+<p>The inscription content is contained within the input of a reveal transaction, and the inscription is made on the first gro of its input. This gro can then be tracked using the familiar rules of ordinal theory, allowing it to be transferred, bought, sold, lost to fees, and recovered.</p>
+<h2 id="inhalt"><a class="header" href="#inhalt">Inhalt</a></h2>
+<p>Das Datenmodell von inscriptions ist das einer HTTP-Antwort, sodass inscription inhalte von einem Webserver bereitgestellt und in einem Webbrowser angezeigt werden können.</p>
+<h2 id="felder"><a class="header" href="#felder">Felder</a></h2>
+<p>Inscriptions können Felder vor einem optionalen Text enthalten. Jedes Feld besteht aus zwei Daten-Pushs, einem Tag und einem Wert.</p>
+<p>Derzeit ist das einzige definierte Feld <code>content-type</code> mit dem Tag <code>1</code>, dessen Wert der MIME-Typ des Körpers ist.</p>
+<p>Der Anfang des Hauptteils und das Ende der Felder werden durch einen leeren Daten-Push angezeigt.</p>
+<p>Nicht erkannte Tags werden unterschiedlich interpretiert, je nachdem, ob sie gerade oder ungerade sind. Dabei gilt die vom Lightning Network verwendete Regel &quot;Es ist in Ordnung, ungerade zu sein&quot;.</p>
+<p>Sogar Tags werden für Felder verwendet, die sich auf die Erstellung, Erstzuweisung oder Übertragung einer inscription auswirken können. So müssen inscription mit nicht erkannten geraden Feldern als &quot;ungebunden“, also ohne Ortsangabe, angezeigt werden.</p>
+<p>Ungerade Tags werden für Felder verwendet, die sich nicht auf die Erstellung, anfängliche Zuweisung oder Übertragung auswirken, wie z. B. zusätzliche Metadaten, und daher sicher ignoriert werden können.</p>
+<h2 id="inscription-ids"><a class="header" href="#inscription-ids">Inscription IDs</a></h2>
+<p>Die inscriptions sind in den Eingaben einer Enthüllungstransaktion enthalten. Um sie eindeutig zu identifizieren, wird ihnen eine ID der Form zugewiesen:</p>
+<p><code>521f8eccffa4c41a3a7728dd012ea5a4a02feed81f41159231251ecf1e5c79dai0</code></p>
+<p>Der Teil vor dem „i“ ist die Transaktions-ID (<code>txid</code>) der Offenlegungstransaktion. Die Zahl nach dem <code>i</code> definiert den Index (beginnend bei 0) der neuen inscriptions, die in die Offenlegungstransaktion eingeschrieben werden.</p>
+<p>Inscriptions können sich entweder in verschiedenen Eingaben (inputs), innerhalb derselben Eingabe oder in einer Kombination aus beiden befinden. In jedem Fall ist die Reihenfolge klar, da ein Parser die Eingaben nacheinander durchgehen und nach allen inscription <code>envelopes</code> suchen würde.</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Eingang</th><th style="text-align: center">Inscription Zählen</th><th style="text-align: center">Indices</th></tr></thead><tbody>
+<tr><td style="text-align: center">0</td><td style="text-align: center">2</td><td style="text-align: center">i0, i1</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">i2</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">i3, i4, i5</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">0</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">1</td><td style="text-align: center">i6</td></tr>
+</tbody></table>
+</div>
+<h2 id="sandboxen"><a class="header" href="#sandboxen">Sandboxen</a></h2>
+<p>HTML- und SVG-inscriptions werden in einer Sandbox gespeichert, um Verweise auf Inhalte außerhalb der chain zu verhindern, sodass die inscriptions unveränderlich und in sich geschlossen bleiben.</p>
+<p>Dies wird erreicht, indem HTML und SVG-Inschriften in <code>iframes</code> mit dem <code>Sandbox</code> Attribut geladen werden und inscriptions inhalte mit <code>Content-Security-Policy</code> Headern bereitgestellt werden.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="metadata"><a class="header" href="#metadata">Metadata</a></h1>
+<p>Inscriptions may include <a href="https://cbor.io/">CBOR</a> metadata, stored as data pushes in fields with tag <code>5</code>. Since data pushes are limited to 520 bytes, metadata longer than 520 bytes must be split into multiple tag <code>5</code> fields, which will then be concatenated before decoding.</p>
+<p>Metadata is human readable, and all metadata will be displayed to the user with its inscription. Inscribers are encouraged to consider how metadata will be displayed, and make metadata concise and attractive.</p>
+<p>Metadata is rendered to HTML for display as follows:</p>
+<ul>
+<li><code>null</code>, <code>true</code>, <code>false</code>, numbers, floats, and strings are rendered as plain text.</li>
+<li>Byte strings are rendered as uppercase hexadecimal.</li>
+<li>Arrays are rendered as <code>&lt;ul&gt;</code> tags, with every element wrapped in <code>&lt;li&gt;</code> tags.</li>
+<li>Maps are rendered as <code>&lt;dl&gt;</code> tags, with every key wrapped in <code>&lt;dt&gt;</code> tags, and every value wrapped in <code>&lt;dd&gt;</code> tags.</li>
+<li>Tags are rendered as the tag , enclosed in a <code>&lt;sup&gt;</code> tag, followed by the value.</li>
+</ul>
+<p>CBOR is a complex spec with many different data types, and multiple ways of representing the same data. Exotic data types, such as tags, floats, and bignums, and encoding such as indefinite values, may fail to display correctly or at all. Contributions to <code>ord</code> to remedy this are welcome.</p>
+<h2 id="beispiel"><a class="header" href="#beispiel">Beispiel</a></h2>
+<p>Since CBOR is not human readable, in these examples it is represented as JSON. Keep in mind that this is <em>only</em> for these examples, and JSON metadata will <em>not</em> be displayed correctly.</p>
+<p>The metadata <code>{&quot;foo&quot;:&quot;bar&quot;,&quot;baz&quot;:[null,true,false,0]}</code> would be included in an inscription as:</p>
+<pre><code>OP_FALSE
+OP_IF
+    ...
+    OP_PUSH 0x05 OP_PUSH '{&quot;foo&quot;:&quot;bar&quot;,&quot;baz&quot;:[null,true,false,0]}'
+    ...
+OP_ENDIF
+</code></pre>
+<p>And rendered as:</p>
+<pre><code>&lt;dl&gt;
+  ...
+  &lt;dt&gt;metadata&lt;/dt&gt;
+  &lt;dd&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;foo&lt;/dt&gt;
+      &lt;dd&gt;bar&lt;/dd&gt;
+      &lt;dt&gt;baz&lt;/dt&gt;
+      &lt;dd&gt;
+        &lt;ul&gt;
+          &lt;li&gt;null&lt;/li&gt;
+          &lt;li&gt;true&lt;/li&gt;
+          &lt;li&gt;false&lt;/li&gt;
+          &lt;li&gt;0&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/dd&gt;
+  ...
+&lt;/dl&gt;
+</code></pre>
+<p>Metadata longer than 520 bytes must be split into multiple fields:</p>
+<pre><code>OP_FALSE
+OP_IF
+    ...
+    OP_PUSH 0x05 OP_PUSH '{&quot;very&quot;:&quot;long&quot;,&quot;metadata&quot;:'
+    OP_PUSH 0x05 OP_PUSH '&quot;is&quot;,&quot;finally&quot;:&quot;done&quot;}'
+    ...
+OP_ENDIF
+</code></pre>
+<p>Which would then be concatinated into <code>{&quot;very&quot;:&quot;long&quot;,&quot;metadata&quot;:&quot;is&quot;,&quot;finally&quot;:&quot;done&quot;}</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="provenance"><a class="header" href="#provenance">Provenance</a></h1>
+<p>The owner of an inscription can create child inscriptions, trustlessly establishing the provenance of those children on-chain as having been created by the owner of the parent inscription. This can be used for collections, with the children of a parent inscription being members of the same collection.</p>
+<p>Children can themselves have children, allowing for complex hierarchies. For example, an artist might create an inscription representing themselves, with sub inscriptions representing collections that they create, with the children of those sub inscriptions being items in those collections.</p>
+<h3 id="specification"><a class="header" href="#specification">Specification</a></h3>
+<p>To create a child inscription C with parent inscription P:</p>
+<ul>
+<li>Create an inscribe transaction T as usual for C.</li>
+<li>Spend the parent P in one of the inputs of T.</li>
+<li>Include tag <code>3</code>, i.e. <code>OP_PUSH 3</code>, in C, with the value of the serialized binary inscription ID of P, serialized as the 32-byte <code>TXID</code>, followed by the four-byte little-endian <code>INDEX</code>, with trailing zeroes omitted.</li>
+</ul>
+<p><em>NB</em> The bytes of a groestlcoin transaction ID are reversed in their text representation, so the serialized transaction ID will be in the opposite order.</p>
+<h3 id="beispiel-1"><a class="header" href="#beispiel-1">Beispiel</a></h3>
+<p>An example of a child inscription of <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi0</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>Note that the value of tag <code>3</code> is binary, not hex, and that for the child inscription to be recognized as a child, <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi0</code> must be spent as one of the inputs of the inscribe transaction.</p>
+<p>Example encoding of inscription ID <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi255</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  …
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100ff
+  …
+OP_ENDIF
+</code></pre>
+<p>And of inscription ID <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi256</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  …
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201000001
+  …
+OP_ENDIF
+</code></pre>
+<h3 id="notes"><a class="header" href="#notes">Notes</a></h3>
+<p>The tag <code>3</code> is used because it is the first available odd tag. Unrecognized odd tags do not make an inscription unbound, so child inscriptions would be recognized and tracked by old versions of <code>ord</code>.</p>
+<p>A collection can be closed by burning the collection's parent inscription, which guarantees that no more items in the collection can be issued.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rekursion"><a class="header" href="#rekursion">Rekursion</a></h1>
+<p>Eine wichtige Ausnahme von <a href="inscriptions/../inscriptions.html#sandboxing">Sandboxing</a> ist die Rekursion: Der Zugriff auf den <code>ord</code>'s <code>/content</code> ist zulässig, sodass Inschriften auf den Inhalt anderer Inschriften zugreifen können, indem sie <code>/content/&lt;INSCRIPTION_ID&gt;</code>.</p>
+<p>Dies hat eine Reihe interessanter Anwendungsfälle:</p>
+<ul>
+<li>
+<p>Neumischung des Inhalts bestehender inscriptions.</p>
+</li>
+<li>
+<p>Veröffentlichen von Code, Bild, Audio oder Stylesheet-Schnipseln als gemeinsam genutzte öffentliche Ressourcen.</p>
+</li>
+<li>
+<p>Generative Kunstsammlungen, bei denen ein Algorithmus als JavaScript inscribed und aus mehreren inscriptions mit einzigartigen Seeds instanziiert wird.</p>
+</li>
+<li>
+<p>Generative Profilbildsammlungen, bei denen Accessoires und Attribute als einzelne Bilder oder in einen gemeinsamen Texturatlas inscribed und dann im Collagenstil in einzigartigen Kombinationen in mehreren inscriptions kombiniert werden.</p>
+</li>
+</ul>
+<p>Einige andere Endpunkte, auf die inscriptions zugreifen können, sind die folgenden:</p>
+<ul>
+<li><code>/blockheight</code>: neueste Blockhöhe.</li>
+<li><code>/blockhash</code>: aktueller Block-Hash.</li>
+<li><code>/blockhash/&lt;HEIGHT&gt;</code>: Block-Hash bei gegebener Blockhöhe.</li>
+<li><code>/blocktime</code>: UNIX-Zeitstempel des letzten Blocks.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pointer"><a class="header" href="#pointer">Pointer</a></h1>
+<p>In order to make an inscription on a sat other than the first of its input, a zero-based integer, called the &quot;pointer&quot;, can be provided with tag <code>2</code>, causing the inscription to be made on the sat at the given position in the outputs. If the pointer is equal to or greater than the number of total sats in the outputs of the inscribe transaction, it is ignored, and the inscription is made as usual. The value of the pointer field is a little endian integer, with trailing zeroes ignored.</p>
+<p>An even tag is used, so that old versions of <code>ord</code> consider the inscription to be unbound, instead of assigning it, incorrectly, to the first sat.</p>
+<p>This can be used to create multiple inscriptions in a single transaction on different sats, when otherwise they would be made on the same sat.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>An inscription with pointer 255:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 2
+  OP_PUSH 0xff
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>An inscription with pointer 256:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 2
+  OP_PUSH 0x0001
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>An inscription with pointer 256, with trailing zeroes, which are ignored:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 2
+  OP_PUSH 0x000100
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-theorie-faq"><a class="header" href="#ordinal-theorie-faq">Ordinal theorie FAQ</a></h1>
+<h2 id="was-ist-ordinal-theorie"><a class="header" href="#was-ist-ordinal-theorie">Was ist ordinal theorie?</a></h2>
+<p>Ordinal theory is a protocol for assigning serial numbers to gros, the smallest subdivision of a groestlcoin, and tracking those gros as they are spent by transactions.</p>
+<p>These serial numbers are large numbers, like this 804766073970493. Every gro, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a groestlcoin, has an ordinal number.</p>
+<h2 id="does-ordinal-theory-require-a-side-chain-a-separate-token-or-changes-to-groestlcoin"><a class="header" href="#does-ordinal-theory-require-a-side-chain-a-separate-token-or-changes-to-groestlcoin">Does ordinal theory require a side chain, a separate token, or changes to Groestlcoin?</a></h2>
+<p>Nope! Ordinal theory works right now, without a side chain, and the only token needed is groestlcoin itself.</p>
+<h2 id="wofür-ist-die-ordinaltheorie-gut"><a class="header" href="#wofür-ist-die-ordinaltheorie-gut">Wofür ist die Ordinaltheorie gut?</a></h2>
+<p>Collecting, trading, and scheming. Ordinal theory assigns identities to individual gros, allowing them to be individually tracked and traded, as curios and for numismatic value.</p>
+<p>Ordinal theory also enables inscriptions, a protocol for attaching arbitrary content to individual gros, turning them into groestlcoin-native digital artifacts.</p>
+<h2 id="wie-funktioniert-die-ordinaltheorie"><a class="header" href="#wie-funktioniert-die-ordinaltheorie">Wie funktioniert die Ordinaltheorie?</a></h2>
+<p>Ordinal numbers are assigned to gros in the order in which they are mined. The first gro in the first block has ordinal number 0, the second has ordinal number 1, and the last gro of the first block has ordinal number 4,999,999,999.</p>
+<p>Gros live in outputs, but transactions destroy outputs and create new ones, so ordinal theory uses an algorithm to determine how gros hop from the inputs of a transaction to its outputs.</p>
+<p>Glücklicherweise ist dieser Algorithmus sehr einfach.</p>
+<p>Gros transfer in first-in-first-out order. Think of the inputs to a transaction as being a list of gros, and the outputs as a list of slots, waiting to receive a gro. To assign input gros to slots, go through each gro in the inputs in order, and assign each to the first available slot in the outputs.</p>
+<p>Stellen Sie sich eine Transaktion mit drei Inputs und zwei Outputs vor. Die Inputs befinden sich auf der linken Seite des Pfeils, und die Outputs auf der rechten Seite, jeweils mit ihren Werten beschriftet:</p>
+<pre><code>[2] [1] [3] → [4] [2]
+</code></pre>
+<p>Now let's label the same transaction with the ordinal numbers of the gros that each input contains, and question marks for each output slot. Ordinal numbers are large, so let's use letters to represent them:</p>
+<pre><code>[a b] [c] [d e f] → [? ? ? ?] [? ?]
+</code></pre>
+<p>To figure out which gro goes to which output, go through the input gros in order and assign each to a question mark:</p>
+<pre><code>[a b] [c] [d e f] → [a b c d] [e f]
+</code></pre>
+<p>What about fees, you might ask? Good question! Let's imagine the same transaction, this time with a two gro fee. Transactions with fees send more gros in the inputs than are received by the outputs, so to make our transaction into one that pays fees, we'll remove the second output:</p>
+<pre><code>[2] [1] [3] → [4]
+</code></pre>
+<p>The gros <var>e</var>und <var>f</var>Jetzt haben sie keine passenden Outputs mehr:```
+[a b] [c] [d e f] → [a b c d]</p>
+<pre><code>
+So they go to the miner who mined the block as fees. [The BIP](https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki) has the details, but in short, fees paid by transactions are treated as extra inputs to the coinbase transaction, and are ordered how their corresponding transactions are ordered in the block. The coinbase transaction of the block might look like this:
+
+</code></pre>
+<p>[SUBSIDY] [e f] → [SUBSIDY e f]</p>
+<pre><code>
+## Wo finde ich die wichtigsten Details?
+
+[The BIP!](https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki)
+
+## Why are gro inscriptions called &quot;digital artifacts&quot; instead of &quot;NFTs&quot;?
+
+Eine inscription ist ein NFT (Non-Fungible Token), aber der Begriff &quot;digitales Artefakt&quot; wird stattdessen verwendet, weil er einfach, anschaulich und vertraut ist.
+
+Der Ausdruck &quot;digitales Artefakt&quot; ist äußerst anschaulich, selbst für jemanden, der den Begriff zuvor noch nie gehört hat. Im Vergleich dazu ist NFT ein Akronym und gibt keine Hinweise darauf, was es bedeutet, wenn man den Begriff zuvor noch nie gehört hat.
+
+Außerdem klingt &quot;NFT&quot; nach Finanzterminologie, und sowohl das Wort &quot;fungibel&quot; als auch die Bedeutung des Wortes &quot;Token&quot; im Kontext von &quot;NFT&quot; sind außerhalb finanzieller Zusammenhänge unüblich.
+
+## How do gro inscriptions compare to…
+
+### Ethereum NFTs?
+
+_Inscriptions sind immer unveränderlich._
+
+Es gibt schlichtweg keine Möglichkeit für den Schöpfer oder den Besitzer einer Inschrift, diese nach ihrer Erstellung zu ändern.
+
+Ethereum NFTs _können_ unveränderlich sein, aber viele sind es nicht und können vom Besitzer des NFT-Vertrags geändert oder gelöscht werden.
+
+Um sicherzustellen, dass ein bestimmtes Ethereum NFT unveränderlich ist, muss der Vertragscode überprüft werden. Dies erfordert ein detailliertes Verständnis der EVM- und Solidity-Semantik.
+
+Es ist für einen nicht-technischen Benutzer sehr schwer festzustellen, ob ein bestimmtes Ethereum NFT veränderbar oder unveränderlich ist. Ethereum NFT-Plattformen unternehmen keine Anstrengungen, um zu unterscheiden, ob ein NFT veränderbar oder unveränderlich ist und ob der Vertragsquellcode verfügbar ist und überprüft wurde.
+
+_Die Inhalt das Inscription ist immer in der chain._
+
+Es gibt keine Möglichkeit für eine Inschrift, auf Off-Chain-Inhalte zu verweisen. Dies macht Inschriften langlebiger, da Inhalte nicht verloren gehen können, und knapper, da die Ersteller von Inschriften Gebühren in Abhängigkeit von der Größe des Inhalts zahlen müssen.
+
+Einige Ethereum NFT-Inhalte sind in der Blockchain gespeichert, aber ein Großteil befindet sich außerhalb der Blockchain und wird auf Plattformen wie IPFS oder Arweave oder auf traditionellen, vollständig zentralisierten Webservern gespeichert. Inhalte auf IPFS sind nicht garantiert dauerhaft verfügbar, und einige NFT-Inhalte, die auf IPFS gespeichert sind, gingen bereits verloren. Plattformen wie Arweave stützen sich auf schwache wirtschaftliche Annahmen und werden wahrscheinlich katastrophal scheitern, wenn diese wirtschaftlichen Annahmen nicht mehr erfüllt sind. Zentralisierte Webserver können jederzeit verschwinden.
+
+Es ist für einen nicht-technischen Benutzer sehr schwer zu bestimmen, wo der Inhalt eines bestimmten Ethereum NFT gespeichert ist.
+
+_Inscriptions sind viel einfacher._
+
+Ethereum NFTs sind abhängig vom Ethereum-Netzwerk und der virtuellen Maschine, die äußerst komplex und ständigen Veränderungen unterworfen sind. Diese Änderungen erfolgen oft durch rückwärtsinkompatible Hardforks.
+
+Inscriptions, on the other hand, depend on the Groestlcoin blockchain, which is relatively simple and conservative, and which introduces changes via backwards-compatible soft forks.
+
+_Inscriptions sind sicherer._
+
+Inscriptions inherit Groestlcoin's transaction model, which allow a user to see exactly which inscriptions are being transferred by a transaction before they sign it. Inscriptions can be offered for sale using partially signed transactions, which don't require allowing a third party, such as an exchange or marketplace, to transfer them on the user's behalf.
+
+Inscriptions erben das Transaktionsmodell von Bitcoin, das es einem Benutzer ermöglicht, genau zu sehen, welche Inschriften durch eine Transaktion übertragen werden, bevor er sie signiert. Inschriften können zum Verkauf angeboten werden, indem teilweise signierte Transaktionen verwendet werden, die keine Übertragung durch Dritte wie eine Börse oder einen Marktplatz im Auftrag des Benutzers erfordern.
+
+_Inscriptions sind seltener._
+
+Inscriptions require groestlcoin to mint, transfer, and store. This seems like a downside on the surface, but the raison d'etre of digital artifacts is to be scarce and thus valuable.
+
+Auf der anderen Seite können Ethereum NFTs praktisch in unbegrenzten Mengen mit einer einzigen Transaktion geprägt werden, was sie von Natur aus weniger knapp macht und somit potenziell weniger wertvoll.
+
+_Inscriptions geben nicht vor, On-Chain-Lizenzgebühren zu unterstützen._
+
+On-Chain-Royalties sind in der Theorie eine gute Idee, aber in der Praxis nicht umsetzbar. Die Zahlung von Lizenzgebühren kann nicht ohne komplexe und invasive Beschränkungen auf der Blockchain durchgesetzt werden. Das Ethereum-NFT-ecosystem kämpft derzeit mit Verwirrung im Zusammenhang mit Lizenzgebühren und kommt kollektiv zu der Erkenntnis, dass On-Chain-Royalties, die Künstlern als Vorteil von NFTs präsentiert wurden, nicht möglich sind. Inzwischen entfernen Plattformen die Unterstützung für Lizenzgebühren und konkurrieren auf dem Markt.
+
+Inscriptions umgehen diese Situation vollständig, indem sie keine falschen Versprechen bezüglich der Unterstützung von On-Chain-Royalties abgeben. Dadurch vermeiden sie die Verwirrung, das Chaos und die Negativität, die im Ethereum NFT-Bereich aufgetreten sind.
+
+_Inscriptions erschließen neue Märkte._
+
+Groestlcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Groestlcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, security, and decentralization.
+
+Such Groestlcoiners may be more interested in inscriptions than Ethereum NFTs, unlocking new classes of collector.
+
+_Inscriptions haben ein umfangreicheres Datenmodell._
+
+Inscriptions bestehen aus einem Inhaltstyp, auch als MIME-Typ bekannt, und einem Inhalt, der eine beliebige Byte-Folge ist. Dies ist das gleiche Datenmodell, das vom Web verwendet wird, und ermöglicht es, dass sich der inscription inhalt mit dem Web weiterentwickelt und jede Art von Inhalt unterstützt, die von Webbrowsern unterstützt wird, ohne Änderungen am zugrunde liegenden Protokoll zu erfordern.
+
+## Inscriptions für…
+
+### Künstler
+
+_Inscriptions are on Groestlcoin._ Groestlcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions.
+
+_Cheaper on-chain storage._ At $0,40 per GRS and the minimum relay fee of 1 gro per vbyte, publishing inscription content costs $0.0025 per 1 million bytes.
+
+_Inscriptions sind noch in der Frühphase!_ Inscriptions befinden sich noch in der Entwicklung und wurden noch nicht auf Mainnet gestartet. Dies gibt Ihnen die Möglichkeit, ein früher Anwender zu sein und das Medium zu erkunden, während es sich weiterentwickelt.
+
+_Inscriptions sind einfach._ Für Inscriptions ist es nicht erforderlich, Smart Contracts zu schreiben oder zu verstehen.
+
+_Inscriptions unlock new liquidity._ Inscriptions are more accessible and appealing to groestlcoin holders, unlocking an entirely new class of collector.
+
+_Inscriptions sind für digitale Artefakte konzipiert._ Inscriptions sind von Grund auf so konzipiert, dass sie NFTs unterstützen, und bieten ein besseres Datenmodell sowie Funktionen wie global eindeutige Symbole und erweiterte Herkunftsnachweise.
+
+_Inschriften unterstützen keine On-Chain-Royalties._ Das kann sowohl negativ als auch positiv betrachtet werden. On-Chain-Royalties haben Künstlern geholfen, haben jedoch auch für Verwirrung im Ethereum NFT-Ökosystem gesorgt. Das Ökosystem sieht sich nun mit diesem Problem konfrontiert und bewegt sich in Richtung einer Zukunft ohne verpflichtende Royalties. Inschriften unterstützen keine On-Chain-Royalties, da sie technisch nicht umsetzbar sind. Wenn Sie sich dafür entscheiden, Inschriften zu erstellen, gibt es viele Möglichkeiten, diese Einschränkung zu umgehen: Behalten Sie einen Teil Ihrer Inschriften für den zukünftigen Verkauf zurück, um von zukünftiger Wertsteigerung zu profitieren, oder bieten Sie vielleicht Vorteile für Benutzer an, die optionale Royalties respektieren.
+
+### Sammler
+
+_Inscriptions sind einfach, klar und ohne Überraschungen._ Sie sind immer unveränderlich und auf der Blockchain, ohne besondere Sorgfaltspflichten zu erfordern.
+
+_Inscriptions are on Groestlcoin._ You can verify the location and properties of inscriptions easily with Groestlcoin full node that you control.
+
+### Groestlcoiners
+
+Let me begin this section by saying: the most important thing that the Groestlcoin network does is decentralize money. All other use-cases are secondary, including ordinal theory. The developers of ordinal theory understand and acknowledge this, and believe that ordinal theory helps, at least in a small way, Groestlcoin's primary mission.
+
+Digital artifacts have merit. There are, of course, a great deal of NFTs that are ugly, stupid, and fraudulent. However, there are many that are fantastically creative, and creating and collecting art has been a part of the human story since its inception, and predates even trade and money, which are also ancient technologies.
+
+Groestlcoin provides an amazing platform for creating and collecting digital artifacts in a secure, decentralized way, that protects users and artists in the same way that it provides an amazing platform for sending and receiving value, and for all the same reasons.
+
+Ordinals and inscriptions increase demand for Groestlcoin block space, which increase Groestlcoin's security budget, which is vital for safeguarding Groestlcoin's transition to a fee-dependent security model, as the block subsidy is halved into insignificance.
+
+Inscription content is stored on-chain, and thus the demand for block space for use in inscriptions is unlimited. This creates a buyer of last resort for _all_ Groestlcoin block space. This will help support a robust fee market, which ensures that Groestlcoin remains secure.
+
+Inscriptions also counter the narrative that Groestlcoin cannot be extended or used for new use-cases. Inscriptions provide a counter argument which is easy to understand, and which targets a popular and proven use case, NFTs, which makes it highly legible.
+
+If inscriptions prove, as the authors hope, to be highly sought after digital artifacts with a rich history, they will serve as a powerful hook for Groestlcoin adoption: come for the fun, rich art, stay for the decentralized digital money.
+
+Inscriptions are an extremely benign source of demand for block space. Unlike, for example, stablecoins, which potentially give large stablecoin issuers influence over the future of Groestlcoin development, or DeFi, which might centralize mining by introducing opportunities for MEV, digital art and collectables on Groestlcoin, are unlikely to produce individual entities with enough power to corrupt Groestlcoin. Art is decentralized.
+
+Inscription users and service providers are incentivized to run Groestlcoin full nodes, to publish and track inscriptions, and thus throw their economic weight behind the honest chain.
+
+Ordinal theory and inscriptions do not meaningfully affect Groestlcoin's fungibility. Groestlcoin users can ignore both and be unaffected.
+
+We hope that ordinal theory strengthens and enriches groestlcoin, and gives it another dimension of appeal and functionality, enabling it more effectively serve its primary use case as humanity's decentralized store of value.</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="beitrag-zu-ord"><a class="header" href="#beitrag-zu-ord">Beitrag zu <code>ord</code></a></h1>
+<h2 id="vorgeschlagene-schritte"><a class="header" href="#vorgeschlagene-schritte">Vorgeschlagene Schritte</a></h2>
+<ol>
+<li>Finden Sie ein Problem, an dem Sie arbeiten möchten.</li>
+<li>Überlegen Sie, was der erste Schritt zur Lösung des Problems sein könnte. Dies könnte in Form von Code, Forschung, einem Vorschlag oder der Empfehlung erfolgen, es zu schließen, wenn es veraltet ist oder von vornherein keine gute Idee ist.</li>
+<li>Kommentieren Sie das Problem, skizzieren Sie Ihren vorgeschlagenen ersten Schritt und bitten Sie um Feedback. Natürlich können Sie sofort loslegen und mit dem Schreiben von Code oder Tests beginnen, aber das vermeidet potenziell verschwendeten Aufwand, wenn das Problem veraltet, nicht klar spezifiziert, an etwas anderem blockiert oder aus anderen Gründen nicht zur Implementierung bereit ist.</li>
+<li>Wenn das Problem eine Code-Änderung oder Fehlerbehebung erfordert, öffnen Sie einen Entwurfs-PR mit Tests und bitten Sie um Feedback. Dies stellt sicher, dass alle auf derselben Seite darüber sind, was getan werden muss, oder was der erste Schritt zur Lösung des Problems sein sollte. Da Tests erforderlich sind, erleichtert das Schreiben der Tests zuerst die Bestätigung, dass die Änderung leicht getestet werden kann.</li>
+<li>Mischen Sie die Tastatur nach dem Zufallsprinzip, bis die Tests bestanden sind, und überarbeiten Sie sie, bis der Code zur Übermittlung bereit ist.</li>
+<li>Markieren Sie die PR als zur Überprüfung bereit.</li>
+<li>Überarbeiten Sie die PR nach Bedarf.</li>
+<li>Und schließlich: mergies!</li>
+</ol>
+<h2 id="fangen-sie-klein-an"><a class="header" href="#fangen-sie-klein-an">Fangen Sie klein an</a></h2>
+<p>Mit kleinen Änderungen können Sie schnell Wirkung erzielen, und wenn Sie den falschen Weg einschlagen, haben Sie nicht viel Zeit verschwendet.</p>
+<p>Ideen für kleine Probleme:</p>
+<ul>
+<li>Fügen Sie einen neuen Test oder Testfall hinzu, der die Testabdeckung erhöht</li>
+<li>Dokumentation hinzufügen oder verbessern</li>
+<li>Finden Sie ein Problem, das mehr Recherche erfordert, führen Sie diese Recherche durch und fassen Sie sie in einem Kommentar zusammen</li>
+<li>Finden Sie ein veraltetes Problem und kommentieren Sie, dass es geschlossen werden kann</li>
+<li>Finden Sie ein Problem, das nicht behoben werden sollte, und geben Sie konstruktives Feedback, in dem Sie darlegen, warum dies Ihrer Meinung nach der Fall ist</li>
+</ul>
+<h2 id="mergen-sie-frühzeitig-und-häufig"><a class="header" href="#mergen-sie-frühzeitig-und-häufig">Mergen Sie frühzeitig und häufig</a></h2>
+<p>Teilen Sie große Aufgaben in mehrere kleinere Schritte auf, die jeweils Fortschritte machen. Wenn es einen Fehler gibt, können Sie eine Pull-Anfrage (PR) öffnen, die einen fehlgeschlagenen, ignorierten Test hinzufügt. Diese PR kann zusammengeführt werden, und der nächste Schritt könnte darin bestehen, den Fehler zu beheben und den Test nicht mehr zu ignorieren. Führen Sie umfangreiche Recherchen oder Tests durch und berichten Sie über Ihre Ergebnisse. Zerlegen Sie ein Feature in kleine Unterfeatures und implementieren Sie sie nacheinander.</p>
+<p>Herauszufinden, wie man eine größere PR in kleinere PRs aufteilt, die jeweils zusammengeführt werden können, ist eine Kunstform, die es wert ist, geübt zu werden. Das Schwierige daran ist, dass jede PR selbst eine Verbesserung darstellen muss.</p>
+<p>Ich bemühe mich, diesen Rat selbst zu befolgen, und es geht mir immer besser, wenn ich das tue.</p>
+<p>Kleine Änderungen lassen sich schnell schreiben, überprüfen und zusammenführen, was viel mehr Spaß macht als an einer einzigen riesigen Pull-Anfrage (PR) zu arbeiten, die ewig dauert, um geschrieben, überprüft und zusammengeführt zu werden. Kleine Änderungen benötigen nicht viel Zeit, sodass Sie bei Bedarf aufhören können, an einer kleinen Änderung zu arbeiten, ohne viel Zeit zu verschwenden, im Vergleich zu einer größeren Änderung, die viele Stunden Arbeit repräsentiert. Wenn eine PR schnell eingereicht wird, verbessert dies das Projekt sofort ein wenig, anstatt lange auf größere Verbesserungen warten zu müssen. Kleine Änderungen sind weniger wahrscheinlich, Merge-Konflikte zu verursachen. Wie die Athener sagten: <em>Die Schnellen commit , was sie wollen, die Langsamen merge was sie müssen.</em></p>
+<h2 id="hilfe-bekommen"><a class="header" href="#hilfe-bekommen">Hilfe bekommen</a></h2>
+<p>Wenn Sie länger als 15 Minuten nicht weiterkommen, bitten Sie um Hilfe, z. B. bei Rust Discord, Stack Exchange oder bei einem Projektproblem oder einer Diskussion.</p>
+<h2 id="Üben-sie-das-hypothesis-driven-debugging"><a class="header" href="#Üben-sie-das-hypothesis-driven-debugging">Üben Sie das hypothesis-driven debugging</a></h2>
+<p>Formulieren Sie eine Hypothese darüber, was das Problem verursacht. Überlegen Sie, wie Sie diese Hypothese testen können. Führen Sie diese Tests durch. Wenn es funktioniert, großartig, Sie haben das Problem behoben oder wissen jetzt, wie Sie es beheben können. Wenn nicht, wiederholen Sie den Vorgang mit einer neuen Hypothese.</p>
+<h2 id="achten-sie-auf-fehlermeldungen"><a class="header" href="#achten-sie-auf-fehlermeldungen">Achten Sie auf Fehlermeldungen</a></h2>
+<p>Lesen Sie alle Fehlermeldungen und dulden Sie keine Warnungen.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="spenden"><a class="header" href="#spenden">Spenden</a></h1>
+<p>Ordinals is an open-source project by Groestlcoin in development since early 2023.</p>
+<p>You can donate here: https://www.groestlcoin.org/donations/</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-theorie-anleitungen"><a class="header" href="#ordinal-theorie-anleitungen">Ordinal Theorie Anleitungen</a></h1>
+<p>See the table of contents for a list of guides, including a guide to the explorer, a guide for gro hunters, and a guide to inscriptions.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-explorer"><a class="header" href="#ordinal-explorer">Ordinal Explorer</a></h1>
+<p>The <code>ord</code> binary includes a block explorer. We host a instance of the block explorer on mainnet at <a href="https://ordinals.groestlcoin.org">ordinals.groestlcoin.org</a>, and on signet at <a href="https://ordinals-signet.groestlcoin.org">ordinals-signet.groestlcoin.org</a>.</p>
+<h3 id="ausführen-des-explorers"><a class="header" href="#ausführen-des-explorers">Ausführen des Explorers</a></h3>
+<p>Der Server kann lokal betrieben werden mit:</p>
+<p><code>ord server</code></p>
+<p>Um einen Port anzugeben, fügen Sie Folgendes <code>--http-port</code> flag:</p>
+<p><code>ord server --http-port 8080</code></p>
+<p>To enable the JSON-API endpoints add the <code>--enable-json-api</code> or <code>-j</code> flag (see <a href="guides/explorer.html#json-api">here</a> for more info):</p>
+<p><code>ord --enable-json-api server</code></p>
+<p>Um zu testen, wie Ihre inscription aussehen werden, können Sie Folgendes ausführen:</p>
+<p><code>ord preview &lt;FILE1&gt; &lt;FILE2&gt; ...</code></p>
+<h2 id="suchen"><a class="header" href="#suchen">Suchen</a></h2>
+<p>Das Suchfeld akzeptiert eine Vielzahl von Objektdarstellungen.</p>
+<h3 id="blöcke"><a class="header" href="#blöcke">Blöcke</a></h3>
+<p>Blöcke können per Hash durchsucht werden, zum Beispiel der Genesis-Block:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023">00000ac5927c594d49cc0bdb81759d0da8297eb614683d3acb62f0703b639023</a></p>
+<h3 id="transaktionen"><a class="header" href="#transaktionen">Transaktionen</a></h3>
+<p>Transactions can be searched by hash, for example, the block 1 coinbase transaction:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662">cf72b5842b3528fd7f3065ba9e93c50a62e84f42b3b7b7a351d910b5e353b662</a></p>
+<h3 id="outputs"><a class="header" href="#outputs">Outputs</a></h3>
+<p>Transaktions outputs können nach Outpoint durchsucht werden, zum Beispiel die einzige outputs der Genesis-Block-Coinbase-Transaktion:</p>
+<p><a href="https://ordinals.groestlcoin.org/output/3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0">3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0</a></p>
+<h3 id="gros"><a class="header" href="#gros">Gros</a></h3>
+<p>Gros can be searched by integer, their position within the entire groestlcoin supply:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/2099994106992659">2099994106992659</a></p>
+<p>Nach Dezimalstellen, ihrem Block und der Position innerhalb dieses Blocks:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/481824.0">481824.0</a></p>
+<p>Nach Grad, ihrem Zyklus, den Blöcken seit der letzten Halbierung, den Blöcken seit der letzten Schwierigkeitsanpassung und der Position in ihrem Block:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/1%C2%B00%E2%80%B20%E2%80%B30%E2%80%B4">1°0′0″0‴</a></p>
+<p>Nach Namen, ihrer Basis-26-Darstellung mit den Buchstaben &quot;a&quot; bis &quot;z&quot;:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/ahistorical">ahistorical</a></p>
+<p>Or by percentile, the percentage of groestlcoin's supply that has been or will have been issued when they are mined:</p>
+<p><a href="https://ordinals.groestlcoin.org/search/100%">100%</a></p>
+<h2 id="json-api"><a class="header" href="#json-api">JSON-API</a></h2>
+<p>You can run <code>ord</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
+<ul>
+<li><code>/inscription/&lt;INSCRIPTION_ID&gt;</code></li>
+<li><code>/inscriptions</code></li>
+<li><code>/inscriptions/block/&lt;BLOCK_HEIGHT&gt;</code></li>
+<li><code>/inscriptions/block/&lt;BLOCK_HEIGHT&gt;/&lt;PAGE_INDEX&gt;</code></li>
+<li><code>/inscriptions/&lt;FROM&gt;</code></li>
+<li><code>/inscriptions/&lt;FROM&gt;/&lt;N&gt;</code></li>
+<li><code>/output/&lt;OUTPOINT&gt;</code></li>
+<li><code>/output/&lt;OUTPOINT&gt;</code></li>
+<li><code>/sat/&lt;SAT&gt;</code></li>
+</ul>
+<p>To get a list of the latest 100 inscriptions you would do:</p>
+<pre><code>curl -s -H &quot;Accept: application/json&quot; 'http://0.0.0.0:80/inscriptions'
+</code></pre>
+<p>To see information about a UTXO, which includes inscriptions inside it, do:</p>
+<pre><code>curl -s -H &quot;Accept: application/json&quot; 'http://0.0.0.0:80/output/bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed:0'
+</code></pre>
+<p>Which returns:</p>
+<pre><code>{
+  &quot;value&quot;: 10000,
+  &quot;script_pubkey&quot;: &quot;OP_PUSHNUM_1 OP_PUSHBYTES_32 156cc4878306157720607cdcb4b32afa4cc6853868458d7258b907112e5a434b&quot;,
+  &quot;address&quot;: &quot;grs1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9sfr6ayf&quot;,
+  &quot;transaction&quot;: &quot;bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed&quot;,
+  &quot;sat_ranges&quot;: null,
+  &quot;inscriptions&quot;: [
+    &quot;6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0&quot;
+  ]
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-inscription-anleitungen"><a class="header" href="#ordinal-inscription-anleitungen">Ordinal Inscription Anleitungen</a></h1>
+<p>Individual gros can be inscribed with arbitrary content, creating Groestlcoin-native digital artifacts that can be held in a Groestlcoin wallet and transferred using Groestlcoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Groestlcoin itself.</p>
+<p>Working with inscriptions requires a Groestlcoin full node, to give you a view of the current state of the Groestlcoin blockchain, and a wallet that can create inscriptions and perform gro control when constructing transactions to send inscriptions to another wallet.</p>
+<p>Groestlcoin Core provides both a Groestlcoin full node and wallet. However, the Groestlcoin Core wallet cannot create inscriptions and does not perform gro control.</p>
+<p>This requires <a href="https://github.com/Groestlcoin/ord-groestlcoin"><code>ord</code></a>, the ordinal utility. <code>ord</code> doesn't implement its own wallet, so <code>ord wallet</code> subcommands interact with Groestlcoin Core wallets.</p>
+<p>Dieser Anleitungen behandelt:</p>
+<ol>
+<li>Installing Groestlcoin Core</li>
+<li>Syncing the Groestlcoin blockchain</li>
+<li>Creating a Groestlcoin Core wallet</li>
+<li>Using <code>ord wallet receive</code> to receive gros</li>
+<li>Inscriptions erstellen mit <code>ord wallet inscribe</code></li>
+<li>Versenden von inscriptions mit <code>ord wallet send</code></li>
+<li>Empfangen von inscriptions mit <code>ord wallet receive</code></li>
+</ol>
+<h2 id="hilfe-bekommen-1"><a class="header" href="#hilfe-bekommen-1">Hilfe bekommen</a></h2>
+<p>If you get stuck, try asking for help on the <a href="https://discord.gg/vCKxQBz">Groestlcoin Discord Server</a>, or checking GitHub for relevant <a href="https://github.com/Groestlcoin/ord-groestlcoin/issues">issues</a>.</p>
+<h2 id="installing-groestlcoin-core"><a class="header" href="#installing-groestlcoin-core">Installing Groestlcoin Core</a></h2>
+<p>Groestlcoin Core is available from <a href="https://www.groestlcoin.org/groestlcoin-core-wallet/">groestlcoin.org</a>.</p>
+<p>Making inscriptions requires Groestlcoin Core 24 or newer.</p>
+<p>This guide does not cover installing Groestlcoin Core in detail. Once Groestlcoin Core is installed, you should be able to run <code>groestlcoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>groestlcoin-qt</code>.</p>
+<h2 id="configuring-groestlcoin-core"><a class="header" href="#configuring-groestlcoin-core">Configuring Groestlcoin Core</a></h2>
+<p><code>ord</code> requires Groestlcoin Core's transaction index and rest interface.</p>
+<p>To configure your Groestlcoin Core node to maintain a transaction index, add the following to your <code>groestlcoin.conf</code>:</p>
+<pre><code>txindex=1
+</code></pre>
+<p>Or, run <code>groestlcoind</code> with <code>-txindex</code>:</p>
+<pre><code>groestlcoind -txindex
+</code></pre>
+<p>Details on creating or modifying your <code>groestlcoin.conf</code> file can be found <a href="https://github.com/groestlcoin/groestlcoin/blob/master/doc/groestlcoin-conf.md">here</a>.</p>
+<h2 id="syncing-the-groestlcoin-blockchain"><a class="header" href="#syncing-the-groestlcoin-blockchain">Syncing the Groestlcoin Blockchain</a></h2>
+<p>Um die chain zu synchronisieren, führen Sie Folgendes aus:</p>
+<pre><code>groestlcoind -txindex
+</code></pre>
+<p>…und lassen Sie es laufen, bis <code>getblockcount</code>:</p>
+<pre><code>groestlcoin-cli getblockcount
+</code></pre>
+<p>agrees with the block count on a block explorer like <a href="https://mempool.space/">the mempool.space block explorer</a>. <code>ord</code> interacts with <code>groestlcoind</code>, so you should leave <code>groestlcoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>groestlcoin-cli</code> and <code>ord</code> to find.</p>
+<h2 id="störungssuche"><a class="header" href="#störungssuche">Störungssuche</a></h2>
+<p>Make sure you can access <code>groestlcoind</code> with <code>groestlcoin-cli -getinfo</code> and that it is fully synced.</p>
+<p>If <code>groestlcoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>groestlcoind</code> is not running.</p>
+<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>groestlcoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your groestlcoin data directory.</p>
+<p>If <code>groestlcoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>groestlcoin-cli -rpccookiefile=&lt;your_groestlcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_groestlcoin_datadir&gt;/.cookie</code>.</p>
+<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>groestlcoin.conf</code> file. If <code>groestlcoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
+<p>Make sure <code>txindex=1</code> is set. Run <code>groestlcoin-cli getindexinfo</code> and it should return something like</p>
+<pre><code class="language-json">{
+  &quot;txindex&quot;: {
+    &quot;synced&quot;: true,
+    &quot;best_block_height&quot;: 776546
+  }
+}
+</code></pre>
+<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>&quot;synced&quot;: false</code>, <code>groestlcoind</code> is still creating the <code>txindex</code>. Wait until <code>&quot;synced&quot;: true</code> before using <code>ord</code>.</p>
+<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:1331</code>.</p>
+<h2 id="installieren-ord"><a class="header" href="#installieren-ord">Installieren <code>ord</code></a></h2>
+<p>The <code>ord</code> utility is written in Rust and can be built from <a href="https://github.com/Groestlcoin/ord-groestlcoin">source</a>. Pre-built binaries are available on the <a href="https://github.com/Groestlcoin/ord-groestlcoin/releases">releases page</a>.</p>
+<p>Sie können die neueste vorgefertigte Binärdatei über die Befehlszeile installieren mit:</p>
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/Groestlcoin/ord-groestlcoin/master/install.sh | bash -s
+</code></pre>
+<p>Sobald <code>ord</code>  installiert ist, sollten Sie Folgendes ausführen können:</p>
+<pre><code>ord --version
+</code></pre>
+<p>Dadurch wird die Versionsnummer von <code>ord</code> ausgedruckt.</p>
+<h2 id="creating-a-groestlcoin-core-wallet"><a class="header" href="#creating-a-groestlcoin-core-wallet">Creating a Groestlcoin Core Wallet</a></h2>
+<p><code>ord</code> uses Groestlcoin Core to manage private keys, sign transactions, and broadcast transactions to the Groestlcoin network.</p>
+<p>To create a Groestlcoin Core wallet named <code>ord</code> for use with <code>ord</code>, run:</p>
+<pre><code>ord wallet create
+</code></pre>
+<h2 id="receiving-gros"><a class="header" href="#receiving-gros">Receiving Gros</a></h2>
+<p>Inscriptions are made on individual gros, using normal Groestlcoin transactions that pay fees in gros, so your wallet will need some gros.</p>
+<p>Holen Sie sich eine neue Adresse aus Ihrem <code>ord</code> Wallet, indem Sie Folgendes ausführen:</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>Und schick ihm etwas Geld.</p>
+<p>Ausstehende Transaktionen können Sie mit einsehen:</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>Sobald die Transaktion bestätigt ist, sollten Sie die Transaktionsausgaben mit <code>ord wallet outputs</code> sehen können.</p>
+<h2 id="inscription-inhalte-erstellen"><a class="header" href="#inscription-inhalte-erstellen">Inscription inhalte erstellen</a></h2>
+<p>Gros can be inscribed with any kind of content, but the <code>ord</code> wallet only supports content types that can be displayed by the <code>ord</code> block explorer.</p>
+<p>Zusätzlich werden inscriptions in Transaktionen aufgenommen, daher muss je nach Größe des Inhalts auch eine höhere Gebühr für die inscriptions transaktion gezahlt werden.</p>
+<p>Der Inhalt der Inscription wird in Transaktionszeugnissen aufgenommen, die den Zeugnisrabatt erhalten. Um die ungefähre Gebühr für eine Inscription transaktion zu berechnen, teilen Sie die Größe des Inhalts durch vier und multiplizieren Sie sie mit dem Gebührensatz.</p>
+<p>Inscription transactions must be less than 400,000 weight units, or they will not be relayed by Groestlcoin Core. One byte of inscription content costs one weight unit. Since an inscription transaction includes not just the inscription content, limit inscription content to less than 400,000 weight units. 390,000 weight units should be safe.</p>
+<h2 id="inscription-erstellen"><a class="header" href="#inscription-erstellen">Inscription erstellen</a></h2>
+<p>Um eine Inschrift mit dem Inhalt von <code>FILE</code> zu erstellen, führen:</p>
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+</code></pre>
+<p>Ord gibt zwei Transaktions-IDs aus, eine für die Commit-Transaktion und eine für die Reveal-Transaktion, sowie die inscription -ID. inscription -IDs haben das Format <code>TXIDiN</code>, wobei <code>TXID</code> die Transaktions-ID der Reveal-Transaktion ist und <code>N</code> der Index der inscription in der Reveal-Transaktion ist.</p>
+<p>The commit transaction commits to a tapscript containing the content of the inscription, and the reveal transaction spends from that tapscript, revealing the content on chain and inscribing it on the first gro of the input that contains the corresponding tapscript.</p>
+<p>Wait for the reveal transaction to be mined. You can check the status of the commit and reveal transactions using  <a href="https://esplora.groestlcoin.org/">the esplora block explorer</a>.</p>
+<p>Sobald die Reveal-Transaktion gemined wurde, sollte die Inscription-ID angezeigt werden, wenn Sie Folgendes ausführen:</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<h2 id="parent-child-inscriptions"><a class="header" href="#parent-child-inscriptions">Parent-Child Inscriptions</a></h2>
+<p>Parent-child inscriptions enable what is colloquially known as collections, see <a href="guides/../inscriptions/provenance.html">provenance</a> for more information.</p>
+<p>To make an inscription a child of another, the parent inscription has to be inscribed and present in the wallet. To choose a parent run <code>ord wallet inscriptions</code> and copy the inscription id (<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>).</p>
+<p>Now inscribe the child inscription and specify the parent like so:</p>
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; CHILD_FILE
+</code></pre>
+<p>This relationship cannot be added retroactively, the parent has to be present at inception of the child.</p>
+<h2 id="inscriptions-senden"><a class="header" href="#inscriptions-senden">Inscriptions Senden</a></h2>
+<p>Bitten Sie den Empfänger, eine neue Adresse zu generieren, indem Sie Folgendes ausführen:</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>Senden Sie die inscription, indem Sie Folgendes ausführen:</p>
+<pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; &lt;ADDRESS&gt; &lt;INSCRIPTION_ID&gt;
+</code></pre>
+<p>Sehen Sie sich die ausstehende Transaktion an mit:</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>Sobald die Sendetransaktion bestätigt ist, kann der Empfänger den Empfang bestätigen, indem er Folgendes ausführt:</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<h2 id="empfang-von-inscriptions"><a class="header" href="#empfang-von-inscriptions">Empfang von Inscriptions</a></h2>
+<p>Erzeugen Sie eine neue Empfangsadresse mit:</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>Der Absender kann die inscriptions an Ihre Adresse übertragen mit:</p>
+<pre><code>ord wallet send ADDRESS INSCRIPTION_ID
+</code></pre>
+<p>Sehen Sie sich die ausstehende Transaktion an mit:</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>Sobald die Send-Transaktion bestätigt ist, können Sie den Empfang bestätigen, indem Sie Folgendes ausführen:</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gro-hunting"><a class="header" href="#gro-hunting">Gro Hunting</a></h1>
+<p><em>This guide is out of date. Since it was written, the <code>ord</code> binary was changed to only build the full gro index when the <code>--index-sats</code> flag is supplied. Additionally, <code>ord</code> now has a built-in wallet that wraps a Groestlcoin Core wallet. See <code>ord wallet --help</code>.</em></p>
+<p>Ordinal hunting is difficult but rewarding. The feeling of owning a wallet full of UTXOs, redolent with the scent of rare and exotic gros, is beyond compare.</p>
+<p>Ordinals are numbers for gros. Every gro has an ordinal number and every ordinal number has a gro.</p>
+<h2 id="vorbereitung"><a class="header" href="#vorbereitung">Vorbereitung</a></h2>
+<p>Es gibt ein paar Dinge, die Sie benötigen, bevor Sie beginnen.</p>
+<ol>
+<li>
+<p>First, you'll need a synced Groestlcoin Core node with a transaction index. To turn on transaction indexing, pass <code>-txindex</code> on the command-line:</p>
+<pre><code class="language-sh">groestlcoind -txindex
+</code></pre>
+<p>Or put the following in your <a href="https://github.com/Groestlcoin/groestlcoin/blob/master/doc/groestlcoin-conf.md#configuration-file-path">Groestlcoin configuration file</a>:</p>
+<pre><code>txindex=1
+</code></pre>
+<p>Starten Sie es und warten Sie, bis es zum aktuellen Blockspitze aufgeschlossen hat. An diesem Punkt sollte der folgende Befehl die aktuelle Blockhöhe ausgeben:</p>
+<pre><code class="language-sh">groestlcoin-cli getblockcount
+</code></pre>
+</li>
+<li>
+<p>Zweitens benötigen Sie einen synchronisierten <code>ord</code> Index.</p>
+<ul>
+<li>
+<p>Get a copy of <code>ord</code> from <a href="https://github.com/Groestlcoin/ord-groestlcoin/">the repo</a>.</p>
+</li>
+<li>
+<p>Run <code>RUST_LOG=info ord index</code>. It should connect to your groestlcoin core node and start indexing.</p>
+</li>
+<li>
+<p>Warten Sie, bis die Indizierung abgeschlossen ist.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Drittens benötigen Sie eine Wallet mit UTXOs, die Sie durchsuchen möchten.</p>
+</li>
+</ol>
+<h2 id="suche-nach-seltenen-ordnungs"><a class="header" href="#suche-nach-seltenen-ordnungs">Suche nach seltenen Ordnungs</a></h2>
+<h3 id="searching-for-rare-ordinals-in-a-groestlcoin-core-wallet"><a class="header" href="#searching-for-rare-ordinals-in-a-groestlcoin-core-wallet">Searching for Rare Ordinals in a Groestlcoin Core Wallet</a></h3>
+<p>The <code>ord wallet</code> command is just a wrapper around Groestlcoin Core's RPC API, so searching for rare ordinals in a Groestlcoin Core wallet is Easy. Assuming your wallet is named <code>foo</code>:</p>
+<ol>
+<li>
+<p>Laden Sie Ihr Wallet:</p>
+<pre><code class="language-sh">groestlcoin-cli loadwallet foo
+</code></pre>
+</li>
+<li>
+<p>Zeigt alle seltenen ordinal wallet-UTXOs von <code>foo</code>'s an:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="searching-for-rare-ordinals-in-a-non-groestlcoin-core-wallet"><a class="header" href="#searching-for-rare-ordinals-in-a-non-groestlcoin-core-wallet">Searching for Rare Ordinals in a Non-Groestlcoin Core Wallet</a></h3>
+<p>The <code>ord wallet</code> command is just a wrapper around Groestlcoin Core's RPC API, so to search for rare ordinals in a non-Groestlcoin Core wallet, you'll need to import your wallet's descriptors into Groestlcoin Core.</p>
+<p><a href="https://github.com/Groestlcoin/groestlcoin/blob/master/doc/descriptors.md">Descriptors</a> describe the ways that wallets generate private keys and public keys.</p>
+<p>You should only import descriptors into Groestlcoin Core for your wallet's public keys, not its private keys.</p>
+<p>Wenn der öffentliche Schlüssel-Deskriptor Ihrer Wallet kompromittiert wird, kann ein Angreifer die Adressen Ihrer Wallet sehen, aber Ihre Gelder werden sicher sein.</p>
+<p>Wenn der Deskriptor des privaten Schlüssels Ihrer Wallet kompromittiert wird, kann ein Angreifer Ihr Wallet entleeren.</p>
+<ol>
+<li>
+<p>Holen Sie sich den Wallet-Deskriptor von der Wallet, deren UTXOs Sie nach seltenen Ordinals durchsuchen möchten. Es wird ungefähr so aussehen:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29
+</code></pre>
+</li>
+<li>
+<p>Erstellen Sie eine reine Uhren-Wallet mit dem Namen <code>foo-watch-only</code>:</p>
+<pre><code class="language-sh">groestlcoin-cli createwallet foo-watch-only true true
+</code></pre>
+<p>Geben Sie ihm gerne einen besseren Namen als <code>foo-watch-only</code>!</p>
+</li>
+<li>
+<p>Laden Sie die <code>foo-watch-only</code> Wallet:</p>
+<pre><code class="language-sh">groestlcoin-cli loadwallet foo-watch-only
+</code></pre>
+</li>
+<li>
+<p>Importieren Sie Ihre Wallet-Deskriptoren in <code>foo-watch-only</code>:</p>
+<pre><code class="language-sh">groestlcoin-cli importdescriptors \
+  '[{ &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax&quot;, &quot;timestamp&quot;:0 }]'
+</code></pre>
+<p>If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of <code>&quot;timestamp&quot;</code> instead of <code>0</code>. This will reduce the time it takes for Groestlcoin Core to search for your wallet's UTXOs.</p>
+</li>
+<li>
+<p>Überprüfen Sie, ob alles funktioniert hat:</p>
+<pre><code class="language-sh">groestlcoin-cli getwalletinfo
+</code></pre>
+</li>
+<li>
+<p>Zeigen Sie die seltenen Ordnungs Ihrer Brieftasche an:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="suchen-nach-seltenen-ordinals-in-einer-wallet-die-mehrweg-deskriptoren-exportiert"><a class="header" href="#suchen-nach-seltenen-ordinals-in-einer-wallet-die-mehrweg-deskriptoren-exportiert">Suchen nach seltenen Ordinals in einer Wallet, die Mehrweg-Deskriptoren exportiert</a></h3>
+<p>Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., <code>&lt;0;1&gt;</code>. Multi-path descriptors are not yet supported by Groestlcoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into Groestlcoin Core.</p>
+<ol>
+<li>
+<p>Holen Sie sich zunächst den Multipath-Deskriptor aus Ihrem Wallet. Es wird ungefähr so aussehen:</p>
+<pre><code>wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/&lt;0;1&gt;/*)#fw76ulgt
+</code></pre>
+</li>
+<li>
+<p>Erstellen Sie einen Deskriptor für den Empfangsadress path:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)
+</code></pre>
+<p>Und der Adress path ändern:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)
+</code></pre>
+</li>
+<li>
+<p>Rufen Sie die Prüfsumme für den Empfangsadressdeskriptor ab und notieren Sie sie, in diesem Fall <code>tpnxnxax</code>:</p>
+<pre><code class="language-sh">groestlcoin-cli getdescriptorinfo \
+  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
+</code></pre>
+<pre><code class="language-json">{
+  &quot;descriptor&quot;: &quot;wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29&quot;,
+  &quot;checksum&quot;: &quot;tpnxnxax&quot;,
+  &quot;isrange&quot;: true,
+  &quot;issolvable&quot;: true,
+  &quot;hasprivatekeys&quot;: false
+}
+</code></pre>
+<p>Und für den Änderungsadressdeskriptor, in diesem Fall <code>64k8wnd7</code>:</p>
+<pre><code class="language-sh">groestlcoin-cli getdescriptorinfo \
+  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
+</code></pre>
+<pre><code class="language-json">{
+  &quot;descriptor&quot;: &quot;wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#fyfc5f6a&quot;,
+  &quot;checksum&quot;: &quot;64k8wnd7&quot;,
+  &quot;isrange&quot;: true,
+  &quot;issolvable&quot;: true,
+  &quot;hasprivatekeys&quot;: false
+}
+</code></pre>
+</li>
+<li>
+<p>Laden Sie die Wallet, in die Sie die Deskriptoren importieren möchten:</p>
+<pre><code class="language-sh">groestlcoin-cli loadwallet foo-watch-only
+</code></pre>
+</li>
+<li>
+<p>Now import the descriptors, with the correct checksums, into Groestlcoin Core.</p>
+<pre><code class="language-sh">groestlcoin-cli \
+ importdescriptors \
+ '[
+   {
+     &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax&quot;
+     &quot;timestamp&quot;:0
+   },
+   {
+     &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#64k8wnd7&quot;,
+     &quot;timestamp&quot;:0
+   }
+ ]'
+</code></pre>
+<p>If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the <code>&quot;timestamp&quot;</code> fields instead of <code>0</code>. This will reduce the time it takes for Groestlcoin Core to search for your wallet's UTXOs.</p>
+</li>
+<li>
+<p>Überprüfen Sie, ob alles funktioniert hat:</p>
+<pre><code class="language-sh">groestlcoin-cli getwalletinfo
+</code></pre>
+</li>
+<li>
+<p>Zeigen Sie die seltenen Ordnungs Ihrer Brieftasche an:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="deskriptoren-exportieren"><a class="header" href="#deskriptoren-exportieren">Deskriptoren exportieren</a></h3>
+<h4 id="sparrow-wallet"><a class="header" href="#sparrow-wallet">Sparrow Wallet</a></h4>
+<p>Navigieren Sie zur Registerkarte <code>Einstellungen</code>, dann zu <code>Skriptrichtlinie</code> und klicken Sie auf die Schaltfläche <code>Bearbeiten</code>, um den Deskriptor anzuzeigen.</p>
+<h3 id="ordinals-übertragen"><a class="header" href="#ordinals-übertragen">Ordinals übertragen</a></h3>
+<p>The <code>ord</code> wallet supports transferring specific gros. You can also use <code>groestlcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, how to do so is complex and outside the scope of this guide.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sammeln"><a class="header" href="#sammeln">Sammeln</a></h1>
+<p>Currently, <a href="https://github.com/Groestlcoin/ord-groestlcoin/">ord</a> is the only wallet supporting gro-control and gro-selection, which are required to safely store and send rare gros and inscriptions, hereafter ordinals.</p>
+<p>Die empfohlene Methode, um Ordinals zu senden, zu empfangen und zu speichern, ist die Verwendung von <code>ord</code>. Es ist jedoch möglich, Ordinals sicher mit anderen Wallets zu speichern und in einigen Fällen zu senden, wenn Sie vorsichtig sind.</p>
+<p>As a general note, receiving ordinals in an unsupported wallet is not dangerous. Ordinals can be sent to any groestlcoin address, and are safe as long as the UTXO that contains them is not spent. However, if that wallet is then used to send groestlcoin, it may select the UTXO containing the ordinal as an input, and send the inscription or spend it to fees.</p>
+<p>A <a href="guides/./collecting/sparrow-wallet.html">guide</a> to creating an <code>ord</code>-compatible wallet with <a href="https://www.groestlcoin.org/sparrow-grs/">Sparrow-GRS Wallet</a>, is available in this handbook.</p>
+<p>Please note that if you follow this guide, you should not use the wallet you create to send GRS, unless you perform manual coin-selection to avoid sending ordinals.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sammeln-von-inscriptions-und-ordinals-mit-sparrow-wallet"><a class="header" href="#sammeln-von-inscriptions-und-ordinals-mit-sparrow-wallet">Sammeln von Inscriptions und Ordinals mit Sparrow Wallet</a></h1>
+<p>Users who cannot or have not yet set up the <a href="https://github.com/Groestlcoin/ord-groestlcoin">ord</a> wallet can receive inscriptions and ordinals with alternative groestlcoin wallets, as long as they are <em>very</em> careful about how they spend from that wallet.</p>
+<p>Dieser Leitfaden gibt einige grundlegende Schritte an, wie Sie ein Wallet mit <a href="https://sparrowwallet.com/">Sparrow Wallet</a> erstellen können, das mit <code>ord</code> kompatibel ist und später in <code>ord</code> importiert werden kann</p>
+<h2 id="-achtung-"><a class="header" href="#-achtung-">⚠️⚠️ Achtung!! ⚠️⚠️</a></h2>
+<p>Im Allgemeinen sollten Sie, wenn Sie diesen Ansatz wählen, dieses Wallet mit der Sparrow-Software nur als Empfangswallet verwenden.</p>
+<p>Do not spend any gros from this wallet unless you are sure you know what you are doing. You could very easily inadvertently lose access to your ordinals and inscriptions if you don't heed this warning.</p>
+<h2 id="wallet-einrichtung-und--empfang"><a class="header" href="#wallet-einrichtung-und--empfang">Wallet-Einrichtung und -Empfang</a></h2>
+<p>Laden Sie die Sparrow Wallet von der <a href="https://sparrowwallet.com/download/">Download-Seite</a> für Ihr jeweiliges Betriebssystem herunter.</p>
+<p>Wählen Sie <code>File -&gt; New Wallet</code> und erstellen Sie eine neue Wallet namens <code>ord</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_01.png" alt="" /></p>
+<p>Ändern Sie den &quot;Skripttyp&quot; in &quot;Taproot (P2TR)&quot; und wählen Sie die Option &quot;Neue oder importierte Software-Wallet&quot; aus.</p>
+<p><img src="guides/collecting/images/wallet_setup_02.png" alt="" /></p>
+<p>Wählen Sie <code>Verwenden von 12 Wörtern</code> aus und klicken Sie dann auf <code>Neue generieren</code>. Lassen Sie das Passwortfeld leer.</p>
+<p><img src="guides/collecting/images/wallet_setup_03.png" alt="" /></p>
+<p>Es wird eine neue 12-Wort-BIP39-Sicherungsphrase für Sie generiert. Schreiben Sie diese an einem sicheren Ort auf, da dies Ihre Sicherung ist, um Zugriff auf Ihre Brieftasche zu erhalten. Teilen Sie diese Sicherungsphrase NIEMALS mit jemand anderem oder zeigen Sie sie niemandem.</p>
+<p>Sobald Sie die Sicherungsphrase notiert haben, klicken Sie auf <code>Confirm Backup</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_04.png" alt="" /></p>
+<p>Geben Sie die zuvor notierte Sicherungsphrase erneut ein und klicken Sie dann auf <code>Create Keystore</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_05.png" alt="" /></p>
+<p>Klicken Sie auf <code>Import Keystore</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_06.png" alt="" /></p>
+<p>Klicken Sie auf <code>Apply</code>. Wenn Sie möchten, können Sie dem Wallet ein Passwort hinzufügen.</p>
+<p><img src="guides/collecting/images/wallet_setup_07.png" alt="" /></p>
+<p>Sie haben jetzt ein Wallet, das mit <code>ord</code> kompatibel ist und mit Hilfe des BIP39 Seed Phrase in <code>ord</code> importiert werden kann. Um Ordinals oder Inschriften zu empfangen, klicken Sie auf die Registerkarte <code>Receive</code> und kopieren Sie eine neue Adresse.</p>
+<p>Jedes Mal, wenn Sie empfangen möchten, sollten Sie eine brandneue Adresse verwenden und keine vorhandenen Adressen erneut verwenden.</p>
+<p>Note that groestlcoin is different to some other blockchain wallets, in that this wallet can generate an unlimited number of new addresses. You can generate a new address by clicking on the <code>Get Next Address</code> button. You can see all of your addresses in the <code>Addresses</code> tab of the app.</p>
+<p>Sie können jeder Adresse ein Etikett hinzufügen, um den Überblick darüber zu behalten, wofür sie verwendet wurde.</p>
+<p><img src="guides/collecting/images/wallet_setup_08.png" alt="" /></p>
+<h2 id="Überprüfung--anzeige-empfangener-inscriptions"><a class="header" href="#Überprüfung--anzeige-empfangener-inscriptions">Überprüfung / Anzeige empfangener Inscriptions</a></h2>
+<p>Sobald Sie eine Anmeldung erhalten haben, sehen Sie eine neue Transaktion auf der Registerkarte <code>Transactions</code> von Sparrow sowie ein neues UTXO auf der Registerkarte <code>UTXOs</code>.</p>
+<p>Initially this transaction may have an &quot;Unconfirmed&quot; status, and you will need to wait for it to be mined into a groestlcoin block before it is fully received.</p>
+<p><img src="guides/collecting/images/validating_viewing_01.png" alt="" /></p>
+<p>Um den Status Ihrer Transaktion zu verfolgen, können Sie mit der rechten Maustaste darauf klicken, <code>Copy Transaction ID</code> auswählen und diese Transaktions-ID dann in <a href="https://mempool.space">mempool.space</a> einfügen.</p>
+<p><img src="guides/collecting/images/validating_viewing_02.png" alt="" /></p>
+<p>Once the transaction has confirmed, you can validate and view your inscription by heading over to the <code>UTXOs</code> tab, finding the UTXO you want to check, right-clicking on the <code>Output</code> and selecting <code>Copy Transaction Output</code>. This transaction output id can then be pasted into the <a href="https://ordinals.groestlcoin.org">ordinals.groestlcoin.org</a> search.</p>
+<h2 id="einfrieren-von-utxos"><a class="header" href="#einfrieren-von-utxos">Einfrieren von UTXOs</a></h2>
+<p>Wie oben erläutert, wird jede Ihrer inscription in einem Unspent Transaction Output (UTXO) gespeichert. Sie sollten sehr darauf achten, Ihre inscription nicht versehentlich auszugeben. Eine Möglichkeit, dies zu erschweren, besteht darin, den UTXO einzufrieren.</p>
+<p>Gehen Sie dazu zur Registerkarte <code>UTXOs</code>, suchen Sie das UTXO, das Sie einfrieren möchten, klicken Sie mit der rechten Maustaste auf <code>Output</code> und wählen Sie <code>Freeze UTXO</code>.</p>
+<p>Dieses UTXO (Inscription) kann jetzt nicht mehr in der Sparrow-Wallet ausgegeben werden, bis Sie es entsperren.</p>
+<h2 id="importieren-in-die-ord-wallet"><a class="header" href="#importieren-in-die-ord-wallet">Importieren in die <code>ord</code> wallet</a></h2>
+<p>For details on setting up Groestlcoin Core and the <code>ord</code> wallet check out the <a href="guides/collecting/../inscriptions.html">Inscriptions Guide</a></p>
+<p>Wenn Sie <code>ord</code> einrichten, können Sie, anstatt <code>ord wallet create</code> auszuführen, um ein brandneues Wallet zu erstellen, Ihr vorhandenes Wallet mit <code>ord wallet restore &quot;BIP39 SEED PHRASE&quot;</code> importieren und dabei die Seed-Phrase verwenden, die Sie mit Sparrow Wallet generiert haben.</p>
+<p>There is currently a <a href="https://github.com/casey/ord/issues/1589">bug</a> which causes an imported wallet to not be automatically rescanned against the blockchain. To work around this you will need to manually trigger a rescan using the groestlcoin core cli: <code>groestlcoin-cli -rpcwallet=ord rescanblockchain 767430</code></p>
+<p>Anschließend können Sie die Beschriftung Ihrer Brieftasche mithilfe von <code>ord wallet inscriptions</code> überprüfen</p>
+<p>Beachten Sie, dass Sie, wenn Sie zuvor ein Wallet mit <code>ord</code> erstellt haben, bereits über ein Wallet mit dem Standardnamen verfügen und Ihrem importierten Wallet einen anderen Namen geben müssen. Sie können den Parameter <code>--wallet</code> in allen <code>ord</code> -Befehlen verwenden, um auf eine andere Wallet zu verweisen, z. B.:</p>
+<p><code>ord --wallet ord_from_sparrow wallet restore &quot;BIP39 SEED PHRASE&quot;</code></p>
+<p><code>ord --wallet ord_from_sparrow wallet inscriptions</code></p>
+<p><code>groestlcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430</code></p>
+<h2 id="inscriptions-mit-sparrow-wallet-versenden"><a class="header" href="#inscriptions-mit-sparrow-wallet-versenden">Inscriptions mit Sparrow Wallet versenden</a></h2>
+<h4 id="-achtung--1"><a class="header" href="#-achtung--1">⚠️⚠️ Achtung ⚠️⚠️</a></h4>
+<p>While it is highly recommended that you set up a groestlcoin core node and run the <code>ord</code> software, there are certain limited ways you can send inscriptions out of Sparrow Wallet in a safe way. Please note that this is not recommended, and you should only do this if you fully understand what you are doing.</p>
+<p>Der Einsatz der <code>ord</code> Software wird einen Großteil der hier beschriebenen Komplexität beseitigen, da sie in der Lage ist, das Versenden von inscription auf einfache Weise automatisch und sicher abzuwickeln.</p>
+<h4 id="-zusätzliche-warnung-"><a class="header" href="#-zusätzliche-warnung-">⚠️⚠️ Zusätzliche Warnung ⚠️⚠️</a></h4>
+<p>Don't use your sparrow inscriptions wallet to do general sends of non-inscription groestlcoin. You can setup a separate wallet in sparrow if you need to do normal groestlcoin transactions, and keep your inscriptions wallet separate.</p>
+<h4 id="groestlcoins-utxo-model"><a class="header" href="#groestlcoins-utxo-model">Groestlcoin's UTXO model</a></h4>
+<p>Before sending any transaction it's important that you have a good mental model for groestlcoin's Unspent Transaction Output (UTXO) system. The way Groestlcoin works is fundamentally different to many other blockchains such as Ethereum. In Ethereum generally you have a single address in which you store ETH, and you cannot differentiate between any of the ETH -  it is just all a single value of the total amount in that address. Groestlcoin works very differently in that we generate a new address in the wallet for each receive, and every time you receive gros to an address in your wallet you are creating a new UTXO. Each UTXO can be seen and managed individually. You can select specific UTXO's which you want to spend, and you can choose not to spend certain UTXO's.</p>
+<p>Some Groestlcoin wallets do not expose this level of detail, and they just show you a single summed up value of all the groestlcoin in your wallet. However, when sending inscriptions it is important that you use a wallet like Sparrow which allows for UTXO control.</p>
+<h4 id="Überprüfen-sie-ihre-inscription-vor-dem-absenden"><a class="header" href="#Überprüfen-sie-ihre-inscription-vor-dem-absenden">Überprüfen Sie Ihre inscription vor dem Absenden</a></h4>
+<p>Like we have previously described inscriptions are inscribed onto gros, and gros are stored within UTXOs. UTXO's are a collection of gros with some particular value of the number of gros (the output value). Usually (but not always) the inscription will be inscribed on the first gro in the UTXO.</p>
+<p>When inspecting your inscription before sending the main thing you will want to check is which gro in the UTXO your inscription is inscribed on.</p>
+<p>To do this, you can follow the <a href="guides/collecting/./sparrow-wallet.html#validating--viewing-received-inscriptions">Validating / Viewing Received Inscriptions</a> described above to find the inscription page for your inscription on ordinals.groestlcoin.org</p>
+<p>Dort finden Sie einige Metadaten zu Ihrer Inschrift, die wie folgt aussehen:</p>
+<p><img src="guides/collecting/images/sending_01.png" alt="" /></p>
+<p>Hier gibt es einige wichtige Dinge zu überprüfen:</p>
+<ul>
+<li>Die <code>output</code> Kennung entspricht der Kennung des UTXO, das Sie senden möchten</li>
+<li>The <code>offset</code> of the inscription is <code>0</code> (this means that the inscription is located on the first gro in the UTXO)</li>
+<li>the <code>output_value</code> has enough gros to cover the transaction fee (postage) for sending the transaction. The exact amount you will need depends on the fee rate you will select for the transaction</li>
+</ul>
+<p>Wenn alle oben genannten Punkte auf Ihre inscription zutreffen, sollten Sie sie sicher mit der unten aufgeführten Methode versenden.</p>
+<p>⚠️⚠️ Be very careful sending your inscription particularly if the <code>offset</code> value is not <code>0</code>. It is not recommended to use this method if that is the case, as doing so you could accidentally send your inscription to a groestlcoin miner unless you know what you are doing.</p>
+<h4 id="senden-ihrer-inscription"><a class="header" href="#senden-ihrer-inscription">Senden Ihrer inscription</a></h4>
+<p>Um eine inscription zu senden, wechseln Sie zum Tab <code>UTXOs</code> und suchen Sie die UTXO, bei der Sie zuvor überprüft haben, dass sie Ihre inscription enthält.</p>
+<p>Wenn Sie das UXTO zuvor eingefroren haben, müssen Sie mit der rechten Maustaste darauf klicken und es entsperren.</p>
+<p>Wählen Sie die UTXO aus, die Sie senden möchten, und stellen Sie sicher, dass dies die <em>einzige</em> ausgewählte UTXO ist. Sie sollten in der Benutzeroberfläche <code>UTXOs 1/1</code> sehen. Sobald Sie sicher sind, dass dies der Fall ist, können Sie auf <code>Send Selected</code> klicken.</p>
+<p><img src="guides/collecting/images/sending_02.png" alt="" /></p>
+<p>Anschließend wird Ihnen die Schnittstelle zur Transaktionskonstruktion angezeigt. Hier müssen Sie einige Dinge überprüfen, um sicherzustellen, dass es sich um einen sicheren Versand handelt:</p>
+<ul>
+<li>Die Transaktion sollte nur eine Eingabe haben, und dies sollte das UTXO mit der Bezeichnung sein, die Sie senden möchten</li>
+<li>Die Transaktion sollte nur eine Ausgabe haben, nämlich die Adresse/Etikett, an die Sie die Inschrift senden möchten</li>
+</ul>
+<p>Wenn Ihre Transaktion anders aussieht, z. B. wenn Sie mehrere Eingaben oder Ausgaben haben, handelt es sich möglicherweise nicht um eine sichere Übertragung Ihrer inscription, und Sie sollten das Senden abbrechen, bis Sie mehr verstehen oder sie in das <code>ord</code> Wallet importieren können.</p>
+<p>Sie sollten eine angemessene Transaktionsgebühr festlegen. Sparrow wird in der Regel eine vernünftige Gebühr empfehlen, aber Sie können auch auf <a href="https://mempool.space">mempool.space</a> nachsehen, um zu erfahren, was die empfohlene Gebührenrate für das Senden einer Transaktion ist.</p>
+<p>Sie sollten eine Beschriftung für die Empfängeradresse hinzufügen, ideal wäre eine Beschriftung wie <code>alice address for inscription #123</code>.</p>
+<p>Sobald Sie mithilfe der oben genannten Prüfungen überprüft haben, dass es sich bei der Transaktion um eine sichere Transaktion handelt, und Sie sicher sind, dass Sie sie senden können, können Sie auf <code>Create Transaction</code> klicken.</p>
+<p><img src="guides/collecting/images/sending_03.png" alt="" /></p>
+<p>Auch hier können Sie noch einmal überprüfen, ob Ihre Transaktion sicher aussieht, und wenn Sie sicher sind, können Sie auf <code>Finalize Transaction for Signing</code> klicken.</p>
+<p><img src="guides/collecting/images/sending_04.png" alt="" /></p>
+<p>Hier können Sie alles noch einmal überprüfen, bevor Sie auf <code>Sign</code> klicken.</p>
+<p><img src="guides/collecting/images/sending_05.png" alt="" /></p>
+<p>And then actually you get very very last chance to check everything before hitting <code>Broadcast Transaction</code>. Once you broadcast the transaction it is sent to the groestlcoin network, and starts being propagated into the mempool.</p>
+<p><img src="guides/collecting/images/sending_06.png" alt="" /></p>
+<p>Wenn Sie den Status Ihrer Transaktion verfolgen möchten, können Sie die <code>Transaction Id (Txid)</code> kopieren und in <a href="https://mempool.space">mempool.space</a> einfügen.</p>
+<p>Once the transaction has confirmed you can check the inscription page on <a href="https://ordinals.groestlcoin.org">ordinals.groestlcoin.org</a> to validate that it has moved to the new output location and address.</p>
+<h2 id="störungssuche-1"><a class="header" href="#störungssuche-1">Störungssuche</a></h2>
+<h4 id="wenn-die-sparrow-wallet-eine-transaktion-oder-utxo-nicht-anzeigt-sie-sie-aber-auf-mempoolspace-sehen-können"><a class="header" href="#wenn-die-sparrow-wallet-eine-transaktion-oder-utxo-nicht-anzeigt-sie-sie-aber-auf-mempoolspace-sehen-können">Wenn die Sparrow-Wallet eine Transaktion oder UTXO nicht anzeigt, Sie sie aber auf mempool.space sehen können!</a></h4>
+<p>Make sure that your wallet is connected to a groestlcoin node. To validate this, head into the <code>Preferences</code>-&gt; <code>Server</code> settings, and click <code>Edit Existing Connection</code>.</p>
+<p><img src="guides/collecting/images/troubleshooting_01.png" alt="" /></p>
+<p>Von dort aus können Sie einen Knoten auswählen und auf <code>Test Connection</code> klicken, um zu überprüfen, ob Sparrow erfolgreich eine Verbindung herstellen kann.</p>
+<p><img src="guides/collecting/images/troubleshooting_02.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="testen"><a class="header" href="#testen">Testen</a></h1>
+<p>Ord can be tested using the following flags to specify the test network.</p>
+<p>Die meisten <code>ord</code> Befehle in <a href="guides/inscriptions.html">Inscriptions</a> und <a href="guides/explorer.html">Explorer</a> können mit den folgenden Netzwerkflags ausgeführt werden:</p>
+<div class="table-wrapper"><table><thead><tr><th>Network</th><th>Flag</th></tr></thead><tbody>
+<tr><td>Testnet</td><td><code>--testnet</code> or <code>-t</code></td></tr>
+<tr><td>Signet</td><td><code>--signet</code> or <code>-s</code></td></tr>
+<tr><td>Regtest</td><td><code>--regtest</code> or <code>-r</code></td></tr>
+</tbody></table>
+</div>
+<p>Für den Regtest ist kein Herunterladen der Blockchain oder Indexierungs das ord erforderlich.</p>
+<h2 id="beispiel-2"><a class="header" href="#beispiel-2">Beispiel</a></h2>
+<p>Run groestlcoind in regtest with:</p>
+<pre><code>groestlcoind -regtest -txindex
+</code></pre>
+<p>Erstellen Sie im Regtest ein Wallet mit:</p>
+<pre><code>ord -r wallet create
+</code></pre>
+<p>Erhalten Sie eine Regtest-Empfangsadresse mit:</p>
+<pre><code>ord -r wallet receive
+</code></pre>
+<p>Minen Sie 101 Blöcke (um die coinbase freizuschalten) mit:</p>
+<pre><code>groestlcoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
+</code></pre>
+<p>Inscribe im Regtest mit:</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 &lt;file&gt;
+</code></pre>
+<p>Mine die inscription mit:</p>
+<pre><code>groestlcoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
+</code></pre>
+<p>Sehen Sie sich die inscription im Regtest-Explorer an:</p>
+<pre><code>ord -r server
+</code></pre>
+<h2 id="testen-der-rekursion"><a class="header" href="#testen-der-rekursion">Testen der Rekursion</a></h2>
+<p>When testing out <a href="guides/../inscriptions/recursion.html">recursion</a>, inscribe the dependencies first (example with <a href="https://p5js.org">p5.js</a>):</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 p5.js
+</code></pre>
+<p>Dies sollte eine <code>inscription_id</code> zurückgeben, auf die Sie dann in Ihrer rekursiven inscription verweisen können.</p>
+<p>ACHTUNG: Diese IDs werden unterschiedlich sein, wenn Sie auf Mainnet oder Signet inskribieren. Stellen Sie sicher, dass Sie sie für jede Kette in Ihrer rekursiven inscription ändern.</p>
+<p>Dann können Sie Ihre rekursive inscribe einschreiben mit:</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
+</code></pre>
+<p>Schließlich müssen Sie einige Blöcke minen und den Server starten:</p>
+<pre><code>groestlcoin-cli generatetoaddress 6 &lt;receive address&gt;
+ord -r server
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="moderation"><a class="header" href="#moderation">Moderation</a></h1>
+<p><code>ord</code> enthält einen Block-Explorer, den Sie lokal mit <code>ord server</code> ausführen können.</p>
+<p>Der Block-Explorer ermöglicht das Anzeigen von Inscriptions. Inscriptions sind von Benutzern generierte Inhalte, die möglicherweise anstößig oder rechtswidrig sein können.</p>
+<p>Es liegt in der Verantwortung jeder Person, die eine Instanz eines ordinal Block-Explorers betreibt, zu verstehen, welche Verantwortlichkeiten in Bezug auf rechtswidrige Inhalte bestehen, und zu entscheiden, welche Moderationsrichtlinien für ihre Instanz angemessen sind.</p>
+<p>Um bestimmte inscriptions davor zu schützen, auf einer <code>ord</code>-Instanz angezeigt zu werden, können sie in einer YAML-Konfigurationsdatei aufgeführt werden, die mit der <code>--config</code>-Option geladen wird.</p>
+<p>Um Inscriptions zu verbergen, erstellen Sie zunächst eine Konfigurationsdatei mit der Inscription-ID, die Sie ausblenden möchten:</p>
+<pre><code class="language-yaml">hidden:
+- 0000000000000000000000000000000000000000000000000000000000000000i0
+</code></pre>
+<p>Der vorgeschlagene Name für <code>ord</code> Konfigurationsdateien ist <code>ord.yaml</code>, aber Sie können jeden Dateinamen verwenden.</p>
+<p>Dann übergeben Sie die Datei mit <code>--config</code>, wenn Sie den Server starten:</p>
+<p><code>ord --config ord.yaml server</code></p>
+<p>Beachten Sie, dass die Option <code>--config</code> nach <code>ord</code>, aber vor dem <code>server</code> Unterbefehl kommt.</p>
+<p><code>ord</code> muss neu gestartet werden, um Änderungen an der Konfigurationsdatei zu laden.</p>
+<h2 id="ordinalsgroestlcoinorg"><a class="header" href="#ordinalsgroestlcoinorg"><code>ordinals.groestlcoin.org</code></a></h2>
+<p>The <code>ordinals.groestlcoin.org</code> instances use <code>systemd</code> to run the <code>ord server</code> service, which is called <code>ord</code>, with a config file located at <code>/var/lib/ord/ord.yaml</code>.</p>
+<p>To hide an inscription on <code>ordinals.groestlcoin.org</code>:</p>
+<ol>
+<li>SSH in den Server</li>
+<li>Fügen Sie die inscription-ID zu <code>/var/lib/ord/ord.yaml</code></li>
+<li>Starten Sie den Dienst mit <code>systemctl restart ord</code> neu an</li>
+<li>Überwachen Sie den Neustart mit <code>journalctl -u ord</code></li>
+</ol>
+<p>Derzeit startet <code>ord</code> langsam neu, sodass die Website nicht sofort wieder online ist.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="erneutes-indizieren"><a class="header" href="#erneutes-indizieren">Erneutes Indizieren</a></h1>
+<p>Sometimes the <code>ord</code> database must be reindexed, which means deleting the database and restarting the indexing process with either <code>ord index update</code> or <code>ord server</code>. Reasons to reindex are:</p>
+<ol>
+<li>Eine neue Hauptversion von ord, die das Datenbankschema ändert</li>
+<li>Die Datenbank wurde irgendwie beschädigt</li>
+</ol>
+<p>Die von <code>ord</code> verwendete Datenbank heißt <a href="https://github.com/cberner/redb">redb</a>, daher verwenden wir den Standarddateinamen <code>index.redb</code> für den Index. Standardmäßig wird diese Datei an unterschiedlichen Speicherorten abhängig von Ihrem Betriebssystem gespeichert.</p>
+<div class="table-wrapper"><table><thead><tr><th>Platform</th><th>Value</th><th>Beispiel</th></tr></thead><tbody>
+<tr><td>Linux</td><td><code>$XDG_DATA_HOME</code>/ord or <code>$HOME</code>/.local/share/ord</td><td>/home/alice/.local/share/ord</td></tr>
+<tr><td>macOS</td><td><code>$HOME</code>/Library/Application Support/ord</td><td>/Users/Alice/Library/Application Support/ord</td></tr>
+<tr><td>Windows</td><td><code>{FOLDERID_RoamingAppData}</code>\ord</td><td>C:\Users\Alice\AppData\Roaming\ord</td></tr>
+</tbody></table>
+</div>
+<p>Um die Datenbank zu löschen und erneut zu indizieren, müssen Sie auf MacOS die folgenden Befehle im Terminal ausführen:</p>
+<pre><code class="language-bash">rm ~/Library/Application Support/ord/index.redb
+ord index update
+</code></pre>
+<p>You can of course also set the location of the data directory yourself with <code>ord --data-dir &lt;DIR&gt; index update</code> or give it a specific filename and path with <code>ord --index &lt;FILENAME&gt; index update</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hinweise-zur-ordinal-bounty-jagen"><a class="header" href="#hinweise-zur-ordinal-bounty-jagen">Hinweise zur Ordinal Bounty jagen</a></h1>
+<ul>
+<li>
+<p>The <code>ord</code> wallet can send and receive specific gros. Additionally, ordinal theory is extremely simple. A clever hacker should be able to write code from scratch to manipulate gros using ordinal theory in no time.</p>
+</li>
+<li>
+<p>For more information about ordinal theory, check out the <a href="./faq.html">FAQ</a> for an overview, the <a href="https://github.com/Groestlcoin/ord-groestlcoin/blob/master/bip.mediawiki">BIP</a> for the technical details, and the <a href="https://github.com/Groestlcoin/ord-groestlcoin">ord repo</a> for the <code>ord</code> wallet and block explorer.</p>
+</li>
+<li>
+<p>Satoshi was the original developer of ordinal theory. However, he knew that others would consider it heretical and dangerous, so he hid his knowledge, and it was lost to the sands of time. This potent theory is only now being rediscovered. You can help by researching rare gros.</p>
+</li>
+</ul>
+<p>Viel Glück und gute Fahrt!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-bounty-0"><a class="header" href="#ordinal-bounty-0">Ordinal Bounty 0</a></h1>
+<h2 id="kriterien"><a class="header" href="#kriterien">Kriterien</a></h2>
+<p>Send a gro whose ordinal number ends with a zero to the submission address:</p>
+<p>✅: <a href="https://ordinals.groestlcoin.org/ordinal/1857578125803250">1857578125803250</a></p>
+<p>❌: <a href="https://ordinals.groestlcoin.org/ordinal/1857578125803251">1857578125803251</a></p>
+<p>The gro must be the first gro of the output you send.</p>
+<h2 id="belohnen"><a class="header" href="#belohnen">Belohnen</a></h2>
+<p>100,000 gros</p>
+<h2 id="einsendeadresse"><a class="header" href="#einsendeadresse">Einsendeadresse</a></h2>
+<p>No longer accepting submissions.</p>
+<h2 id="status"><a class="header" href="#status">Status</a></h2>
+<p>Unbeansprucht!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-belohnung-1"><a class="header" href="#ordinal-belohnung-1">Ordinal Belohnung 1</a></h1>
+<h2 id="kriterien-1"><a class="header" href="#kriterien-1">Kriterien</a></h2>
+<p>The transaction that submits a UTXO containing the oldest gro, i.e., that with the lowest number, amongst all submitted UTXOs will be judged the winner.</p>
+<h2 id="belohnen-1"><a class="header" href="#belohnen-1">Belohnen</a></h2>
+<p>200,000 gros</p>
+<h2 id="einsendeadresse-1"><a class="header" href="#einsendeadresse-1">Einsendeadresse</a></h2>
+<p>No longer accepting submissions.</p>
+<h2 id="status-1"><a class="header" href="#status-1">Status</a></h2>
+<p>Unbeansprucht!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-belohnung-2"><a class="header" href="#ordinal-belohnung-2">Ordinal Belohnung 2</a></h1>
+<h2 id="kriterien-2"><a class="header" href="#kriterien-2">Kriterien</a></h2>
+<p>Senden an <span class=uncommon>ungewöhnlich</span> gro to the submission address:</p>
+<p>✅: <a href="https://ordinals.groestlcoin.org/sat/347100000000000">347100000000000</a></p>
+<p>❌: <a href="https://ordinals.groestlcoin.org/sat/6685000001337">6685000001337</a></p>
+<p>Bestätigen Sie, dass die Einreichungsadresse keine Transaktionen erhalten hat, bevor Sie Ihren Beitrag einreichen. Nur die erste erfolgreiche Einreichung wird belohnt.</p>
+<h2 id="belohnen-2"><a class="header" href="#belohnen-2">Belohnen</a></h2>
+<p>300,000 gros</p>
+<h2 id="einsendeadresse-2"><a class="header" href="#einsendeadresse-2">Einsendeadresse</a></h2>
+<p>No longer accepting submissions.</p>
+<h2 id="status-2"><a class="header" href="#status-2">Status</a></h2>
+<p>Unbeansprucht!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-belohnung-3"><a class="header" href="#ordinal-belohnung-3">Ordinal Belohnung 3</a></h1>
+<h2 id="kriterien-3"><a class="header" href="#kriterien-3">Kriterien</a></h2>
+<p>Ordinal bounty 3 has two parts, both of which are based on <em>ordinal names</em>. Ordinal names are a modified base-26 encoding of ordinal numbers. To avoid locking short names inside the unspendable genesis block coinbase reward, ordinal names get <em>shorter</em> as the ordinal number gets <em>longer</em>. The name of gro 0, the first gro to be mined is <code>nvtdijuwxlp</code> and the name of gro 2,099,999,997,689,999, the last gro to be mined, is <code>a</code>.</p>
+<p>Both parts use <a href="bounty/frequency.tsv">frequency.tsv</a>, a list of words and the number of times they occur in the <a href="http://storage.googleapis.com/books/ngrams/books/datasetsv2.html">Google Books Ngram dataset</a>. filtered to only include the names of gros which will have been mined by the end of the submission period, that appear at least 5000 times in the corpus.</p>
+<p><code>frequency.tsv</code> ist eine Datei mit tabulatorgetrennten Werten. Die erste Spalte ist das Wort, und die zweite Spalte zeigt an, wie oft es im Korpus vorkommt. Die Einträge sind von am wenigsten häufig vorkommend bis am häufigsten vorkommend sortiert.</p>
+<p><code>frequency.tsv</code> wurde mit kompiliert <a href="https://github.com/casey/onegrams">dieses Programm</a>.</p>
+<p>To search an <code>ord</code> wallet for gros with a name in <code>frequency.tsv</code>, use the following <a href="https://github.com/Groestlcoin/ord-groestlcoin"><code>ord</code></a> command:</p>
+<pre><code>ord wallet sats --tsv frequency.tsv
+</code></pre>
+<p>This command requires the gro index, so <code>--index-sats</code> must be passed to ord when first creating the index.</p>
+<h3 id="teil-0"><a class="header" href="#teil-0">Teil 0</a></h3>
+<p><em>Rare gros pair best with rare words.</em></p>
+<p>The transaction that submits the UTXO containing the gro whose name appears with the lowest number of occurrences in <code>frequency.tsv</code> shall be the winner of part 0.</p>
+<h3 id="teil-1"><a class="header" href="#teil-1">Teil 1</a></h3>
+<p><em>Beliebtheit ist die Quelle des Werts.</em></p>
+<p>The transaction that submits the UTXO containing the gro whose name appears with the highest number of occurrences in <code>frequency.tsv</code> shall be the winner of part 1.</p>
+<h3 id="entscheidung-bei-unentschieden"><a class="header" href="#entscheidung-bei-unentschieden">Entscheidung bei Unentschieden</a></h3>
+<p>Im Falle eines Unentschiedens, bei dem zwei Einsendungen mit der gleichen Häufigkeit erfolgen, geht die frühere Einsendung als Sieger hervor.</p>
+<h2 id="belohnen-3"><a class="header" href="#belohnen-3">Belohnen</a></h2>
+<ul>
+<li>Part 0: 200,000 gros</li>
+<li>Part 1: 200,000 gros</li>
+<li>Total: 400,000 gros</li>
+</ul>
+<h2 id="einsendeadresse-3"><a class="header" href="#einsendeadresse-3">Einsendeadresse</a></h2>
+<p>No longer accepting submissions.</p>
+<h2 id="status-3"><a class="header" href="#status-3">Status</a></h2>
+<p>Unbeansprucht!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
