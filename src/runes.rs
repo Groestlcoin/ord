@@ -21,7 +21,7 @@ type Result<T, E = Error> = std::result::Result<T, E>;
 mod tests {
   use {super::*, crate::index::testing::Context};
 
-  const RUNE: u128 = (21_000_000 * COIN_VALUE) as u128;
+  const RUNE: u128 = (105_000_000 * COIN_VALUE) as u128;
 
   #[test]
   fn index_only_indexes_runes_if_flag_is_passed_and_on_mainnet() {
