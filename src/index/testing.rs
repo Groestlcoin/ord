@@ -12,7 +12,7 @@ impl ContextBuilder {
   }
 
   pub(crate) fn try_build(self) -> Result<Context> {
-    let rpc_server = test_bitcoincore_rpc::builder()
+    let rpc_server = test_groestlcoincore_rpc::builder()
       .network(self.chain.network())
       .build();
 
@@ -66,7 +66,7 @@ impl ContextBuilder {
 
 pub(crate) struct Context {
   pub(crate) options: Options,
-  pub(crate) rpc_server: test_bitcoincore_rpc::Handle,
+  pub(crate) rpc_server: test_groestlcoincore_rpc::Handle,
   #[allow(unused)]
   pub(crate) tempdir: TempDir,
   pub(crate) index: Index,

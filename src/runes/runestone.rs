@@ -94,8 +94,8 @@ impl Runestone {
       .push_opcode(opcodes::all::OP_RETURN)
       .push_slice(b"RUNE_TEST");
 
-    for chunk in payload.chunks(bitcoin::blockdata::constants::MAX_SCRIPT_ELEMENT_SIZE) {
-      let push: &bitcoin::script::PushBytes = chunk.try_into().unwrap();
+    for chunk in payload.chunks(groestlcoin::blockdata::constants::MAX_SCRIPT_ELEMENT_SIZE) {
+      let push: &groestlcoin::script::PushBytes = chunk.try_into().unwrap();
       builder = builder.push_slice(push);
     }
 
@@ -134,7 +134,7 @@ impl Runestone {
 mod tests {
   use {
     super::*,
-    bitcoin::{locktime, script::PushBytes, ScriptBuf, TxOut},
+    groestlcoin::{locktime, script::PushBytes, ScriptBuf, TxOut},
   };
 
   #[test]
