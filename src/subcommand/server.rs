@@ -5,13 +5,16 @@ use {
     error::{OptionExt, ServerError, ServerResult},
   },
   super::*,
-  crate::page_config::PageConfig,
-  crate::templates::{
-    BlockHtml, ClockSvg, HomeHtml, InputHtml, InscriptionHtml, InscriptionJson,
-    InscriptionsBlockHtml, InscriptionsHtml, InscriptionsJson, OutputHtml, OutputJson, PageContent,
-    PageHtml, PreviewAudioHtml, PreviewCodeHtml, PreviewImageHtml, PreviewMarkdownHtml,
-    PreviewModelHtml, PreviewPdfHtml, PreviewTextHtml, PreviewUnknownHtml, PreviewVideoHtml,
-    RangeHtml, RareTxt, SatHtml, SatJson, TransactionHtml,
+  crate::{
+    page_config::PageConfig,
+    runes::Rune,
+    templates::{
+      BlockHtml, ClockSvg, HomeHtml, InputHtml, InscriptionHtml, InscriptionJson,
+      InscriptionsBlockHtml, InscriptionsHtml, InscriptionsJson, OutputHtml, OutputJson,
+      PageContent, PageHtml, PreviewAudioHtml, PreviewCodeHtml, PreviewImageHtml,
+      PreviewMarkdownHtml, PreviewModelHtml, PreviewPdfHtml, PreviewTextHtml, PreviewUnknownHtml,
+      PreviewVideoHtml, RangeHtml, RareTxt, RuneHtml, RunesHtml, SatHtml, SatJson, TransactionHtml,
+    },
   },
   axum::{
     body,
@@ -210,6 +213,8 @@ impl Server {
         .route("/preview/:inscription_id", get(Self::preview))
         .route("/range/:start/:end", get(Self::range))
         .route("/rare.txt", get(Self::rare_txt))
+        .route("/rune/:rune", get(Self::rune))
+        .route("/runes", get(Self::runes))
         .route("/sat/:sat", get(Self::sat))
         .route("/search", get(Self::search_by_query))
         .route("/search/:query", get(Self::search_by_path))
@@ -506,6 +511,8 @@ impl Server {
 
     let inscriptions = index.get_inscriptions_on_output(outpoint)?;
 
+    let runes = index.get_rune_balances_for_outpoint(outpoint)?;
+
     Ok(if accept_json.0 {
       Json(OutputJson::new(
         outpoint,
@@ -513,6 +520,10 @@ impl Server {
         page_config.chain,
         output,
         inscriptions,
+        runes
+          .into_iter()
+          .map(|(rune, pile)| (rune, pile.amount))
+          .collect(),
       ))
       .into_response()
     } else {
@@ -522,6 +533,7 @@ impl Server {
         list,
         chain: page_config.chain,
         output,
+        runes,
       }
       .page(page_config, index.has_sat_index()?)
       .into_response()
@@ -551,6 +563,49 @@ impl Server {
         "tracking rare gros requires index created with `--index-sats` flag".into(),
       )
     })?))
+  }
+
+  async fn rune(
+    Extension(page_config): Extension<Arc<PageConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    Path(DeserializeFromStr(rune)): Path<DeserializeFromStr<Rune>>,
+  ) -> ServerResult<PageHtml<RuneHtml>> {
+    let (id, entry) = index.rune(rune)?.ok_or_else(|| {
+      ServerError::NotFound(
+        "tracking runes requires index created with `--index-runes-pre-alpha-i-agree-to-get-rekt` flag".into(),
+      )
+    })?;
+
+    let inscription = InscriptionId {
+      txid: entry.etching,
+      index: 0,
+    };
+
+    let inscription = index
+      .inscription_exists(inscription)?
+      .then_some(inscription);
+
+    Ok(
+      RuneHtml {
+        id,
+        entry,
+        inscription,
+      }
+      .page(page_config, index.has_sat_index()?),
+    )
+  }
+
+  async fn runes(
+    Extension(page_config): Extension<Arc<PageConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+  ) -> ServerResult<PageHtml<RunesHtml>> {
+    let entries = index.runes()?.ok_or_else(|| {
+      ServerError::NotFound(
+        "tracking runes requires index created with `--index-runes-pre-alpha-i-agree-to-get-rekt` flag".into(),
+      )
+    })?;
+
+    Ok(RunesHtml { entries }.page(page_config, index.has_sat_index()?))
   }
 
   async fn home(
@@ -1184,7 +1239,13 @@ impl Server {
 
 #[cfg(test)]
 mod tests {
-  use {super::*, reqwest::Url, serde::de::DeserializeOwned, std::net::TcpListener};
+  use {
+    super::*,
+    crate::runes::{Edict, Etching, Rune, Runestone},
+    reqwest::Url,
+    serde::de::DeserializeOwned,
+    std::net::TcpListener,
+  };
 
   struct TestServer {
     groestlcoin_rpc_server: test_groestlcoincore_rpc::Handle,
@@ -1242,6 +1303,22 @@ mod tests {
           .build(),
         None,
         &["--chain", "regtest", "--index-sats"],
+        &[],
+      )
+    }
+
+    fn new_with_regtest_with_index_runes() -> Self {
+      Self::new_server(
+        test_groestlcoincore_rpc::builder()
+          .network(groestlcoin::Network::Regtest)
+          .build(),
+        None,
+        &[
+          "--chain",
+          "regtest",
+          "--index-runes-pre-alpha-i-agree-to-get-rekt",
+          "--enable-json-api",
+        ],
         &[],
       )
     }
@@ -3064,6 +3141,160 @@ mod tests {
   }
 
   #[test]
+  fn runes_are_displayed_on_runes_page() {
+    let server = TestServer::new_with_regtest_with_index_runes();
+
+    server.mine_blocks(1);
+
+    server.assert_response_regex(
+      "/runes",
+      StatusCode::OK,
+      ".*<title>Runes</title>.*<h1>Runes</h1>\n<ul>\n</ul>.*",
+    );
+
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Witness::new())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            divisibility: 0,
+            rune: Rune(u128::from(105_000_000 * COIN_VALUE)),
+            symbol: None,
+          }),
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    server.mine_blocks(1);
+
+    let id = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    assert_eq!(
+      server.index.runes().unwrap().unwrap(),
+      [(
+        id,
+        RuneEntry {
+          burned: 0,
+          divisibility: 0,
+          etching: txid,
+          rune: Rune(u128::from(105_000_000 * COIN_VALUE)),
+          supply: u128::max_value(),
+          symbol: None,
+        }
+      )]
+    );
+
+    assert_eq!(
+      server.index.get_rune_balances(),
+      [(OutPoint { txid, vout: 0 }, vec![(id, u128::max_value())])]
+    );
+
+    server.assert_response_regex(
+      "/runes",
+      StatusCode::OK,
+      ".*<title>Runes</title>.*
+<h1>Runes</h1>
+<ul>
+  <li><a href=/rune/NVTDIJZYIPU>NVTDIJZYIPU</a></li>
+</ul>.*",
+    );
+  }
+
+  #[test]
+  fn runes_are_displayed_on_rune_page() {
+    let server = TestServer::new_with_regtest_with_index_runes();
+
+    server.mine_blocks(1);
+
+    let rune = Rune(u128::from(105_000_000 * COIN_VALUE));
+
+    server.assert_response_regex(format!("/rune/{rune}"), StatusCode::NOT_FOUND, ".*");
+
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            divisibility: 0,
+            rune,
+            symbol: Some('$'),
+          }),
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    server.mine_blocks(1);
+
+    let id = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    assert_eq!(
+      server.index.runes().unwrap().unwrap(),
+      [(
+        id,
+        RuneEntry {
+          burned: 0,
+          divisibility: 0,
+          etching: txid,
+          rune,
+          supply: u128::max_value(),
+          symbol: Some('$'),
+        }
+      )]
+    );
+
+    assert_eq!(
+      server.index.get_rune_balances(),
+      [(OutPoint { txid, vout: 0 }, vec![(id, u128::max_value())])]
+    );
+
+    server.assert_response_regex(
+      format!("/rune/{rune}"),
+      StatusCode::OK,
+      format!(
+        r".*<title>Rune NVTDIJZYIPU</title>.*
+<h1>Rune NVTDIJZYIPU</h1>
+<dl>
+  <dt>id</dt>
+  <dd>2/1</dd>
+  <dt>supply</dt>
+  <dd>\$340282366920938463463374607431768211455</dd>
+  <dt>burned</dt>
+  <dd>\$0</dd>
+  <dt>divisibility</dt>
+  <dd>0</dd>
+  <dt>symbol</dt>
+  <dd>\$</dd>
+  <dt>etching</dt>
+  <dd><a class=monospace href=/tx/{txid}>{txid}</a></dd>
+  <dt>inscription</dt>
+  <dd><a class=monospace href=/inscription/{txid}i0>{txid}i0</a></dd>
+</dl>
+.*"
+      ),
+    );
+  }
+
+  #[test]
   fn inscription_number_endpoint() {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(2);
@@ -3113,5 +3344,105 @@ mod tests {
   <dd class=monospace>{cursed_inscription_id}</dd>.*"
       ),
     )
+  }
+
+  #[test]
+  fn runes_are_displayed_on_output_page() {
+    let server = TestServer::new_with_regtest_with_index_runes();
+
+    server.mine_blocks(1);
+
+    let rune = Rune(u128::from(105_000_000 * COIN_VALUE));
+
+    server.assert_response_regex(format!("/rune/{rune}"), StatusCode::NOT_FOUND, ".*");
+
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Default::default())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            divisibility: 1,
+            rune,
+            symbol: None,
+          }),
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    server.mine_blocks(1);
+
+    let id = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    assert_eq!(
+      server.index.runes().unwrap().unwrap(),
+      [(
+        id,
+        RuneEntry {
+          burned: 0,
+          divisibility: 1,
+          etching: txid,
+          rune,
+          supply: u128::max_value(),
+          symbol: None,
+        }
+      )]
+    );
+
+    let output = OutPoint { txid, vout: 0 };
+
+    assert_eq!(
+      server.index.get_rune_balances(),
+      [(output, vec![(id, u128::max_value())])]
+    );
+
+    server.assert_response_regex(
+      format!("/output/{output}"),
+      StatusCode::OK,
+      format!(
+        ".*<title>Output {output}</title>.*<h1>Output <span class=monospace>{output}</span></h1>.*
+  <dt>runes</dt>
+  <dd>
+    <table>
+      <tr>
+        <th>rune</th>
+        <th>balance</th>
+      </tr>
+      <tr>
+        <td><a href=/rune/NVTDIJZYIPU>NVTDIJZYIPU</a></td>
+        <td>34028236692093846346337460743176821145.5</td>
+      </tr>
+    </table>
+  </dd>
+.*"
+      ),
+    );
+
+    assert_eq!(
+      server.get_json::<OutputJson>(format!("/output/{output}")),
+      OutputJson {
+        value: 5000000000,
+        script_pubkey: String::new(),
+        address: None,
+        transaction: txid.to_string(),
+        sat_ranges: None,
+        inscriptions: Vec::new(),
+        runes: vec![(
+          Rune(10500000000000000),
+          340282366920938463463374607431768211455
+        )]
+        .into_iter()
+        .collect(),
+      }
+    );
   }
 }

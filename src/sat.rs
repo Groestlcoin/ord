@@ -81,12 +81,12 @@ impl Sat {
       match c {
         'a'..='z' => {
           x = x * 26 + c as u64 - 'a' as u64 + 1;
+          if x > Self::SUPPLY {
+            bail!("gro name out of range");
+          }
         }
         _ => bail!("invalid character in gro name: {c}"),
       }
-    }
-    if x > Self::SUPPLY {
-      bail!("gro name out of range");
     }
     Ok(Sat(Self::SUPPLY - x))
   }
