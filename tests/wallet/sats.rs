@@ -5,7 +5,7 @@ use {
 
 #[test]
 fn requires_sat_index() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   CommandBuilder::new("wallet sats")
