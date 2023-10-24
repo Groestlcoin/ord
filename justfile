@@ -118,12 +118,12 @@ publish-tag-and-crate revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
   rm -rf tmp/release
-  git clone git@github.com:ordinals/ord.git tmp/release
+  git clone git@github.com:Groestlcoin/ord-groestlcoin.git tmp/release
   cd tmp/release
   git checkout {{revision}}
   VERSION=`sed -En 's/version[[:space:]]*=[[:space:]]*"([^"]+)"/\1/p' Cargo.toml | head -1`
   git tag -a $VERSION -m "Release $VERSION"
-  git push git@github.com:ordinals/ord.git $VERSION
+  git push git@github.com:Groestlcoin/ord-groestlcoin.git $VERSION
   cargo publish
   cd ../..
   rm -rf tmp/release

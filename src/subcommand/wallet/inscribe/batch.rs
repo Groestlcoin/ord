@@ -92,7 +92,7 @@ impl Batch {
         )?
         .hex
     } else {
-      bitcoin::consensus::encode::serialize(&reveal_tx)
+      groestlcoin::consensus::encode::serialize(&reveal_tx)
     };
 
     if !self.no_backup {
@@ -409,7 +409,7 @@ impl Batch {
 
     let reveal_weight = reveal_tx.weight();
 
-    if !self.no_limit && reveal_weight > bitcoin::Weight::from_wu(MAX_STANDARD_TX_WEIGHT.into()) {
+    if !self.no_limit && reveal_weight > groestlcoin::Weight::from_wu(MAX_STANDARD_TX_WEIGHT.into()) {
       bail!(
         "reveal transaction weight greater than {MAX_STANDARD_TX_WEIGHT} (MAX_STANDARD_TX_WEIGHT): {reveal_weight}"
       );

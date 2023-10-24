@@ -5,7 +5,7 @@ pub struct Ethereum(String);
 
 impl From<InscriptionId> for Ethereum {
   fn from(inscription_id: InscriptionId) -> Self {
-    let digest = bitcoin::hashes::sha256::Hash::hash(&inscription_id.store());
+    let digest = groestlcoin::hashes::sha256::Hash::hash(&inscription_id.store());
     Self(create_address_with_checksum(&hex::encode(&digest[0..20])))
   }
 }
