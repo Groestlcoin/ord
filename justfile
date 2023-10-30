@@ -79,7 +79,7 @@ fuzz:
   done
 
 decode txid:
-  bitcoin-cli getrawtransaction {{txid}} | xxd -r -p - | cargo run decode
+  groestlcoin-cli getrawtransaction {{txid}} | xxd -r -p - | cargo run decode
 
 open:
   open http://localhost

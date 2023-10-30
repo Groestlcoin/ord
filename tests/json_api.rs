@@ -1,4 +1,4 @@
-use {super::*, bitcoin::BlockHash};
+use {super::*, groestlcoin::BlockHash};
 
 #[test]
 fn get_sat_without_sat_index() {
@@ -396,7 +396,7 @@ fn json_request_fails_when_not_enabled() {
 
 #[test]
 fn get_block() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   rpc_server.mine_blocks(1);
 
