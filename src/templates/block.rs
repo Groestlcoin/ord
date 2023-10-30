@@ -1,6 +1,6 @@
 use super::*;
 
-fn target_as_block_hash(target: bitcoin::Target) -> BlockHash {
+fn target_as_block_hash(target: groestlcoin::Target) -> BlockHash {
   BlockHash::from_raw_hash(Hash::from_byte_array(target.to_le_bytes()))
 }
 
