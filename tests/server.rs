@@ -209,7 +209,7 @@ fn inscription_metadata() {
   ]);
   ciborium::ser::into_writer(&cbor_map, &mut encoded_metadata).unwrap();
 
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(1);
@@ -384,7 +384,7 @@ fn missing_credentials() {
 
 #[test]
 fn all_endpoints_in_recursive_directory_return_json() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(2);

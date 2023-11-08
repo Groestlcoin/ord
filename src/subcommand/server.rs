@@ -3318,7 +3318,7 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let parent_txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let parent_txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
       ..Default::default()
     });
@@ -3336,7 +3336,7 @@ mod tests {
       ".*<h3>No children</h3>.*",
     );
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[
         (
           2,
@@ -3371,7 +3371,7 @@ mod tests {
     let server = TestServer::new_with_regtest();
     server.mine_blocks(1);
 
-    let parent_txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let parent_txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
       ..Default::default()
     });
@@ -3383,7 +3383,7 @@ mod tests {
       index: 0,
     };
 
-    let _txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let _txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[
         (
           2,

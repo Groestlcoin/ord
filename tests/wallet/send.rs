@@ -510,7 +510,7 @@ fn wallet_send_with_fee_rate_and_target_postage() {
 
 #[test]
 fn send_btc_does_not_send_locked_utxos() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let coinbase_tx = &rpc_server.mine_blocks(1)[0].txdata[0];
