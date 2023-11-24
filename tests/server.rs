@@ -412,7 +412,7 @@ fn all_endpoints_in_recursive_directory_return_json() {
 
 #[test]
 fn sat_recursive_endpoints_without_sat_index_return_404() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
 

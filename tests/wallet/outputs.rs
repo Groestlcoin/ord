@@ -38,7 +38,7 @@ fn outputs_includes_locked_outputs() {
 
 #[test]
 fn outputs_includes_unbound_outputs() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   let coinbase_tx = &rpc_server.mine_blocks_with_subsidy(1, 1_000_000)[0].txdata[0];

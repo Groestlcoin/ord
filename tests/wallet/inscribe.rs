@@ -1247,7 +1247,7 @@ fn inscribe_does_not_pick_locked_utxos() {
 
 #[test]
 fn inscribe_can_compress() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
@@ -1308,7 +1308,7 @@ fn inscribe_can_compress() {
 
 #[test]
 fn inscriptions_are_not_compressed_if_no_space_is_saved_by_compression() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
@@ -1348,7 +1348,7 @@ fn inscriptions_are_not_compressed_if_no_space_is_saved_by_compression() {
 
 #[test]
 fn batch_inscribe_fails_if_invalid_network_destination_address() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -1360,16 +1360,16 @@ fn batch_inscribe_fails_if_invalid_network_destination_address() {
 
   CommandBuilder::new("--regtest wallet inscribe --fee-rate 2.1 --batch batch.yaml")
     .write("inscription.txt", "Hello World")
-    .write("batch.yaml", "mode: separate-outputs\ninscriptions:\n- file: inscription.txt\n  destination: bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4")
+    .write("batch.yaml", "mode: separate-outputs\ninscriptions:\n- file: inscription.txt\n  destination: grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5")
     .rpc_server(&rpc_server)
-    .stderr_regex("error: address bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4 belongs to network bitcoin which is different from required regtest\n")
+    .stderr_regex("error: address grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5 belongs to network groestlcoin which is different from required regtest\n")
     .expected_exit_code(1)
     .run_and_extract_stdout();
 }
 
 #[test]
 fn batch_inscribe_fails_with_shared_output_and_destination_set() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
@@ -1388,7 +1388,7 @@ fn batch_inscribe_fails_with_shared_output_and_destination_set() {
 
 #[test]
 fn batch_inscribe_works_with_some_destinations_set_and_others_not() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
