@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[0.12.0](https://github.com/Groestlcoin/ord-groestlcoin/releases/tag/0.12.0) - 2023-11-24
+---------------------------------------------------------------------
+
+- Update to upstream 0.12.0
+
 [0.11.1](https://github.com/Groestlcoin/ord-groestlcoin/releases/tag/0.11.1) - 2023-11-10
 ---------------------------------------------------------------------
 
