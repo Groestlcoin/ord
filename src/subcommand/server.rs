@@ -4542,7 +4542,7 @@ next
     let server = TestServer::new_with_regtest_with_json_api();
     server.mine_blocks(1);
 
-    let parent_txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let parent_txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
       ..Default::default()
     });
@@ -4578,7 +4578,7 @@ next
 
     let witness = Witness::from_slice(&[builder.into_bytes(), Vec::new()]);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(2, 0, 0, witness), (2, 1, 0, Default::default())],
       ..Default::default()
     });
