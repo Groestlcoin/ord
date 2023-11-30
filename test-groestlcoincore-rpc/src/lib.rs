@@ -160,16 +160,16 @@ impl From<OutPoint> for JsonOutPoint {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct FundRawTransactionOptions {
-  #[serde(with = "bitcoin::amount::serde::as_btc::opt")]
+  #[serde(with = "groestlcoin::amount::serde::as_btc::opt")]
   fee_rate: Option<Amount>,
 }
 
 #[derive(Deserialize, Clone, PartialEq, Eq, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FundRawTransactionResult {
-  #[serde(with = "bitcoincore_rpc::json::serde_hex")]
+  #[serde(with = "groestlcoincore_rpc::json::serde_hex")]
   pub hex: Vec<u8>,
-  #[serde(with = "bitcoin::amount::serde::as_btc")]
+  #[serde(with = "groestlcoin::amount::serde::as_btc")]
   pub fee: Amount,
   #[serde(rename = "changepos")]
   pub change_position: i32,

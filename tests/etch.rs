@@ -5,7 +5,7 @@ use {
 
 #[test]
 fn flag_is_required() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -23,7 +23,7 @@ fn flag_is_required() {
 
 #[test]
 fn divisibility_over_max_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -44,7 +44,7 @@ fn divisibility_over_max_is_an_error() {
 
 #[test]
 fn supply_over_max_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -65,7 +65,7 @@ fn supply_over_max_is_an_error() {
 
 #[test]
 fn rune_below_minimum_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -86,7 +86,7 @@ fn rune_below_minimum_is_an_error() {
 
 #[test]
 fn trying_to_etch_an_existing_rune_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -109,7 +109,7 @@ fn trying_to_etch_an_existing_rune_is_an_error() {
 
 #[test]
 fn runes_can_be_etched() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -164,7 +164,7 @@ fn runes_can_be_etched() {
 
 #[test]
 fn etch_sets_integer_fee_rate_correctly() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -193,7 +193,7 @@ fn etch_sets_integer_fee_rate_correctly() {
 
 #[test]
 fn etch_sets_decimal_fee_rate_correctly() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -222,7 +222,7 @@ fn etch_sets_decimal_fee_rate_correctly() {
 
 #[test]
 fn etch_does_not_select_inscribed_utxos() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -266,7 +266,7 @@ fn etch_does_not_select_inscribed_utxos() {
 
 #[test]
 fn inscribe_does_not_select_runic_utxos() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -303,7 +303,7 @@ fn inscribe_does_not_select_runic_utxos() {
 
 #[test]
 fn send_amount_does_not_select_runic_utxos() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -330,7 +330,7 @@ fn send_amount_does_not_select_runic_utxos() {
 
 #[test]
 fn send_satpoint_does_not_send_runic_utxos() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -357,7 +357,7 @@ fn send_satpoint_does_not_send_runic_utxos() {
 
 #[test]
 fn send_inscription_does_not_select_runic_utxos() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 

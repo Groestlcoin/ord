@@ -1439,7 +1439,7 @@ fn batch_inscribe_works_with_some_destinations_set_and_others_not() {
 
 #[test]
 fn batch_same_sat() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
@@ -1502,7 +1502,7 @@ fn batch_same_sat() {
 
 #[test]
 fn batch_same_sat_with_parent() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
@@ -1582,7 +1582,7 @@ fn batch_same_sat_with_parent() {
 
 #[test]
 fn inscribe_with_sat_arg() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(2);
 
@@ -1608,7 +1608,7 @@ fn inscribe_with_sat_arg() {
 
 #[test]
 fn inscribe_with_sat_arg_fails_if_no_index_or_not_found() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   CommandBuilder::new("wallet inscribe --file foo.txt --sat 5010000000 --fee-rate 1")
@@ -1628,7 +1628,7 @@ fn inscribe_with_sat_arg_fails_if_no_index_or_not_found() {
 
 #[test]
 fn batch_inscribe_with_sat_argument_with_parent() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   assert_eq!(rpc_server.descriptors().len(), 0);
@@ -1671,7 +1671,7 @@ fn batch_inscribe_with_sat_argument_with_parent() {
 
 #[test]
 fn batch_inscribe_with_sat_arg_fails_if_wrong_mode() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(1);
 

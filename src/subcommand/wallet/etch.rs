@@ -1,4 +1,4 @@
-use {super::*, bitcoin::blockdata::locktime::absolute::LockTime};
+use {super::*, groestlcoin::blockdata::locktime::absolute::LockTime};
 
 #[derive(Debug, Parser)]
 pub(crate) struct Etch {
@@ -30,7 +30,7 @@ impl Etch {
 
     index.update()?;
 
-    let client = options.bitcoin_rpc_client_for_wallet_command(false)?;
+    let client = options.groestlcoin_rpc_client_for_wallet_command(false)?;
 
     let count = client.get_block_count()?;
 
@@ -110,7 +110,7 @@ impl Etch {
     #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
     let unsigned_transaction = client.fund_raw_transaction(
       &unfunded_transaction,
-      Some(&bitcoincore_rpc::json::FundRawTransactionOptions {
+      Some(&groestlcoincore_rpc::json::FundRawTransactionOptions {
         // NB. This is `fundrawtransaction`'s `feeRate`, which is fee per kvB
         // and *not* fee per vB. So, we multiply the fee rate given by the user
         // by 1000.
