@@ -834,7 +834,7 @@ mod tests {
         cookie_file: Some("/foo/bar/baz/qux/.cookie".into()),
         ..Default::default()
       }
-      .bitcoin_rpc_client()
+      .groestlcoin_rpc_client()
       .map(|_| "")
       .unwrap_err()
       .to_string(),
