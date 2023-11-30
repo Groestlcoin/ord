@@ -16,6 +16,7 @@ ExecStart=/usr/local/bin/ord \
   --index-sats \
   server \
   --acme-contact mailto:groestlcoin@gmail.com \
+  --csp-origin https://ordinals.groestlcoin.org \
   --http \
   --https
 Group=ord
