@@ -42,6 +42,8 @@ impl Preview {
 
     fs::create_dir(&groestlcoin_data_dir)?;
 
+    eprintln!("Spawning groestlcoind…");
+
     let _groestlcoind = KillOnDrop(
       Command::new("groestlcoind")
         .arg({
@@ -49,9 +51,10 @@ impl Preview {
           arg.push(&groestlcoin_data_dir);
           arg
         })
+        .arg("-listen=0")
+        .arg("-printtoconsole=0")
         .arg("-regtest")
         .arg("-txindex")
-        .arg("-listen=0")
         .arg(format!("-rpcport={rpc_port}"))
         .spawn()
         .context("failed to spawn `groestlcoind`")?,
@@ -88,6 +91,8 @@ impl Preview {
     let address = rpc_client
       .get_new_address(None, Some(groestlcoincore_rpc::json::AddressType::Bech32m))?
       .require_network(Network::Regtest)?;
+
+    eprintln!("Mining blocks…");
 
     rpc_client.generate_to_address(101, &address)?;
 

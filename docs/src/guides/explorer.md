@@ -1,7 +1,7 @@
 Ordinal Explorer
 ================
 
-The `ord` binary includes a block explorer. We host a instance of the block
+The `ord` binary includes a block explorer. We host an instance of the block
 explorer on mainnet at [ordinals.groestlcoin.org](https://ordinals.groestlcoin.org), and on signet at
 [ordinals-signet.groestlcoin.org](https://ordinals-signet.groestlcoin.org).
 
@@ -43,7 +43,7 @@ transaction:
 
 ### Outputs
 
-Transaction outputs can searched by outpoint, for example, the only output of
+Transaction outputs can be searched by outpoint, for example, the only output of
 the genesis block coinbase transaction:
 
 [3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0](https://ordinals.groestlcoin.org/output/3ce968df58f9c8a752306c4b7264afab93149dbc578bd08a42c446caaa6628bb:0)
@@ -78,7 +78,7 @@ JSON-API
 
 You can run `ord server` with the `--enable-json-api` flag to access endpoints that
 return JSON instead of HTML if you set the HTTP `Accept: application/json`
-header. The structure of theses objects closely follows
+header. The structure of these objects closely follows
 what is shown in the HTML. These endpoints are:
 
 - `/inscription/<INSCRIPTION_ID>`
