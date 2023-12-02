@@ -2,7 +2,7 @@ use {super::*, ord::subcommand::balances::Output};
 
 #[test]
 fn flag_is_required() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -17,7 +17,7 @@ fn flag_is_required() {
 
 #[test]
 fn no_runes() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -36,7 +36,7 @@ fn no_runes() {
 
 #[test]
 fn with_runes() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 

@@ -1691,7 +1691,7 @@ fn batch_inscribe_with_sat_arg_fails_if_wrong_mode() {
 
 #[test]
 fn batch_inscribe_with_fee_rate() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   rpc_server.mine_blocks(2);
 

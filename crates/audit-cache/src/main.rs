@@ -46,7 +46,7 @@ fn main() {
   eprint!("Warming up the cache");
 
   for (endpoint, expected_status_code, _expected_cache_status) in ENDPOINTS {
-    let response = get(format!("https://ordinals.com{endpoint}")).unwrap();
+    let response = get(format!("https://ordinals.groestlcoin.org{endpoint}")).unwrap();
 
     assert_eq!(response.status(), *expected_status_code);
 
@@ -60,7 +60,7 @@ fn main() {
   for (endpoint, expected_status_code, expected_cache_status) in ENDPOINTS {
     eprint!("GET {endpoint}");
 
-    let response = get(format!("https://ordinals.com{endpoint}")).unwrap();
+    let response = get(format!("https://ordinals.groestlcoin.org{endpoint}")).unwrap();
 
     let status_code = response.status();
 
