@@ -17,26 +17,19 @@ fmt:
 clippy:
   cargo clippy --all --all-targets -- -D warnings
 
-lclippy:
-  cargo lclippy --all --all-targets -- -D warnings
-
-deploy branch chain domain:
+deploy branch remote chain domain:
   ssh root@{{domain}} "mkdir -p deploy \
     && apt-get update --yes \
     && apt-get upgrade --yes \
     && apt-get install --yes git rsync"
   rsync -avz deploy/checkout root@{{domain}}:deploy/checkout
-  ssh root@{{domain}} 'cd deploy && ./checkout {{branch}} {{chain}} {{domain}}'
-
-deploy-all: deploy-testnet deploy-signet deploy-mainnet
+  ssh root@{{domain}} 'cd deploy && ./checkout {{branch}} {{remote}} {{chain}} {{domain}}'
 
 deploy-mainnet branch="master": (deploy branch "main" "ordinals.groestlcoin.org")
 
 deploy-signet branch="master": (deploy branch "signet" "ordinals-signet.groestlcoin.org")
 
 deploy-testnet branch="master": (deploy branch "test" "ordinals-test.groestlcoin.org")
-
-deploy-ord-dev branch="master" chain="main" domain="ordinals-dev.groestlcoin.org": (deploy branch chain domain)
 
 save-ord-dev-state domain="ordinals-dev.groestlcoin.org":
   $EDITOR ./deploy/save-ord-dev-state
@@ -201,7 +194,7 @@ serve-docs: build-docs
 build-docs:
   #!/usr/bin/env bash
   mdbook build docs -d build
-  for lang in "de" "fr" "es" "pt" "ru" "zh" "ja" "ko" "fil" "ar" "hi"; do
+  for lang in "de" "fr" "es" "pt" "ru" "zh" "ja" "ko" "fil" "ar" "hi" "it"; do
     MDBOOK_BOOK__LANGUAGE=$lang \
       mdbook build docs -d build/$lang
     mv docs/build/$lang/html docs/build/html/$lang
@@ -222,3 +215,6 @@ update-mdbook-theme:
 
 audit-cache:
   cargo run --package audit-cache
+
+coverage:
+  cargo llvm-cov

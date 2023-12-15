@@ -33,10 +33,6 @@
 
 use {
   super::*,
-  groestlcoin::{
-    blockdata::{locktime::absolute::LockTime, witness::Witness},
-    Amount, ScriptBuf,
-  },
   std::cmp::{max, min},
 };
 
