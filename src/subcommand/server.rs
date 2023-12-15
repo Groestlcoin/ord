@@ -2312,7 +2312,7 @@ mod tests {
 
     server.assert_response_regex(format!("/rune/{rune}"), StatusCode::NOT_FOUND, ".*");
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
       op_return: Some(
         Runestone {
@@ -4401,7 +4401,7 @@ next
 
     server.mine_blocks(2);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[(1, 0, 0, inscription("text/plain", "foo").to_witness())],
       ..Default::default()
     });
@@ -4948,7 +4948,7 @@ next
     }
 
     for i in 0..101 {
-      server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+      server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
         inputs: &[(i + 1, 0, 0, inscription("text/foo", "hello").to_witness())],
         ..Default::default()
       });

@@ -84,7 +84,7 @@ fn rune_below_minimum_is_an_error() {
 
 #[test]
 fn reserved_rune_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 

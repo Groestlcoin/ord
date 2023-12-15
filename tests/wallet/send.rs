@@ -512,7 +512,7 @@ fn send_btc_does_not_send_locked_utxos() {
 
 #[test]
 fn sending_rune_that_has_not_been_etched_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -532,7 +532,7 @@ fn sending_rune_that_has_not_been_etched_is_an_error() {
 
 #[test]
 fn sending_rune_with_excessive_precision_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -552,7 +552,7 @@ fn sending_rune_with_excessive_precision_is_an_error() {
 
 #[test]
 fn sending_rune_with_insufficient_balance_is_an_error() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -572,7 +572,7 @@ fn sending_rune_with_insufficient_balance_is_an_error() {
 
 #[test]
 fn sending_rune_works() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -616,7 +616,7 @@ fn sending_rune_works() {
 
 #[test]
 fn sending_spaced_rune_works() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -659,7 +659,7 @@ fn sending_spaced_rune_works() {
 
 #[test]
 fn sending_rune_with_divisibility_works() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -725,7 +725,7 @@ fn sending_rune_with_divisibility_works() {
 
 #[test]
 fn sending_rune_leaves_unspent_runes_in_wallet() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -789,7 +789,7 @@ fn sending_rune_leaves_unspent_runes_in_wallet() {
 
 #[test]
 fn sending_rune_creates_transaction_with_expected_runestone() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -865,7 +865,7 @@ fn sending_rune_creates_transaction_with_expected_runestone() {
 
 #[test]
 fn error_messages_use_spaced_runes() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 
@@ -890,7 +890,7 @@ fn error_messages_use_spaced_runes() {
 
 #[test]
 fn sending_rune_does_not_send_inscription() {
-  let rpc_server = test_bitcoincore_rpc::builder()
+  let rpc_server = test_groestlcoincore_rpc::builder()
     .network(Network::Regtest)
     .build();
 

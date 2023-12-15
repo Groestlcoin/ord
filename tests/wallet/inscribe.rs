@@ -1744,7 +1744,7 @@ fn batch_inscribe_with_fee_rate() {
 
 #[test]
 fn server_can_decompress_brotli() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   rpc_server.mine_blocks(1);
 
   create_wallet(&rpc_server);
