@@ -11,8 +11,6 @@ use {
   super::*,
   crate::wallet::Wallet,
   crate::{subcommand::find::FindRangeOutput, templates::StatusHtml},
-  groestlcoin::block::Header,
-  groestlcoincore_rpc::{json::GetBlockHeaderResult, Client},
   chrono::SubsecRound,
   groestlcoin::block::Header,
   groestlcoincore_rpc::{json::GetBlockHeaderResult, Client},
