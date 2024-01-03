@@ -87,7 +87,7 @@ impl Reorg {
       && u32::try_from(
         index
           .options
-          .groestlcoin_rpc_client()?
+          .groestlcoin_rpc_client(None)?
           .get_blockchain_info()?
           .headers,
       )
