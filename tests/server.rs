@@ -110,7 +110,7 @@ fn inscription_appears_on_reveal_transaction_page() {
 
 #[test]
 fn multiple_inscriptions_appear_on_reveal_transaction_page() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
 
   rpc_server.mine_blocks(1);
@@ -462,7 +462,7 @@ fn sat_recursive_endpoints_without_sat_index_return_404() {
 
 #[test]
 fn inscription_transactions_are_stored_with_transaction_index() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
   create_wallet(&rpc_server);
   let (_inscription, reveal) = inscribe(&rpc_server);
 

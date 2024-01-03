@@ -61,7 +61,7 @@ pub(crate) struct Decode {
   #[arg(
     long,
     conflicts_with = "file",
-    help = "Fetch transaction with <TXID> from Bitcoin Core."
+    help = "Fetch transaction with <TXID> from Groestlcoin Core."
   )]
   txid: Option<Txid>,
   #[arg(long, conflicts_with = "txid", help = "Load transaction from <FILE>.")]
@@ -77,7 +77,7 @@ impl Decode {
   pub(crate) fn run(self, options: Options) -> SubcommandResult {
     let transaction = if let Some(txid) = self.txid {
       options
-        .bitcoin_rpc_client(None)?
+        .groestlcoin_rpc_client(None)?
         .get_raw_transaction(&txid, None)?
     } else if let Some(file) = self.file {
       Transaction::consensus_decode(&mut File::open(file)?)?
