@@ -368,7 +368,7 @@ fn get_block() {
 
 #[test]
 fn get_status() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   create_wallet(&rpc_server);
 
