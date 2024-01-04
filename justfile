@@ -47,7 +47,7 @@ install-personal-key key='~/.ssh/id_ed25519.pub':
   #!/usr/bin/env bash
   set -euxo pipefail
   for server in alpha balance regtest signet stability testnet; do
-    ssh-copy-id -i '{{ key }}' root@$groestlcoin.org
+    ssh-copy-id -i {{ key }} root@$groestlcoin.org
   done
 
 log unit='ord' domain='alpha.groestlcoin.org':
