@@ -31,23 +31,40 @@ deploy-signet branch='master' remote='Groestlcoin/ord-groestlcoin': (deploy bran
 
 deploy-testnet branch='master' remote='Groestlcoin/ord-groestlcoin': (deploy branch remote 'test' 'ordinals-test.groestlcoin.org')
 
+deploy-all: \
+  deploy-regtest \
+  deploy-testnet \
+  deploy-signet \
+  deploy-mainnet-alpha \
+  deploy-mainnet-bravo \
+  deploy-mainnet-charlie
+
+servers := 'alpha bravo charlie regtest signet testnet'
+
 initialize-server-keys:
   #!/usr/bin/env bash
   set -euxo pipefail
   rm -rf tmp/ssh
   mkdir -p tmp/ssh
   ssh-keygen -C ordinals -f tmp/ssh/id_ed25519 -t ed25519 -N ''
-  for server in alpha balance regtest signet stability testnet; do
-    ssh-copy-id -i tmp/ssh/id_ed25519.pub root@$SERVER.groestlcoin.org
-    scp tmp/ssh/* root@$groestlcoin.org:.ssh
+  for server in {{ servers }}; do
+    ssh-copy-id -i tmp/ssh/id_ed25519.pub root@$server.groestlcoin.org
+    scp tmp/ssh/* root@$server.groestlcoin.org:.ssh
   done
   rm -rf tmp/ssh
 
 install-personal-key key='~/.ssh/id_ed25519.pub':
   #!/usr/bin/env bash
   set -euxo pipefail
-  for server in alpha balance regtest signet stability testnet; do
-    ssh-copy-id -i {{ key }} root@$groestlcoin.org
+  for server in {{ servers }}; do
+    ssh-copy-id -i {{ key }} root@$server.groestlcoin.org
+  done
+
+server-keys:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  for server in {{ servers }}; do
+    ssh root@$server.groestlcoin.org cat .ssh/authorized_keys
   done
 
 log unit='ord' domain='alpha.groestlcoin.org':

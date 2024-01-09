@@ -21,7 +21,7 @@ use {
     deserialize_from_str::DeserializeFromStr,
     epoch::Epoch,
     height::Height,
-    index::{List, RuneEntry},
+    index::List,
     inscriptions::{media, teleburn, Charm, Media, ParsedEnvelope},
     outgoing::Outgoing,
     representation::Representation,
@@ -90,7 +90,7 @@ use {
 pub use self::{
   chain::Chain,
   fee_rate::FeeRate,
-  index::Index,
+  index::{Index, RuneEntry},
   inscriptions::{Envelope, Inscription, InscriptionId},
   object::Object,
   options::Options,
