@@ -495,7 +495,7 @@ fn inscription_transactions_are_stored_with_transaction_index() {
 
 #[test]
 fn run_no_sync() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let rpc_server = test_groestlcoincore_rpc::spawn();
 
   let port = TcpListener::bind("127.0.0.1:0")
     .unwrap()

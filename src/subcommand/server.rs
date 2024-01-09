@@ -4470,7 +4470,7 @@ next
 
     server.mine_blocks(110);
 
-    let txid = server.bitcoin_rpc_server.broadcast_tx(TransactionTemplate {
+    let txid = server.groestlcoin_rpc_server.broadcast_tx(TransactionTemplate {
       inputs: &[
         (1, 0, 0, Witness::default()),
         (2, 0, 0, inscription("text/plain", "cursed").to_witness()),
